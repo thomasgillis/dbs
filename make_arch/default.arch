@@ -1,2 +1,38 @@
-# define the build directory
-#BUILD_DIR=/scratch
+#===============================================================================
+# GENERAL PARAMETERS
+FC = gfortran
+CC = gcc
+CXX = g++
+
+BUILD_DIR=/scratch
+TAR_DIR = $(HOME)
+PREFIX = $(HOME)/lib-your-build
+
+#===============================================================================
+# UCX 
+# version of the lib
+UCX_VER = 1.12.0
+
+#===============================================================================
+# OFI
+# version of the lib
+OFI_VER = 1.14.0
+
+#===============================================================================
+# OpenMPI parameters
+OMPI_CONFIG = 
+#-------------------------------------------------------------------------------
+# if you decide to use UCX:
+ompi: ucx
+OMPI_CONFIG += --with-ucx=$(PREFIX)
+
+# if no ucx is used
+# OMPI_CONFIG += --with-ucx=no
+
+#-------------------------------------------------------------------------------
+# if you decide to use OFI:
+# ompi: ofi
+# OMPI_CONFIG += --with-ofi=$(PREFIX)
+
+# if no ofi is used
+OMPI_CONFIG += --with-ofi=no

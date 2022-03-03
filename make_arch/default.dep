@@ -1,2 +1,0 @@
-# declare here the dependencies for the libs
-ompi: ucx ofi

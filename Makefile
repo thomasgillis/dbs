@@ -26,17 +26,22 @@ TAR_DIR ?= ${HOME}
 #===============================================================================
 # list of the differents libs supported
 include ucx.mak
-# include ofi.mak
-# include ompi.mak
+include ofi.mak
+include ompi.mak
 
 .PHONY: clean
 clean: ucx_clean
 
+.PHONY: default
+default: info ompi
+
+.PHONY: install
+install: default
 
 #===============================================================================
 .PHONY: info
 .NOTPARALLEL: info
-info: gen_info ucx_info
+info: gen_info ucx_info ofi_info ompi_info
 
 #===============================================================================
 .NOTPARALLEL: gen_info
@@ -48,7 +53,8 @@ gen_info:
 	$(info - prefix: $(PREFIX))
 	$(info - build dir: $(BUILD_DIR))
 	$(info - tar dir: $(TAR_DIR))
-	$(info - non-mpi compilers: CC = $(CC); CXX = $(CXX); FC = $(FC);  F77 = $(F77))
+	$(info - non-mpi compilers: CC = $(CC); CXX = $(CXX); FC = $(FC))
+	$(info )
 
 
 

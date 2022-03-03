@@ -1,45 +1,46 @@
-# build recipe for OFI aka libfabric
+# build recipe for UCX
 #===============================================================================
 # get the user-defined variables
-OFI_VER ?= 1.14.0
+OMPI_VER ?= 4.1.2
 
 #===============================================================================
 # useful variables
-OFI_DIR = libfabric-$(OFI_VER)
+OMPI_DIR = openmpi-$(OMPI_VER)
 
 #===============================================================================
-.PHONY: ofi
-ofi: $(BUILD_DIR)/ofi.complete
+.PHONY: ompi
+ompi: $(BUILD_DIR)/ompi.complete
 
 #-------------------------------------------------------------------------------
-ofi.complete:
-	$(info >>>>>>>> OFI)
-	$(info building OFI aka LibFabric)
+ompi.complete:
+	$(info >>>>>>>> OMPI)
 	@cd $(BUILD_DIR)
-	$(info get the tar $(TAR_DIR)/v$(OFI_VER))
-	@cp $(TAR_DIR)/v$(OFI_VER).tar.gz $(BUILD_DIR)
-	@tar -xvf v$(OFI_VER).tar.gz
-	@cd $(OFI_DIR)
+	$(info get the tar $(TAR_DIR)/$(OMPI_DIR))
+	@cp $(TAR_DIR)/$(OMPI_DIR).tar.gz $(BUILD_DIR)
+	@tar -xvf $(OMPI_DIR).tar.gz
+	@cd $(OMPI_DIR)
 	$(info configure)
-	./autogen.sh
-	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}
+	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX} \
+		--without-verbs --enable-mpirun-prefix-by-default --with-cuda=no \
+		$(OMPI_CONFIG)
 	$(info install to $(PREFIX))
 	make install -j
 	$(info write the complete file)
 	@cd $(BUILD_DIR)
-	date > ofi.complete
-	hostname >> ofi.complete
+	date > ompi.complete
+	hostname >> ompi.complete
 
 #-------------------------------------------------------------------------------
-.PHONY: ofi_info
-.NOTPARALLEL: ofi_info
-ofi_info:
+.PHONY: ompi_info
+.NOTPARALLEL: ompi_info
+ompi_info:
 	$(info --------------------------------------------------------------------------------)
-	$(info OFI aka LibFabric)
-	$(info - version: $(OFI_VER))
+	$(info OMPI)
+	$(info - version: $(OMPI_VER))
+	$(info - user config: $(OMPI_CONFIG))
 	$(info )
 
 #-------------------------------------------------------------------------------
-.PHONY: ofi_clean
-ofi_clean: 
-	@rm -rf ofi.complete
+.PHONY: ompi_clean
+ompi_clean: 
+	@rm -rf ompi.complete
