@@ -24,7 +24,7 @@ wget 'https://github.com/xianyi/OpenBLAS/archive/v0.3.18.tar.gz'
 
 #===============================================================================
 # HDF5
-wget 'http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-1.12.1/src/hdf5-1.12.1.tar.gz'
+wget 'http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-1.12.1/src/hdf5-1.12.1.tar.bz2'
 
 #===============================================================================
 # p4est

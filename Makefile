@@ -33,25 +33,30 @@ COMP_DIR := $(BUILD_DIR)/build-$(TAG)-$(UID)
 include ucx.mak
 include ofi.mak
 include ompi.mak
-
-#===============================================================================
-.PHONY: info
-.NOTPARALLEL: info
-info: module gen_info ucx_info ofi_info ompi_info
-
-.PHONY: clean
-clean: ucx_clean ofi_clean ompi_clean
+include hdf5.mak
 
 #===============================================================================
 .PHONY: default
 default: info install
 
+.PHONY: all
+all: info install
+
 .PHONY: install
-install: make_dir ompi
+install: make_dir ucx ofi ompi hdf5
 
 .PHONY: make_dir
 make_dir: 
 	mkdir -p $(COMP_DIR)
+
+#===============================================================================
+.PHONY: info
+.NOTPARALLEL: info
+info: module gen_info ucx_info ofi_info ompi_info hdf5_info
+
+.PHONY: clean
+clean: ucx_clean ofi_clean ompi_clean hdf5_clean
+
 
 
 #===============================================================================

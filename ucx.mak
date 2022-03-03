@@ -1,32 +1,27 @@
 # build recipe for UCX
 #===============================================================================
-# get the user-defined variables
-UCX_VER ?= 1.12.0
-
-#===============================================================================
 # useful variables
 UCX_DIR = ucx-$(UCX_VER)
 
 #===============================================================================
 .PHONY: ucx
-ucx: $(BUILD_DIR)/ucx.complete
+ucx: $(COMP_DIR)/ucx.complete
 
 #-------------------------------------------------------------------------------
-ucx.complete:
-	$(info >>>>>>>> UCX)
-	@cd $(BUILD_DIR)
-	$(info get the tar $(TAR_DIR)/$(UCX_DIR))
-	@cp $(TAR_DIR)/$(UCX_DIR).tar.gz $(BUILD_DIR)
-	@tar -xvf $(UCX_DIR).tar.gz
-	@cd $(UCX_DIR)
-	$(info configure)
+$(COMP_DIR)/ucx.complete: make_dir
+ifdef UCX_VER
+	cd $(COMP_DIR)
+	cp $(TAR_DIR)/$(UCX_DIR).tar.gz $(COMP_DIR)
+	tar -xvf $(UCX_DIR).tar.gz
+	cd $(UCX_DIR)
 	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX} --enable-compiler-opt=3
-	$(info install to $(PREFIX))
 	make install -j
-	$(info write the complete file)
-	@cd $(BUILD_DIR)
+	cd $(COMP_DIR)
 	date > ucx.complete
 	hostname >> ucx.complete
+else
+	@touch $(COMP_DIR)/ucx.complete
+endif
 
 #-------------------------------------------------------------------------------
 .PHONY: ucx_info
@@ -34,7 +29,11 @@ ucx.complete:
 ucx_info:
 	$(info --------------------------------------------------------------------------------)
 	$(info UCX)
+ifdef UCX_VER
 	$(info - version: $(UCX_VER))
+else
+	$(info not built)
+endif
 	$(info )
 
 #-------------------------------------------------------------------------------
