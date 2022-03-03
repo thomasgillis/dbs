@@ -1,44 +1,44 @@
-# build recipe for HDF5
+# build recipe for P4EST
 #===============================================================================
 # useful variables
-HDF5_DIR = hdf5-$(HDF5_VER)
+P4EST_DIR = p4est-$(P4EST_VER)
 
 #===============================================================================
-.PHONY: hdf5
-.NOTPARALLEL: hdf5
-hdf5: $(COMP_DIR)/hdf5.complete
+.PHONY: p4est
+.NOTPARALLEL: p4est
+p4est: $(COMP_DIR)/p4est.complete
 
 #-------------------------------------------------------------------------------
-$(COMP_DIR)/hdf5.complete: make_dir ompi
-ifdef HDF5_VER
+$(COMP_DIR)/p4est.complete: make_dir ompi oblas
+ifdef P4EST_VER
 	cd $(COMP_DIR) ;\
-	cp $(TAR_DIR)/$(HDF5_DIR).tar.bz2 $(COMP_DIR) ;\
-	tar -xvf $(HDF5_DIR).tar.bz2 ;\
-	cd $(HDF5_DIR) ;\
+	cp $(TAR_DIR)/$(P4EST_DIR).tar.gz $(COMP_DIR) ;\
+	tar -xvf $(P4EST_DIR).tar.gz ;\
+	cd $(P4EST_DIR) ;\
 	CC=mpicc CXX=mpic++ FC=mpif90 F77=mpif77 ./configure --prefix=${PREFIX} \
-	   --enable-parallel --enable-optimization=high --enable-build-mode=production --with-default-api-version=v110 ;\
+	   --enable-mpi --enable-openmp --with-blas=-lopenblas ;\
 	make install -j ;\
 	cd $(COMP_DIR) ;\
-	date > hdf5.complete ;\
-	hostname >> hdf5.complete
+	date > p4est.complete ;\
+	hostname >> p4est.complete
 else
-	touch $(COMP_DIR)/hdf5.complete
+	touch $(COMP_DIR)/p4est.complete
 endif
 
 #-------------------------------------------------------------------------------
-.PHONY: hdf5_info
-.NOTPARALLEL: hdf5_info
-hdf5_info:
+.PHONY: p4est_info
+.NOTPARALLEL: p4est_info
+p4est_info:
 	$(info --------------------------------------------------------------------------------)
-	$(info HDF5)
-ifdef HDF5_VER
-	$(info - version: $(HDF5_VER))
+	$(info P4EST)
+ifdef P4EST_VER
+	$(info - version: $(P4EST_VER))
 else
 	$(info not built)
 endif
 	$(info )
 
 #-------------------------------------------------------------------------------
-.PHONY: hdf5_clean
-hdf5_clean: 
-	@rm -rf hdf5.complete
+.PHONY: p4est_clean
+p4est_clean: 
+	@rm -rf p4est.complete

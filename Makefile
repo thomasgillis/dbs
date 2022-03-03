@@ -34,16 +34,19 @@ include ucx.mak
 include ofi.mak
 include ompi.mak
 include hdf5.mak
+include fftw.mak
+include p4est.mak
+include oblas.mak
 
 #===============================================================================
 .PHONY: default
-default: info install
+default: all
 
 .PHONY: all
 all: info install
 
 .PHONY: install
-install: make_dir ucx ofi ompi hdf5
+install: make_dir ucx ofi ompi hdf5 fftw p4est oblas
 
 .PHONY: make_dir
 make_dir: 
@@ -52,20 +55,24 @@ make_dir:
 #===============================================================================
 .PHONY: info
 .NOTPARALLEL: info
-info: module gen_info ucx_info ofi_info ompi_info hdf5_info
+info: module gen_info ucx_info ofi_info ompi_info hdf5_info fftw_info p4est_info oblas_info
 
 .PHONY: clean
-clean: ucx_clean ofi_clean ompi_clean hdf5_clean
+clean: ucx_clean ofi_clean ompi_clean hdf5_clean fftw_clean p4est_clean oblas_clean
 
 
 
 #===============================================================================
 .PHONY: module
 module:
+ifdef MODULE_LIST
 	$(info --------------------------------------------------------------------------------)
-	$(info !!MODULES TO LOAD!!)
+	$(info module(s) to load:)
 	$(info $(MODULE_LIST))
 	$(info )
+else
+	$(info no module requested)
+endif
 
 .PHONY: gen_info
 gen_info:

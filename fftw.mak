@@ -1,44 +1,44 @@
-# build recipe for HDF5
+# build recipe for FFTW
 #===============================================================================
 # useful variables
-HDF5_DIR = hdf5-$(HDF5_VER)
+FFTW_DIR = fftw-$(FFTW_VER)
 
 #===============================================================================
-.PHONY: hdf5
-.NOTPARALLEL: hdf5
-hdf5: $(COMP_DIR)/hdf5.complete
+.PHONY: fftw
+.NOTPARALLEL: fftw
+fftw: $(COMP_DIR)/fftw.complete
 
 #-------------------------------------------------------------------------------
-$(COMP_DIR)/hdf5.complete: make_dir ompi
-ifdef HDF5_VER
+$(COMP_DIR)/fftw.complete: make_dir ompi
+ifdef FFTW_VER
 	cd $(COMP_DIR) ;\
-	cp $(TAR_DIR)/$(HDF5_DIR).tar.bz2 $(COMP_DIR) ;\
-	tar -xvf $(HDF5_DIR).tar.bz2 ;\
-	cd $(HDF5_DIR) ;\
+	cp $(TAR_DIR)/$(FFTW_DIR).tar.gz $(COMP_DIR) ;\
+	tar -xvf $(FFTW_DIR).tar.gz ;\
+	cd $(FFTW_DIR) ;\
 	CC=mpicc CXX=mpic++ FC=mpif90 F77=mpif77 ./configure --prefix=${PREFIX} \
-	   --enable-parallel --enable-optimization=high --enable-build-mode=production --with-default-api-version=v110 ;\
+	   --disable-fortran --enable-avx --enable-openmp --enable-sse2 ;\
 	make install -j ;\
 	cd $(COMP_DIR) ;\
-	date > hdf5.complete ;\
-	hostname >> hdf5.complete
+	date > fftw.complete ;\
+	hostname >> fftw.complete
 else
-	touch $(COMP_DIR)/hdf5.complete
+	touch $(COMP_DIR)/fftw.complete
 endif
 
 #-------------------------------------------------------------------------------
-.PHONY: hdf5_info
-.NOTPARALLEL: hdf5_info
-hdf5_info:
+.PHONY: fftw_info
+.NOTPARALLEL: fftw_info
+fftw_info:
 	$(info --------------------------------------------------------------------------------)
-	$(info HDF5)
-ifdef HDF5_VER
-	$(info - version: $(HDF5_VER))
+	$(info FFTW)
+ifdef FFTW_VER
+	$(info - version: $(FFTW_VER))
 else
 	$(info not built)
 endif
 	$(info )
 
 #-------------------------------------------------------------------------------
-.PHONY: hdf5_clean
-hdf5_clean: 
-	@rm -rf hdf5.complete
+.PHONY: fftw_clean
+fftw_clean: 
+	@rm -rf fftw.complete

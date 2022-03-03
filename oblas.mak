@@ -1,42 +1,42 @@
-# build recipe for UCX
+# build recipe for OBLAS
 #===============================================================================
 # useful variables
-UCX_DIR = ucx-$(UCX_VER)
+OBLAS_DIR = OpenBLAS-$(OBLAS_VER)
 
 #===============================================================================
-.PHONY: ucx
-ucx: $(COMP_DIR)/ucx.complete
+.PHONY: oblas
+.NOTPARALLEL: oblas
+oblas: $(COMP_DIR)/oblas.complete
 
 #-------------------------------------------------------------------------------
-$(COMP_DIR)/ucx.complete: make_dir
-ifdef UCX_VER
+$(COMP_DIR)/oblas.complete: make_dir
+ifdef OBLAS_VER
 	cd $(COMP_DIR) ;\
-	cp $(TAR_DIR)/$(UCX_DIR).tar.gz $(COMP_DIR) ;\
-	tar -xvf $(UCX_DIR).tar.gz ;\
-	cd $(UCX_DIR) ;\
-	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX} --enable-compiler-opt=3 ;\
-	make install -j ;\
+	cp $(TAR_DIR)/v$(OBLAS_VER).tar.gz $(COMP_DIR) ;\
+	tar -xvf v$(OBLAS_VER).tar.gz ;\
+	cd $(OBLAS_DIR) ;\
+	make install USE_OPENMP=1 PREFIX=${PREFIX} -j ;\
 	cd $(COMP_DIR) ;\
-	date > ucx.complete ;\
-	hostname >> ucx.complete ;\
+	date > oblas.complete ;\
+	hostname >> oblas.complete
 else
-	@touch $(COMP_DIR)/ucx.complete
+	touch $(COMP_DIR)/oblas.complete
 endif
 
 #-------------------------------------------------------------------------------
-.PHONY: ucx_info
-.NOTPARALLEL: ucx_info
-ucx_info:
+.PHONY: oblas_info
+.NOTPARALLEL: oblas_info
+oblas_info:
 	$(info --------------------------------------------------------------------------------)
-	$(info **UCX**)
-ifdef UCX_VER
-	$(info - version: $(UCX_VER))
+	$(info OBLAS)
+ifdef OBLAS_VER
+	$(info - version: $(OBLAS_VER))
 else
 	$(info not built)
 endif
 	$(info )
 
 #-------------------------------------------------------------------------------
-.PHONY: ucx_clean
-ucx_clean: 
-	@rm -rf ucx.complete
+.PHONY: oblas_clean
+oblas_clean: 
+	@rm -rf oblas.complete
