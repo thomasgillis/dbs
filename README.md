@@ -1,4 +1,4 @@
-# CH0K0T0F
+# CH0K0T0FF
 
 Portable and easy build tool for your libs and dependencies
 
