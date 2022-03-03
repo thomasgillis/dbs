@@ -16,7 +16,6 @@ CLUSTER ?= default
 #===============================================================================
 #include the cluster-dependent information
 include make_arch/${CLUSTER}.arch 
-include make_arch/${CLUSTER}.dep
 
 # get the PREFIX and BUILD_DIR
 PREFIX ?= ${HOME}
@@ -30,7 +29,7 @@ include ofi.mak
 include ompi.mak
 
 .PHONY: clean
-clean: ucx_clean
+clean: ucx_clean ofi_clean ompi_clean
 
 .PHONY: default
 default: info ompi
@@ -41,10 +40,16 @@ install: default
 #===============================================================================
 .PHONY: info
 .NOTPARALLEL: info
-info: gen_info ucx_info ofi_info ompi_info
+info: module gen_info ucx_info ofi_info ompi_info
 
 #===============================================================================
-.NOTPARALLEL: gen_info
+.PHONY: module
+module:
+	$(info --------------------------------------------------------------------------------)
+	$(info !!MODULES TO LOAD!!)
+	$(info $(MODULE_LIST))
+	$(info )
+
 .PHONY: gen_info
 gen_info:
 	$(info --------------------------------------------------------------------------------)
