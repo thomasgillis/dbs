@@ -23,24 +23,36 @@ BUILD_DIR ?= ${HOME}
 TAR_DIR ?= ${HOME}
 
 #===============================================================================
+# ":=" force the evaluation at creation of the var
+UID := $(shell uuidgen -t | head -c 8)
+TAG := $(shell date '+%Y-%m-%d-%H%M')
+COMP_DIR := $(BUILD_DIR)/build-$(TAG)-$(UID)
+
+#===============================================================================
 # list of the differents libs supported
 include ucx.mak
 include ofi.mak
 include ompi.mak
 
-.PHONY: clean
-clean: ucx_clean ofi_clean ompi_clean
-
-.PHONY: default
-default: info ompi
-
-.PHONY: install
-install: default
-
 #===============================================================================
 .PHONY: info
 .NOTPARALLEL: info
 info: module gen_info ucx_info ofi_info ompi_info
+
+.PHONY: clean
+clean: ucx_clean ofi_clean ompi_clean
+
+#===============================================================================
+.PHONY: default
+default: info install
+
+.PHONY: install
+install: make_dir ompi
+
+.PHONY: make_dir
+make_dir: 
+	mkdir -p $(COMP_DIR)
+
 
 #===============================================================================
 .PHONY: module

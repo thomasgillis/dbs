@@ -12,21 +12,18 @@ OMPI_DIR = openmpi-$(OMPI_VER)
 ompi: $(BUILD_DIR)/ompi.complete
 
 #-------------------------------------------------------------------------------
-ompi.complete:
+.NOTPARALLEL: 
+$(BUILD_DIR)/ompi.complete: make_dir
 	$(info >>>>>>>> OMPI)
-	@cd $(BUILD_DIR)
-	$(info get the tar $(TAR_DIR)/$(OMPI_DIR))
-	@cp $(TAR_DIR)/$(OMPI_DIR).tar.gz $(BUILD_DIR)
-	@tar -xvf $(OMPI_DIR).tar.gz
-	@cd $(OMPI_DIR)
-	$(info configure)
+	cd $(COMP_DIR)
+	cp $(TAR_DIR)/$(OMPI_DIR).tar.gz $(BUILD_DIR)
+	tar -xvf $(OMPI_DIR).tar.gz
+	cd $(OMPI_DIR)
 	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX} \
 		--without-verbs --enable-mpirun-prefix-by-default --with-cuda=no \
 		$(OMPI_CONFIG)
-	$(info install to $(PREFIX))
 	make install -j
-	$(info write the complete file)
-	@cd $(BUILD_DIR)
+	cd $(BUILD_DIR)
 	date > ompi.complete
 	hostname >> ompi.complete
 

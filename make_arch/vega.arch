@@ -4,9 +4,9 @@ FC = gfortran
 CC = gcc
 CXX = g++
 
-BUILD_DIR=/scratch
+BUILD_DIR = $(HOME)
 TAR_DIR = $(HOME)
-PREFIX = $(HOME)/lib-your-build
+PREFIX = $(HOME)
 
 define MODULE_LIST
 GCC/11.2.0 \
