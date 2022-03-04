@@ -21,7 +21,7 @@ ifdef OFI_VER
 	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX} ;\
 	make install -j ;\
 	date > ${PREFIX}/ofi.complete ;\
-	hostname >> ${PREFIX}/ofi.complete ;\
+	hostname >> ${PREFIX}/ofi.complete
 else
 	@touch $(PREFIX)/ofi.complete
 endif

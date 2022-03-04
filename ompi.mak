@@ -36,7 +36,7 @@ ifdef OMPI_VER
 		$(OMPI_OFI_DEP) $(OMPI_UCX_DEP) ;\
 	make install -j ;\
 	date > $(PREFIX)/ompi.complete ;\
-	hostname >> $(PREFIX)/ompi.complete ;\
+	hostname >> $(PREFIX)/ompi.complete
 else
 	touch $(PREFIX)/ompi.complete
 endif
