@@ -7,23 +7,26 @@ OMPI_DIR = openmpi-$(OMPI_VER)
 .PHONY: ompi
 
 #===============================================================================
-ompi: $(COMP_DIR)/ompi.complete
+ompi: $(PREFIX)/ompi.complete
 
 #-------------------------------------------------------------------------------
 ifdef OFI_VER
 OMPI_OFI_DEP = --with-ofi=$(PREFIX)
 else
-OMPI_OFI_DEP = --with-ofi=no
+OMPI_OFI_DEP ?= --with-ofi=no
 endif
 ifdef UCX_VER
 OMPI_UCX_DEP = --with-ucx=$(PREFIX)
 else
-OMPI_UCX_DEP = --with-ucx=no
+OMPI_UCX_DEP ?= --with-ucx=no
 endif
 
+COMP_DIR := $(BUILD_DIR)/tmp-ucx-$(TAG)-$(UID)
+
 #-------------------------------------------------------------------------------
-$(COMP_DIR)/ompi.complete: make_dir ucx ofi
+$(PREFIX)/ompi.complete: ucx ofi
 ifdef OMPI_VER
+	mkdir -p $(COMP_DIR) ;\
 	cd $(COMP_DIR) ;\
 	cp $(TAR_DIR)/$(OMPI_DIR).tar.gz $(COMP_DIR) ;\
 	tar -xvf $(OMPI_DIR).tar.gz ;\
@@ -32,11 +35,10 @@ ifdef OMPI_VER
 		--without-verbs --enable-mpirun-prefix-by-default --with-cuda=no \
 		$(OMPI_OFI_DEP) $(OMPI_UCX_DEP) ;\
 	make install -j ;\
-	cd $(COMP_DIR) ;\
-	date > ompi.complete ;\
-	hostname >> ompi.complete ;\
+	date > $(PREFIX)/ompi.complete ;\
+	hostname >> $(PREFIX)/ompi.complete ;\
 else
-	touch $(COMP_DIR)/ompi.complete
+	touch $(PREFIX)/ompi.complete
 endif
 
 #-------------------------------------------------------------------------------

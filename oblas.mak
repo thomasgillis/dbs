@@ -6,21 +6,23 @@ OBLAS_DIR = OpenBLAS-$(OBLAS_VER)
 #===============================================================================
 .PHONY: oblas
 .NOTPARALLEL: oblas
-oblas: $(COMP_DIR)/oblas.complete
+oblas: $(PREFIX)/oblas.complete
+
+COMP_DIR := $(BUILD_DIR)/tmp-ucx-$(TAG)-$(UID)
 
 #-------------------------------------------------------------------------------
-$(COMP_DIR)/oblas.complete: make_dir
+$(PREFIX)/oblas.complete:
 ifdef OBLAS_VER
+	mkdir -p $(COMP_DIR) ;\
 	cd $(COMP_DIR) ;\
 	cp $(TAR_DIR)/v$(OBLAS_VER).tar.gz $(COMP_DIR) ;\
 	tar -xvf v$(OBLAS_VER).tar.gz ;\
 	cd $(OBLAS_DIR) ;\
 	make install USE_OPENMP=1 PREFIX=${PREFIX} -j ;\
-	cd $(COMP_DIR) ;\
-	date > oblas.complete ;\
-	hostname >> oblas.complete
+	date > $(PREFIX)/oblas.complete ;\
+	hostname >> $(PREFIX)/oblas.complete
 else
-	touch $(COMP_DIR)/oblas.complete
+	touch $(PREFIX)/oblas.complete
 endif
 
 #-------------------------------------------------------------------------------

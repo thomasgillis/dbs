@@ -6,11 +6,14 @@ P4EST_DIR = p4est-$(P4EST_VER)
 #===============================================================================
 .PHONY: p4est
 .NOTPARALLEL: p4est
-p4est: $(COMP_DIR)/p4est.complete
+p4est: $(PREFIX)/p4est.complete
+
+COMP_DIR := $(BUILD_DIR)/tmp-ucx-$(TAG)-$(UID)
 
 #-------------------------------------------------------------------------------
-$(COMP_DIR)/p4est.complete: make_dir ompi oblas
+$(PREFIX)/p4est.complete: ompi oblas
 ifdef P4EST_VER
+	mkdir -p $(COMP_DIR) ;\
 	cd $(COMP_DIR) ;\
 	cp $(TAR_DIR)/$(P4EST_DIR).tar.gz $(COMP_DIR) ;\
 	tar -xvf $(P4EST_DIR).tar.gz ;\
@@ -18,11 +21,10 @@ ifdef P4EST_VER
 	CC=mpicc CXX=mpic++ FC=mpif90 F77=mpif77 ./configure --prefix=${PREFIX} \
 	   --enable-mpi --enable-openmp --with-blas=-lopenblas ;\
 	make install -j ;\
-	cd $(COMP_DIR) ;\
-	date > p4est.complete ;\
-	hostname >> p4est.complete
+	date > $(PREFIX)/p4est.complete ;\
+	hostname >> $(PREFIX)/p4est.complete
 else
-	touch $(COMP_DIR)/p4est.complete
+	touch $(PREFIX)/p4est.complete
 endif
 
 #-------------------------------------------------------------------------------

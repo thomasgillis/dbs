@@ -5,11 +5,14 @@ OFI_DIR = libfabric-$(OFI_VER)
 
 #===============================================================================
 .PHONY: ofi
-ofi: $(COMP_DIR)/ofi.complete
+ofi: $(PREFIX)/ofi.complete
+
+COMP_DIR := $(BUILD_DIR)/tmp-ucx-$(TAG)-$(UID)
 
 #-------------------------------------------------------------------------------
-$(COMP_DIR)/ofi.complete:
+$(PREFIX)/ofi.complete:
 ifdef OFI_VER
+	mkdir -p $(COMP_DIR) ;\
 	cd $(COMP_DIR) ;\
 	cp $(TAR_DIR)/v$(OFI_VER).tar.gz $(COMP_DIR) ;\
 	tar -xvf v$(OFI_VER).tar.gz ;\
@@ -17,11 +20,10 @@ ifdef OFI_VER
 	./autogen.sh ;\
 	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX} ;\
 	make install -j ;\
-	cd $(COMP_DIR) ;\
-	date > ofi.complete ;\
-	hostname >> ofi.complete ;\
+	date > ${PREFIX}/ofi.complete ;\
+	hostname >> ${PREFIX}/ofi.complete ;\
 else
-	@touch $(COMP_DIR)/ofi.complete
+	@touch $(PREFIX)/ofi.complete
 endif
 
 #-------------------------------------------------------------------------------

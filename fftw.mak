@@ -6,11 +6,14 @@ FFTW_DIR = fftw-$(FFTW_VER)
 #===============================================================================
 .PHONY: fftw
 .NOTPARALLEL: fftw
-fftw: $(COMP_DIR)/fftw.complete
+fftw: $(PREFIX)/fftw.complete
+
+COMP_DIR := $(BUILD_DIR)/tmp-ucx-$(TAG)-$(UID)
 
 #-------------------------------------------------------------------------------
-$(COMP_DIR)/fftw.complete: make_dir ompi
+$(PREFIX)/fftw.complete: make_dir ompi
 ifdef FFTW_VER
+	mkdir -p $(COMP_DIR) ;\
 	cd $(COMP_DIR) ;\
 	cp $(TAR_DIR)/$(FFTW_DIR).tar.gz $(COMP_DIR) ;\
 	tar -xvf $(FFTW_DIR).tar.gz ;\
@@ -18,11 +21,10 @@ ifdef FFTW_VER
 	CC=mpicc CXX=mpic++ FC=mpif90 F77=mpif77 ./configure --prefix=${PREFIX} \
 	   --disable-fortran --enable-avx --enable-openmp --enable-sse2 ;\
 	make install -j ;\
-	cd $(COMP_DIR) ;\
-	date > fftw.complete ;\
-	hostname >> fftw.complete
+	date > $(PREFIX)/fftw.complete ;\
+	hostname >> $(PREFIX)/fftw.complete
 else
-	touch $(COMP_DIR)/fftw.complete
+	touch $(PREFIX)/fftw.complete
 endif
 
 #-------------------------------------------------------------------------------

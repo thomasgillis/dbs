@@ -5,22 +5,24 @@ UCX_DIR = ucx-$(UCX_VER)
 
 #===============================================================================
 .PHONY: ucx
-ucx: $(COMP_DIR)/ucx.complete
+ucx: $(PREFIX)/ucx.complete
+
+COMP_DIR := $(BUILD_DIR)/tmp-ucx-$(TAG)-$(UID)
 
 #-------------------------------------------------------------------------------
-$(COMP_DIR)/ucx.complete: make_dir
+$(PREFIX)/ucx.complete:
 ifdef UCX_VER
+	mkdir -p $(COMP_DIR) ;\
 	cd $(COMP_DIR) ;\
 	cp $(TAR_DIR)/$(UCX_DIR).tar.gz $(COMP_DIR) ;\
 	tar -xvf $(UCX_DIR).tar.gz ;\
 	cd $(UCX_DIR) ;\
 	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX} --enable-compiler-opt=3 ;\
 	make install -j ;\
-	cd $(COMP_DIR) ;\
-	date > ucx.complete ;\
-	hostname >> ucx.complete ;\
+	date > $(PREFIX)/ucx.complete ;\
+	hostname >> $(PREFIX)/ucx.complete ;\
 else
-	@touch $(COMP_DIR)/ucx.complete
+	@touch $(PREFIX)/ucx.complete
 endif
 
 #-------------------------------------------------------------------------------
