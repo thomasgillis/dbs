@@ -2,6 +2,7 @@
 # usage: ./tar-list.sh or TAR_DIR=/my/dir ./tar-list.sh
 #
 
+mkdir -p ${TAR_DIR:=${HOME}}
 cd ${TAR_DIR:=${HOME}}
 pwd
 

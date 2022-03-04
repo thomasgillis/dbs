@@ -34,7 +34,7 @@ ifdef OMPI_VER
 	make install -j ;\
 	cd $(COMP_DIR) ;\
 	date > ompi.complete ;\
-	hostname >> ompi.complete ;\
+	hostname >> ompi.complete
 else
 	touch $(COMP_DIR)/ompi.complete
 endif

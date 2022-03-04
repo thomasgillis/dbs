@@ -18,7 +18,7 @@ ifdef UCX_VER
 	make install -j ;\
 	cd $(COMP_DIR) ;\
 	date > ucx.complete ;\
-	hostname >> ucx.complete ;\
+	hostname >> ucx.complete
 else
 	@touch $(COMP_DIR)/ucx.complete
 endif

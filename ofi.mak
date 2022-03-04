@@ -19,7 +19,7 @@ ifdef OFI_VER
 	make install -j ;\
 	cd $(COMP_DIR) ;\
 	date > ofi.complete ;\
-	hostname >> ofi.complete ;\
+	hostname >> ofi.complete
 else
 	@touch $(COMP_DIR)/ofi.complete
 endif
