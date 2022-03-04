@@ -19,14 +19,8 @@ ifdef UCX_VER
 	cd $(UCX_DIR) ;\
 	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX} --enable-compiler-opt=3 ;\
 	make install -j ;\
-<<<<<<< HEAD
 	date > $(PREFIX)/ucx.complete ;\
-	hostname >> $(PREFIX)/ucx.complete ;\
-=======
-	cd $(COMP_DIR) ;\
-	date > ucx.complete ;\
-	hostname >> ucx.complete
->>>>>>> eacda5200455eb23d809776e8d14b281bd779609
+	hostname >> $(PREFIX)/ucx.complete
 else
 	@touch $(PREFIX)/ucx.complete
 endif
