@@ -1,0 +1,3 @@
+PREFIX = ${HOME}/test_chokotoff
+
+UCX_VER=1.12.0

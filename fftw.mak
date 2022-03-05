@@ -8,10 +8,9 @@ FFTW_DIR = fftw-$(FFTW_VER)
 .NOTPARALLEL: fftw
 fftw: $(PREFIX)/fftw.complete
 
-COMP_DIR := $(BUILD_DIR)/tmp-ucx-$(TAG)-$(UID)
-
 #-------------------------------------------------------------------------------
-$(PREFIX)/fftw.complete: make_dir ompi
+.DELETE_ON_ERROR:
+$(PREFIX)/fftw.complete: make_dir ompi | make_dir
 ifdef FFTW_VER
 	mkdir -p $(COMP_DIR) ;\
 	cd $(COMP_DIR) ;\
@@ -21,8 +20,8 @@ ifdef FFTW_VER
 	CC=mpicc CXX=mpic++ FC=mpif90 F77=mpif77 ./configure --prefix=${PREFIX} \
 	   --disable-fortran --enable-avx --enable-openmp --enable-sse2 ;\
 	make install -j ;\
-	date > $(PREFIX)/fftw.complete ;\
-	hostname >> $(PREFIX)/fftw.complete
+	date > $@ ;\
+	hostname >> $@
 else
 	touch $(PREFIX)/fftw.complete
 endif
@@ -31,14 +30,11 @@ endif
 .PHONY: fftw_info
 .NOTPARALLEL: fftw_info
 fftw_info:
-	$(info --------------------------------------------------------------------------------)
-	$(info FFTW)
 ifdef FFTW_VER
-	$(info - version: $(FFTW_VER))
+	$(info - FFTW version: $(FFTW_VER))
 else
-	$(info not built)
+	$(info - FFTW not built)
 endif
-	$(info )
 
 #-------------------------------------------------------------------------------
 .PHONY: fftw_clean

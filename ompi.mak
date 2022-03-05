@@ -21,12 +21,10 @@ else
 OMPI_UCX_DEP ?= --with-ucx=no
 endif
 
-COMP_DIR := $(BUILD_DIR)/tmp-ucx-$(TAG)-$(UID)
-
 #-------------------------------------------------------------------------------
-$(PREFIX)/ompi.complete: ucx ofi
+.DELETE_ON_ERROR:
+$(PREFIX)/ompi.complete: ucx ofi | make_dir
 ifdef OMPI_VER
-	mkdir -p $(COMP_DIR) ;\
 	cd $(COMP_DIR) ;\
 	cp $(TAR_DIR)/$(OMPI_DIR).tar.gz $(COMP_DIR) ;\
 	tar -xvf $(OMPI_DIR).tar.gz ;\
@@ -35,8 +33,8 @@ ifdef OMPI_VER
 		--without-verbs --enable-mpirun-prefix-by-default --with-cuda=no \
 		$(OMPI_OFI_DEP) $(OMPI_UCX_DEP) ;\
 	make install -j ;\
-	date > $(PREFIX)/ompi.complete ;\
-	hostname >> $(PREFIX)/ompi.complete
+	date > $@ ;\
+	hostname >> $@
 else
 	touch $(PREFIX)/ompi.complete
 endif
@@ -45,15 +43,11 @@ endif
 .PHONY: ompi_info
 .NOTPARALLEL: ompi_info
 ompi_info:
-	$(info --------------------------------------------------------------------------------)
-	$(info OMPI)
 ifdef OMPI_VER
-	$(info - version: $(OMPI_VER))
-	$(info - ofi/ucx?: $(OMPI_OFI_DEP) $(OMPI_UCX_DEP))
+	$(info - OMPI version: $(OMPI_VER) and ofi/ucx?: $(OMPI_OFI_DEP) $(OMPI_UCX_DEP))
 else
-	$(info not built)
+	$(info - OMPI not built)
 endif
-	$(info )
 
 #-------------------------------------------------------------------------------
 .PHONY: ompi_clean

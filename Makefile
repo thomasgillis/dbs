@@ -24,9 +24,9 @@ TAR_DIR ?= ${HOME}
 
 #===============================================================================
 # ":=" force the evaluation at creation of the var
-UID = $(shell uuidgen -t | head -c 8)
-TAG = $(shell date '+%Y-%m-%d-%H%M')
-# COMP_DIR := $(BUILD_DIR)/build-$(TAG)-$(UID)
+UID := $(shell uuidgen -t | head -c 8)
+TAG := $(shell date '+%Y-%m-%d-%H%M')
+COMP_DIR := $(BUILD_DIR)/tmp_chktff-$(TAG)-$(UID)
 
 #===============================================================================
 # list of the differents libs supported
@@ -51,6 +51,7 @@ install: make_dir ucx ofi ompi hdf5 fftw p4est oblas
 .PHONY: make_dir
 make_dir: 
 	mkdir -p $(COMP_DIR)
+	mkdir -p $(PREFIX)
 
 #===============================================================================
 .PHONY: info
@@ -59,6 +60,7 @@ info: module gen_info ucx_info ofi_info ompi_info hdf5_info fftw_info p4est_info
 
 .PHONY: clean
 clean: ucx_clean ofi_clean ompi_clean hdf5_clean fftw_clean p4est_clean oblas_clean
+	@rm -rf $(PREFIX)
 
 
 
@@ -71,6 +73,7 @@ ifdef MODULE_LIST
 	$(info $(MODULE_LIST))
 	$(info )
 else
+	$(info --------------------------------------------------------------------------------)
 	$(info no module requested)
 endif
 
@@ -83,7 +86,7 @@ gen_info:
 	$(info - build dir: $(BUILD_DIR))
 	$(info - tar dir: $(TAR_DIR))
 	$(info - non-mpi compilers: CC = $(CC); CXX = $(CXX); FC = $(FC))
-	$(info )
+	$(info --------------------------------------------------------------------------------)
 
 
 
