@@ -7,9 +7,15 @@ OFI_DIR = libfabric-$(OFI_VER)
 .PHONY: ofi
 ofi: $(PREFIX)/ofi.complete
 
+ofi_tar: $(TAR_DIR)/v$(OFI_VER).tar.gz | make_dir
+
+$(TAR_DIR)/v$(OFI_VER).tar.gz:
+	cd $(TAR_DIR); \
+	wget 'https://github.com/ofiwg/libfabric/archive/refs/tags/v$(OFI_VER).tar.gz'
+
 #-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/ofi.complete: | make_dir
+$(PREFIX)/ofi.complete: | make_dir $(TAR_DIR)/v$(OFI_VER).tar.gz
 ifdef OFI_VER
 	cd $(COMP_DIR) ;\
 	cp $(TAR_DIR)/v$(OFI_VER).tar.gz $(COMP_DIR) ;\

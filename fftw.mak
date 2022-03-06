@@ -9,6 +9,13 @@ FFTW_DIR = fftw-$(FFTW_VER)
 fftw: $(PREFIX)/fftw.complete
 
 #-------------------------------------------------------------------------------
+fftw_tar: $(TAR_DIR)/$(FFTW_DIR).tar.gz | make_dir
+
+$(TAR_DIR)/$(FFTW_DIR).tar.gz:
+	cd $(TAR_DIR); \
+	wget 'http://www.fftw.org/fftw-${FFTW_VER}.tar.gz'
+
+#-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
 $(PREFIX)/fftw.complete: make_dir ompi | make_dir
 ifdef FFTW_VER

@@ -8,10 +8,16 @@ HDF5_DIR = hdf5-$(HDF5_VER)
 .NOTPARALLEL: hdf5
 hdf5: $(PREFIX)/hdf5.complete
 
+#-------------------------------------------------------------------------------
+hdf5_tar: $(TAR_DIR)/$(HDF5_DIR).tar.bz2 | make_dir
+
+$(TAR_DIR)/$(HDF5_DIR).tar.bz2:
+	cd $(TAR_DIR); \
+	wget 'http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-$(HDF5_VER)/src/hdf5-$(HDF5_VER).tar.bz2'
 
 #-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/hdf5.complete: ompi | make_dir
+$(PREFIX)/hdf5.complete: ompi | make_dir $(TAR_DIR)/$(HDF5_DIR).tar.bz2
 ifdef HDF5_VER
 	cd $(COMP_DIR) ;\
 	cp $(TAR_DIR)/$(HDF5_DIR).tar.bz2 $(COMP_DIR) ;\

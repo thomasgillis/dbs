@@ -7,9 +7,16 @@ UCX_DIR = ucx-$(UCX_VER)
 .PHONY: ucx
 ucx: $(PREFIX)/ucx.complete
 
+ucx_tar: $(TAR_DIR)/$(UCX_DIR).tar.gz | make_dir
+
+$(TAR_DIR)/$(UCX_DIR).tar.gz:
+	cd $(TAR_DIR); \
+	wget 'https://github.com/openucx/ucx/releases/download/v$(UCX_VER)/ucx-$(UCX_VER).tar.gz'
+
+
 #-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/ucx.complete: | make_dir
+$(PREFIX)/ucx.complete: | make_dir $(TAR_DIR)/$(UCX_DIR).tar.gz
 ifdef UCX_VER
 	cd $(COMP_DIR) ;\
 	cp $(TAR_DIR)/$(UCX_DIR).tar.gz $(COMP_DIR) ;\

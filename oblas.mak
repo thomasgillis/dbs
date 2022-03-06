@@ -9,8 +9,15 @@ OBLAS_DIR = OpenBLAS-$(OBLAS_VER)
 oblas: $(PREFIX)/oblas.complete
 
 #-------------------------------------------------------------------------------
+oblas_tar: $(TAR_DIR)/v$(OBLAS_VER).tar.gz | make_dir
+
+$(TAR_DIR)/v$(OBLAS_VER).tar.gz:
+	cd $(TAR_DIR); \
+	wget 'https://github.com/xianyi/OpenBLAS/archive/v$(OBLAS_VER).tar.gz'
+
+#-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/oblas.complete: | oblas
+$(PREFIX)/oblas.complete: | oblas $(TAR_DIR)/v$(OBLAS_VER).tar.gz
 ifdef OBLAS_VER
 	cd $(COMP_DIR) ;\
 	cp $(TAR_DIR)/v$(OBLAS_VER).tar.gz $(COMP_DIR) ;\

@@ -8,10 +8,16 @@ P4EST_DIR = p4est-$(P4EST_VER)
 .NOTPARALLEL: p4est
 p4est: $(PREFIX)/p4est.complete
 
+#-------------------------------------------------------------------------------
+p4est_tar: $(TAR_DIR)/$(P4EST_DIR).tar.gz | make_dir
+
+$(TAR_DIR)/$(P4EST_DIR).tar.gz:
+	cd $(TAR_DIR); \
+	wget 'https://p4est.github.io/release/p4est-$(P4EST_VER).tar.gz'
 
 #-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/p4est.complete: ompi oblas | make_dir
+$(PREFIX)/p4est.complete: ompi oblas | make_dir $(TAR_DIR)/$(P4EST_DIR).tar.gz
 ifdef P4EST_VER
 	cd $(COMP_DIR) ;\
 	cp $(TAR_DIR)/$(P4EST_DIR).tar.gz $(COMP_DIR) ;\

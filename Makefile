@@ -53,6 +53,9 @@ make_dir:
 	mkdir -p $(COMP_DIR)
 	mkdir -p $(PREFIX)
 
+.PHONY: tar
+tar: ucx_tar ofi_tar ompi_tar hdf5_tar fftw_tar p4est_tar oblas_tar
+
 #===============================================================================
 .PHONY: info
 .NOTPARALLEL: info

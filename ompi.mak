@@ -10,6 +10,13 @@ OMPI_DIR = openmpi-$(OMPI_VER)
 ompi: $(PREFIX)/ompi.complete
 
 #-------------------------------------------------------------------------------
+ompi_tar: $(TAR_DIR)/$(OMPI_DIR).tar.gz | make_dir
+
+$(TAR_DIR)/$(OMPI_DIR).tar.gz:
+	cd $(TAR_DIR); \
+	wget 'https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-$(OMPI_VER).tar.gz'
+
+#-------------------------------------------------------------------------------
 ifdef OFI_VER
 OMPI_OFI_DEP = --with-ofi=$(PREFIX)
 else
@@ -23,7 +30,7 @@ endif
 
 #-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/ompi.complete: ucx ofi | make_dir
+$(PREFIX)/ompi.complete: ucx ofi | make_dir $(TAR_DIR)/$(OMPI_DIR).tar.gz
 ifdef OMPI_VER
 	cd $(COMP_DIR) ;\
 	cp $(TAR_DIR)/$(OMPI_DIR).tar.gz $(COMP_DIR) ;\
@@ -31,7 +38,7 @@ ifdef OMPI_VER
 	cd $(OMPI_DIR) ;\
 	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX} \
 		--without-verbs --enable-mpirun-prefix-by-default --with-cuda=no \
-		$(OMPI_OFI_DEP) $(OMPI_UCX_DEP) ;\
+		$(OMPI_OFI_DEP) $(OMPI_UCX_DEP) $(OMPI_MISC_DEP) ;\
 	make install -j ;\
 	date > $@ ;\
 	hostname >> $@

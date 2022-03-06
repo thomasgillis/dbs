@@ -72,3 +72,13 @@ For each library you must specify the
 - `FFTW_VER` - fftw
 - `OBLAS_VER` - openblas
 - `P4EST_VER` - p4est
+
+
+**OpenMPI specificities**
+
+OpenMPI relies on other libs to handle the actual implementation over the network (`ofi` and/or `ucx`), and other part of the implemenation (`pmix` etc)
+If you choose to use another version of those libs (i.e. not installed through this makefile) you must declare variables to indicate where to find the lib
+
+- `OMPI_UCX_DEP` will be `--with-ucx=no` unless you specify it otherwise
+- `OMPI_OFI_DEP` will be `--with-ofi=no` unless you specify it otherwise
+- `OMPI_MISC_DEP` might be used to specify the use of `pmix`, `hwloc` etc.
