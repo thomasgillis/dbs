@@ -52,6 +52,10 @@ install: make_dir ucx ofi ompi hdf5 fftw p4est oblas
 tar: ucx_tar ofi_tar ompi_tar hdf5_tar fftw_tar p4est_tar oblas_tar
 
 #===============================================================================
+.PHONY: submit
+submit:
+	sbatch scripts/$(CLUSTER).sh
+
 $(TAR_DIR):
 	mkdir -p $(TAR_DIR)
 $(COMP_DIR):

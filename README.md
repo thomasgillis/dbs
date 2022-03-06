@@ -23,18 +23,19 @@ CLUSTER=cluster make all
 ## Usage
 
 ```bash
-# get the different tars
-export TAR_DIR=${HOME}/tar-lib
-./tar-list.sh
-
 # get the list of modules to load
 CLUSTER=cluster make module
 
 # get the general information about what is going to happen
 CLUSTER=cluster make info
 
-# install everything
-CLUSTER=cluster make all
+# get the needed tar
+CLUSTER=cluster make tar
+
+# submit the job and install everything
+CLUSTER=cluster make submit
+# or just install everything
+CLUSTER=cluster make install
 ```
 
 ### add your architecture
