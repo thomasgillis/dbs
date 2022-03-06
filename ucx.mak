@@ -7,24 +7,27 @@ UCX_DIR = ucx-$(UCX_VER)
 .PHONY: ucx
 ucx: $(PREFIX)/ucx.complete
 
-ucx_tar: $(TAR_DIR)/$(UCX_DIR).tar.gz | make_dir
+ucx_tar: $(TAR_DIR)/$(UCX_DIR).tar.gz 
 
-$(TAR_DIR)/$(UCX_DIR).tar.gz:
-	cd $(TAR_DIR); \
+$(TAR_DIR)/$(UCX_DIR).tar.gz: | $(TAR_DIR)
+ifdef UCX_VER
+	cd $(TAR_DIR)&& \
 	wget 'https://github.com/openucx/ucx/releases/download/v$(UCX_VER)/ucx-$(UCX_VER).tar.gz'
-
+else
+	touch $(TAR_DIR)/$(UCX_DIR).tar.gz
+endif
 
 #-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/ucx.complete: | make_dir $(TAR_DIR)/$(UCX_DIR).tar.gz
+$(PREFIX)/ucx.complete: | $(COMP_DIR) $(PREFIX) $(TAR_DIR)/$(UCX_DIR).tar.gz
 ifdef UCX_VER
-	cd $(COMP_DIR) ;\
-	cp $(TAR_DIR)/$(UCX_DIR).tar.gz $(COMP_DIR) ;\
-	tar -xvf $(UCX_DIR).tar.gz ;\
-	cd $(UCX_DIR) ;\
-	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX} --enable-compiler-opt=3 ;\
-	make install -j ;\
-	date > $@ ;\
+	cd $(COMP_DIR)  && \
+	cp $(TAR_DIR)/$(UCX_DIR).tar.gz $(COMP_DIR)  && \
+	tar -xvf $(UCX_DIR).tar.gz  && \
+	cd $(UCX_DIR)  && \
+	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX} --enable-compiler-opt=3  && \
+	$(MAKE) install -j  && \
+	date > $@  && \
 	hostname >> $@
 else
 	touch $(PREFIX)/ucx.complete
@@ -44,3 +47,9 @@ endif
 .PHONY: ucx_clean
 ucx_clean: 
 	@rm -rf $(PREFIX)/ucx.complete
+
+#-------------------------------------------------------------------------------
+.PHONY: ucx_reallyclean
+ucx_reallyclean: 
+	@rm -rf $(TAR_DIR)/$(UCX_DIR).tar.gz
+

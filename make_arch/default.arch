@@ -6,8 +6,8 @@ CC = gcc
 CXX = g++
 
 BUILD_DIR=/scratch
-TAR_DIR = $(HOME)
-PREFIX = $(HOME)/lib-your-build
+TAR_DIR = $(HOME)/tar-dir
+PREFIX = $(HOME)/build-dir
 
 #===============================================================================
 UCX_VER = 1.12.0

@@ -9,24 +9,28 @@ HDF5_DIR = hdf5-$(HDF5_VER)
 hdf5: $(PREFIX)/hdf5.complete
 
 #-------------------------------------------------------------------------------
-hdf5_tar: $(TAR_DIR)/$(HDF5_DIR).tar.bz2 | make_dir
+hdf5_tar: $(TAR_DIR)/$(HDF5_DIR).tar.bz2
 
-$(TAR_DIR)/$(HDF5_DIR).tar.bz2:
-	cd $(TAR_DIR); \
+$(TAR_DIR)/$(HDF5_DIR).tar.bz2: | $(TAR_DIR)
+ifdef HDF5_VER
+	cd $(TAR_DIR) &&  \
 	wget 'http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-$(HDF5_VER)/src/hdf5-$(HDF5_VER).tar.bz2'
+else
+	touch $(TAR_DIR)/$(HDF5_DIR).tar.bz2
+endif
 
 #-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/hdf5.complete: ompi | make_dir $(TAR_DIR)/$(HDF5_DIR).tar.bz2
+$(PREFIX)/hdf5.complete: ompi | $(PREFIX) $(COMP_DIR) $(TAR_DIR)/$(HDF5_DIR).tar.bz2
 ifdef HDF5_VER
-	cd $(COMP_DIR) ;\
-	cp $(TAR_DIR)/$(HDF5_DIR).tar.bz2 $(COMP_DIR) ;\
-	tar -xvf $(HDF5_DIR).tar.bz2 ;\
-	cd $(HDF5_DIR) ;\
+	cd $(COMP_DIR)  && \
+	cp $(TAR_DIR)/$(HDF5_DIR).tar.bz2 $(COMP_DIR)  && \
+	tar -xvf $(HDF5_DIR).tar.bz2  && \
+	cd $(HDF5_DIR)  && \
 	CC=mpicc CXX=mpic++ FC=mpif90 F77=mpif77 ./configure --prefix=${PREFIX} \
-	   --enable-parallel --enable-optimization=high --enable-build-mode=production --with-default-api-version=v110 ;\
-	make install -j ;\
-	date > $@ ;\
+	   --enable-parallel --enable-optimization=high --enable-build-mode=production --with-default-api-version=v110  && \
+	make install -j  && \
+	date > $@  && \
 	hostname >> $@
 else
 	touch $(PREFIX)/hdf5.complete
@@ -42,6 +46,10 @@ else
 	$(info - HDF5 not built)
 endif
 
+#-------------------------------------------------------------------------------
+.PHONY: hdf5_reallyclean
+hdf5_reallyclean: 
+	@rm -rf $(TAR_DIR)/$(HDF5_DIR).tar.bz2
 #-------------------------------------------------------------------------------
 .PHONY: hdf5_clean
 hdf5_clean: 

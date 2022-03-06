@@ -9,24 +9,28 @@ P4EST_DIR = p4est-$(P4EST_VER)
 p4est: $(PREFIX)/p4est.complete
 
 #-------------------------------------------------------------------------------
-p4est_tar: $(TAR_DIR)/$(P4EST_DIR).tar.gz | make_dir
+p4est_tar: $(TAR_DIR)/$(P4EST_DIR).tar.gz
 
-$(TAR_DIR)/$(P4EST_DIR).tar.gz:
-	cd $(TAR_DIR); \
+$(TAR_DIR)/$(P4EST_DIR).tar.gz: | $(TAR_DIR)
+ifdef P4EST_VER
+	cd $(TAR_DIR) &&  \
 	wget 'https://p4est.github.io/release/p4est-$(P4EST_VER).tar.gz'
+else
+	touch $(TAR_DIR)/$(P4EST_DIR).tar.gz
+endif
 
 #-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/p4est.complete: ompi oblas | make_dir $(TAR_DIR)/$(P4EST_DIR).tar.gz
+$(PREFIX)/p4est.complete: ompi oblas | $(PREFIX) $(COMP_DIR) $(TAR_DIR)/$(P4EST_DIR).tar.gz
 ifdef P4EST_VER
-	cd $(COMP_DIR) ;\
-	cp $(TAR_DIR)/$(P4EST_DIR).tar.gz $(COMP_DIR) ;\
-	tar -xvf $(P4EST_DIR).tar.gz ;\
-	cd $(P4EST_DIR) ;\
+	cd $(COMP_DIR)  && \
+	cp $(TAR_DIR)/$(P4EST_DIR).tar.gz $(COMP_DIR)  && \
+	tar -xvf $(P4EST_DIR).tar.gz  && \
+	cd $(P4EST_DIR)  && \
 	CC=mpicc CXX=mpic++ FC=mpif90 F77=mpif77 ./configure --prefix=${PREFIX} \
-	   --enable-mpi --enable-openmp --with-blas=-lopenblas ;\
-	make install -j ;\
-	date > $@ ;\
+	   --enable-mpi --enable-openmp --with-blas=-lopenblas  && \
+	make install -j  && \
+	date > $@  && \
 	hostname >> $@
 else
 	touch $(PREFIX)/p4est.complete
@@ -42,6 +46,10 @@ else
 	$(info - P4EST not built)
 endif
 
+#-------------------------------------------------------------------------------
+.PHONY: p4est_reallyclean
+p4est_reallyclean: 
+	@rm -rf $(TAR_DIR)/$(P4EST_DIR).tar.gz
 #-------------------------------------------------------------------------------
 .PHONY: p4est_clean
 p4est_clean: 
