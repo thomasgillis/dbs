@@ -38,6 +38,16 @@ CLUSTER=cluster make submit
 CLUSTER=cluster make install
 ```
 
+Other make targets:
+
+- `make info` will display general information
+- `make module` will display the list of modules to load
+- `make submit` will submit the job on the cluster
+- `make install` will start the installation of the libs
+- `make tar` will download the tar needed
+- `make clean` will rm the already build `.complete` files in the `$(PREFIX)` folder
+- `make reallyclean` will rm the tar in the `$(TAR_DIR)` folder
+
 ### add your architecture
 
 Each `cluster` has a corresponding `make_arch/cluster.arch` file.

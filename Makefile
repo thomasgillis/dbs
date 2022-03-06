@@ -39,42 +39,33 @@ include p4est.mak
 include oblas.mak
 
 #===============================================================================
-.PHONY: default
-default: all
-
-.PHONY: all
-all: info install
-
-.PHONY: install
-install: make_dir ucx ofi ompi hdf5 fftw p4est oblas
-
-.PHONY: tar
-tar: ucx_tar ofi_tar ompi_tar hdf5_tar fftw_tar p4est_tar oblas_tar
-
-#===============================================================================
 .PHONY: submit
 submit:
 	sbatch scripts/$(CLUSTER).sh
 
-$(TAR_DIR):
-	mkdir -p $(TAR_DIR)
-$(COMP_DIR):
-	mkdir -p $(COMP_DIR)
-$(PREFIX):
-	mkdir -p $(PREFIX)
+.PHONY: install
+install: ucx ofi ompi hdf5 fftw p4est oblas
 
-#===============================================================================
+.PHONY: tar
+tar: ucx_tar ofi_tar ompi_tar hdf5_tar fftw_tar p4est_tar oblas_tar
+
 .PHONY: info
 .NOTPARALLEL: info
 info: module gen_info ucx_info ofi_info ompi_info hdf5_info fftw_info p4est_info oblas_info
 
 .PHONY: clean
 clean: ucx_clean ofi_clean ompi_clean hdf5_clean fftw_clean p4est_clean oblas_clean
-	@rm -rf $(PREFIX)
 
 .PHONY: reallyclean
 reallyclean: clean ucx_reallyclean ofi_reallyclean ompi_reallyclean hdf5_reallyclean fftw_reallyclean p4est_reallyclean oblas_reallyclean
-	@rm -rf $(TAR_DIR)
+
+#===============================================================================
+$(TAR_DIR):
+	mkdir -p $(TAR_DIR)
+$(COMP_DIR):
+	mkdir -p $(COMP_DIR)
+$(PREFIX):
+	mkdir -p $(PREFIX)
 
 #===============================================================================
 .PHONY: module
