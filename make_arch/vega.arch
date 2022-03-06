@@ -1,0 +1,40 @@
+#===============================================================================
+# GENERAL PARAMETERS
+FC = gfortran
+CC = gcc
+CXX = g++
+
+BUILD_DIR = $(HOME)
+TAR_DIR = $(HOME)
+PREFIX = $(HOME)
+
+define MODULE_LIST
+GCC/11.2.0 \
+UCX/1.11.2-GCCcore-11.2.0 \
+PMIx/4.1.0-GCCcore-11.2.0 \
+hwloc/2.5.0-GCCcore-11.2.0 \
+libevent/2.1.12-GCCcore-11.2.0
+endef
+
+#===============================================================================
+# UCX 
+# version of the lib
+UCX_VER = 1.12.0
+
+#===============================================================================
+# OFI
+# version of the lib
+OFI_VER = 1.14.0
+
+#===============================================================================
+# OpenMPI parameters
+OMPI_VER=4.1.2
+
+define OMPI_CONFIG
+    --with-ucx=$(EBROOTUCX) \
+    --with-libevent=$(EBROOTLIBEVENT) \
+    --with-hwloc=$(EBROOTHWLOC) \
+    --with-pmix=$(EBROOTPMIX) \
+    --with-ofi=no
+endef
+

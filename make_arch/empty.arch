@@ -1,0 +1,4 @@
+PREFIX = ${HOME}/test_chokotoff
+TAR_DIR = ${HOME}/tar_dir
+
+OBLAS_VER=0.3.18

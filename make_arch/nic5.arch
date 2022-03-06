@@ -1,0 +1,20 @@
+#===============================================================================
+# GENERAL PARAMETERS
+FC = gfortran
+CC = gcc
+CXX = g++
+
+BUILD_DIR = $(HOME)
+TAR_DIR = $(HOME)/tar-storage
+PREFIX = $(HOME)/lib-OpenMPI-4.1.2
+
+define MODULE_LIST
+releases/2021b \
+OpenMPI/4.1.2-GCC-11.2.0
+endef
+
+#===============================================================================
+HDF5_VER = 1.12.1
+OBLAS_VER = 0.3.18
+P4EST_VER = 2.8
+FFTW_VER=3.3.10
