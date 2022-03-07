@@ -25,7 +25,7 @@ ifdef OFI_VER
 	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \
 	cp $(TAR_DIR)/ofi-$(OFI_VER).tar.gz $(COMP_DIR)  && \
-	tar -xvf v$(OFI_VER).tar.gz  && \
+	tar -xvf ofi-$(OFI_VER).tar.gz  && \
 	cd $(OFI_DIR)  && \
 	./autogen.sh  && \
 	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}  && \
