@@ -29,7 +29,7 @@ ifdef P4EST_VER
 	cd $(P4EST_DIR)  && \
 	CC=mpicc CXX=mpic++ FC=mpif90 F77=mpif77 ./configure --prefix=${PREFIX} \
 	   --enable-mpi --enable-openmp --with-blas=-lopenblas  && \
-	make install -j  && \
+	$(MAKE) install -j 8 && \
 	date > $@  && \
 	hostname >> $@
 else

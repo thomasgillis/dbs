@@ -40,8 +40,8 @@ include oblas.mak
 include flups.mak
 
 #===============================================================================
-.PHONY: submit
-submit:
+.PHONY: submit 
+submit: | tar
 	sbatch scripts/$(CLUSTER).sh
 
 .PHONY: install
