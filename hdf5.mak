@@ -21,16 +21,17 @@ endif
 
 #-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/hdf5.complete: ompi | $(PREFIX) $(COMP_DIR) $(TAR_DIR)/$(HDF5_DIR).tar.bz2
+$(PREFIX)/hdf5.complete: ompi | $(PREFIX) $(TAR_DIR)/$(HDF5_DIR).tar.bz2
 ifdef HDF5_VER
-	cd $(COMP_DIR)  && \
-	cp $(TAR_DIR)/$(HDF5_DIR).tar.bz2 $(COMP_DIR)  && \
-	tar -xvf $(HDF5_DIR).tar.bz2  && \
-	cd $(HDF5_DIR)  && \
+	mkdir -p $(COMP_DIR)  && \
+	cd $(COMP_DIR)  &&\
+	cp $(TAR_DIR)/$(HDF5_DIR).tar.bz2 $(COMP_DIR)  &&\
+	tar -xvf $(HDF5_DIR).tar.bz2  &&\
+	cd $(HDF5_DIR)  &&\
 	CC=mpicc CXX=mpic++ FC=mpif90 F77=mpif77 ./configure --prefix=${PREFIX} \
-	   --enable-parallel --enable-optimization=high --enable-build-mode=production --with-default-api-version=v110  && \
-	make install -j  && \
-	date > $@  && \
+	   --enable-parallel --enable-optimization=high --enable-build-mode=production --with-default-api-version=v110  &&\
+	$(MAKE) install -j 8 &&\
+	date > $@  &&\
 	hostname >> $@
 else
 	touch $(PREFIX)/hdf5.complete
@@ -53,4 +54,4 @@ hdf5_reallyclean:
 #-------------------------------------------------------------------------------
 .PHONY: hdf5_clean
 hdf5_clean: 
-	@rm -rf hdf5.complete
+	@rm -rf $(PREFIX)/hdf5.complete

@@ -21,14 +21,15 @@ endif
 
 #-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/oblas.complete: | $(PREFIX) $(COMP_DIR) $(TAR_DIR)/v$(OBLAS_VER).tar.gz
+$(PREFIX)/oblas.complete: | $(PREFIX) $(TAR_DIR)/v$(OBLAS_VER).tar.gz
 ifdef OBLAS_VER
+	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR) &&\
 	cp $(TAR_DIR)/v$(OBLAS_VER).tar.gz $(COMP_DIR) &&\
 	tar -xvf v$(OBLAS_VER).tar.gz &&\
 	cd $(OBLAS_DIR) &&\
-	$(MAKE) USE_OPENMP=1 PREFIX=${PREFIX} -j &&\
-	$(MAKE) install -j &&\
+	$(MAKE) USE_OPENMP=1 PREFIX=${PREFIX} -j 8 &&\
+	$(MAKE) PREFIX=${PREFIX} install -j 8 &&\
 	date > $@ &&\
 	hostname >> $@
 else
@@ -44,7 +45,6 @@ ifdef OBLAS_VER
 else
 	$(info - OpenBlas not built)
 endif
-	$(info )
 
 #-------------------------------------------------------------------------------
 .PHONY: oblas_reallyclean
@@ -53,4 +53,4 @@ oblas_reallyclean:
 #-------------------------------------------------------------------------------
 .PHONY: oblas_clean
 oblas_clean: 
-	@rm -rf oblas.complete
+	@rm -rf $(PREFIX)/oblas.complete

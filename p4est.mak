@@ -21,15 +21,16 @@ endif
 
 #-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/p4est.complete: ompi oblas | $(PREFIX) $(COMP_DIR) $(TAR_DIR)/$(P4EST_DIR).tar.gz
+$(PREFIX)/p4est.complete: ompi oblas | $(PREFIX) $(TAR_DIR)/$(P4EST_DIR).tar.gz
 ifdef P4EST_VER
+	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \
 	cp $(TAR_DIR)/$(P4EST_DIR).tar.gz $(COMP_DIR)  && \
 	tar -xvf $(P4EST_DIR).tar.gz  && \
 	cd $(P4EST_DIR)  && \
 	CC=mpicc CXX=mpic++ FC=mpif90 F77=mpif77 ./configure --prefix=${PREFIX} \
 	   --enable-mpi --enable-openmp --with-blas=-lopenblas  && \
-	make install -j  && \
+	$(MAKE) install -j 8 && \
 	date > $@  && \
 	hostname >> $@
 else
@@ -53,4 +54,4 @@ p4est_reallyclean:
 #-------------------------------------------------------------------------------
 .PHONY: p4est_clean
 p4est_clean: 
-	@rm -rf p4est.complete
+	@rm -rf $(PREFIX)/p4est.complete

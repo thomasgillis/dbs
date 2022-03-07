@@ -1,11 +1,12 @@
 #!/bin/bash
 #SBATCH --partition=batch
 #SBATCH --time=6:00:00
-#SBATCH --ntasks=16
+#SBATCH --ntasks=8
 
 #-------------------------------------------------------------------------------
 module purge
-module load gcc/11.2.0 OpenBLAS/0.2.0
+module load releases/2021b
+module load OpenMPI/4.1.2-GCC-11.2.0
 #-------------------------------------------------------------------------------
 module list
 #-------------------------------------------------------------------------------

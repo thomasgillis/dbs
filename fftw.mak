@@ -21,7 +21,7 @@ endif
 
 #-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/fftw.complete: make_dir ompi | $(COMP_DIR) $(PREFIX) $(TAR_DIR)/$(FFTW_DIR).tar.gz
+$(PREFIX)/fftw.complete: ompi | $(PREFIX) $(TAR_DIR)/$(FFTW_DIR).tar.gz
 ifdef FFTW_VER
 	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \
@@ -30,7 +30,7 @@ ifdef FFTW_VER
 	cd $(FFTW_DIR)  && \
 	CC=mpicc CXX=mpic++ FC=mpif90 F77=mpif77 ./configure --prefix=${PREFIX} \
 	   --disable-fortran --enable-avx --enable-openmp --enable-sse2  && \
-	make install -j  && \
+	$(MAKE) install -j 8  && \
 	date > $@  && \
 	hostname >> $@
 else
@@ -54,4 +54,4 @@ fftw_reallyclean:
 #-------------------------------------------------------------------------------
 .PHONY: fftw_clean
 fftw_clean: 
-	@rm -rf fftw.complete
+	@rm -rf $(PREFIX)/fftw.complete

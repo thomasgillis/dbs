@@ -19,15 +19,16 @@ endif
 
 #-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/ofi.complete: | $(COMP_DIR) $(PREFIX) $(TAR_DIR)/v$(OFI_VER).tar.gz
+$(PREFIX)/ofi.complete: | $(PREFIX) $(TAR_DIR)/v$(OFI_VER).tar.gz
 ifdef OFI_VER
+	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \
 	cp $(TAR_DIR)/v$(OFI_VER).tar.gz $(COMP_DIR)  && \
 	tar -xvf v$(OFI_VER).tar.gz  && \
 	cd $(OFI_DIR)  && \
 	./autogen.sh  && \
 	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}  && \
-	make install -j  && \
+	$(MAKE) install -j 8 && \
 	date > $@  && \
 	hostname >> $@
 else
@@ -47,7 +48,7 @@ endif
 #-------------------------------------------------------------------------------
 .PHONY: ofi_clean
 ofi_clean: 
-	@rm -rf ofi.complete
+	@rm -rf $(PREFIX)/ofi.complete
 #-------------------------------------------------------------------------------
 .PHONY: ofi_reallyclean
 ofi_reallyclean: 

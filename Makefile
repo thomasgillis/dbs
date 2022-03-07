@@ -26,7 +26,7 @@ TAR_DIR ?= ${HOME}
 # ":=" force the evaluation at creation of the var
 UID := $(shell uuidgen -t | head -c 8)
 TAG := $(shell date '+%Y-%m-%d-%H%M')
-COMP_DIR := $(BUILD_DIR)/tmp_chktff-$(TAG)-$(UID)
+COMP_DIR := $(BUILD_DIR)/tmp_dbs-$(TAG)-$(UID)
 
 #===============================================================================
 # list of the differents libs supported
@@ -39,8 +39,8 @@ include p4est.mak
 include oblas.mak
 
 #===============================================================================
-.PHONY: submit
-submit:
+.PHONY: submit 
+submit: | tar
 	sbatch scripts/$(CLUSTER).sh
 
 .PHONY: install

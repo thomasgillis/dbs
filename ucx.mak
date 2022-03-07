@@ -19,14 +19,15 @@ endif
 
 #-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/ucx.complete: | $(COMP_DIR) $(PREFIX) $(TAR_DIR)/$(UCX_DIR).tar.gz
+$(PREFIX)/ucx.complete: | $(PREFIX) $(TAR_DIR)/$(UCX_DIR).tar.gz
 ifdef UCX_VER
+	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \
 	cp $(TAR_DIR)/$(UCX_DIR).tar.gz $(COMP_DIR)  && \
 	tar -xvf $(UCX_DIR).tar.gz  && \
 	cd $(UCX_DIR)  && \
 	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX} --enable-compiler-opt=3  && \
-	$(MAKE) install -j  && \
+	$(MAKE) install -j 8 && \
 	date > $@  && \
 	hostname >> $@
 else

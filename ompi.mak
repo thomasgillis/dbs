@@ -34,8 +34,9 @@ endif
 
 #-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/ompi.complete: ucx ofi | $(PREFIX) $(COMP_DIR) $(TAR_DIR)/$(OMPI_DIR).tar.gz
+$(PREFIX)/ompi.complete: ucx ofi | $(PREFIX) $(TAR_DIR)/$(OMPI_DIR).tar.gz
 ifdef OMPI_VER
+	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \
 	cp $(TAR_DIR)/$(OMPI_DIR).tar.gz $(COMP_DIR)  && \
 	tar -xvf $(OMPI_DIR).tar.gz  && \
@@ -43,7 +44,7 @@ ifdef OMPI_VER
 	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX} \
 		--without-verbs --enable-mpirun-prefix-by-default --with-cuda=no \
 		$(OMPI_OFI_DEP) $(OMPI_UCX_DEP) $(OMPI_MISC_DEP)  && \
-	make install -j  && \
+	$(MAKE) install -j 8 && \
 	date > $@  && \
 	hostname >> $@
 else
@@ -67,6 +68,6 @@ ompi_reallyclean:
 #-------------------------------------------------------------------------------
 .PHONY: ompi_clean
 ompi_clean: 
-	@rm -rf ompi.complete
+	@rm -rf $(PREFIX)/ompi.complete
 
 
