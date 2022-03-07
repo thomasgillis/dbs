@@ -14,11 +14,12 @@ flups_tar: $(TAR_DIR)/$(FLUPS_DIR).tar.gz
 $(TAR_DIR)/$(FLUPS_DIR).tar.gz: | $(TAR_DIR)
 ifdef FLUPS_VER
 	cd $(TAR_DIR) &&  \
-	git clone git@git.immc.ucl.ac.be:examples/flups.git && \ 
-	cd flups && \ 
-	git checkout --track origin/dev-node-centered && \ 
-	cd .. && tar -czvf $(TAR_DIR)/$(FLUPS_DIR).tar.gz ./flups && \ 
-	rm -rf flups  
+	rm -rf $(FLUPS_DIR) && \
+	git clone git@git.immc.ucl.ac.be:examples/flups.git $(FLUPS_DIR) && \
+	cd $(FLUPS_DIR) && \
+	git checkout --track origin/dev-node-centered && \
+	cd $(TAR_DIR) && tar -czvf $(FLUPS_DIR).tar.gz $(FLUPS_DIR) && \
+	rm -rf $(FLUPS_DIR)  
 else
 	touch $(TAR_DIR)/$(FLUPS_DIR).tar.gz
 endif
