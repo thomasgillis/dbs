@@ -53,4 +53,4 @@ p4est_reallyclean:
 #-------------------------------------------------------------------------------
 .PHONY: p4est_clean
 p4est_clean: 
-	@rm -rf p4est.complete
+	@rm -rf $(PREFIX)/p4est.complete

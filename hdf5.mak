@@ -53,4 +53,4 @@ hdf5_reallyclean:
 #-------------------------------------------------------------------------------
 .PHONY: hdf5_clean
 hdf5_clean: 
-	@rm -rf hdf5.complete
+	@rm -rf $(PREFIX)/hdf5.complete

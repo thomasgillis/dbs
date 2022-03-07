@@ -54,4 +54,4 @@ fftw_reallyclean:
 #-------------------------------------------------------------------------------
 .PHONY: fftw_clean
 fftw_clean: 
-	@rm -rf fftw.complete
+	@rm -rf $(PREFIX)/fftw.complete

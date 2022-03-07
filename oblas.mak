@@ -53,4 +53,4 @@ oblas_reallyclean:
 #-------------------------------------------------------------------------------
 .PHONY: oblas_clean
 oblas_clean: 
-	@rm -rf oblas.complete
+	@rm -rf $(PREFIX)/oblas.complete

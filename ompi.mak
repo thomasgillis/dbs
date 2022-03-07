@@ -67,6 +67,6 @@ ompi_reallyclean:
 #-------------------------------------------------------------------------------
 .PHONY: ompi_clean
 ompi_clean: 
-	@rm -rf ompi.complete
+	@rm -rf $(PREFIX)/ompi.complete
 
 

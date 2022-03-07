@@ -47,7 +47,7 @@ endif
 #-------------------------------------------------------------------------------
 .PHONY: ofi_clean
 ofi_clean: 
-	@rm -rf ofi.complete
+	@rm -rf $(PREFIX)/ofi.complete
 #-------------------------------------------------------------------------------
 .PHONY: ofi_reallyclean
 ofi_reallyclean: 
