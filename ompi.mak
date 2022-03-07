@@ -54,7 +54,7 @@ endif
 .NOTPARALLEL: ompi_info
 ompi_info:
 ifdef OMPI_VER
-	$(info - OMPI version: $(OMPI_VER) and ofi/ucx?: $(OMPI_OFI_DEP) $(OMPI_UCX_DEP))
+	$(info - OMPI version: $(OMPI_VER) and ofi/ucx?: $(OMPI_OFI_DEP) $(OMPI_UCX_DEP) $(OMPI_MISC_DEP))
 else
 	$(info - OMPI not built)
 endif

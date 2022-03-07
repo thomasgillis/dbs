@@ -4,7 +4,9 @@ FC = gfortran
 CC = gcc
 CXX = g++
 
-BUILD_DIR = /ceph/hpc/scratch/user/euthomasg
+VEGA_USER := $(shell whoami)
+
+BUILD_DIR = /ceph/hpc/scratch/user/$(VEGA_USER)
 TAR_DIR = $(HOME)/tar_storage
 PREFIX = $(HOME)/lib-OpenMPI-4.1.2-UCX-1.12.0
 

@@ -55,6 +55,7 @@ info: logo module gen_info ucx_info ofi_info ompi_info hdf5_info fftw_info p4est
 
 .PHONY: clean
 clean: ucx_clean ofi_clean ompi_clean hdf5_clean fftw_clean p4est_clean oblas_clean
+	@rm -rf $(PREFIX)/*
 
 .PHONY: reallyclean
 reallyclean: clean ucx_reallyclean ofi_reallyclean ompi_reallyclean hdf5_reallyclean fftw_reallyclean p4est_reallyclean oblas_reallyclean
@@ -95,12 +96,12 @@ gen_info:
 .NOTPARALLEL: logo
 logo:
 	$(info  )
-	$(info ██████╗ ██████╗ ███████╗ )
-	$(info ██╔══██╗██╔══██╗██╔════╝ )
-	$(info ██║  ██║██████╔╝███████╗ )
-	$(info ██║  ██║██╔══██╗╚════██║ )
-	$(info ██████╔╝██████╔╝███████║ )
-	$(info ╚═════╝ ╚═════╝ ╚══════╝ )
+	$(info   ██████╗ ██████╗ ███████╗ )
+	$(info   ██╔══██╗██╔══██╗██╔════╝ )
+	$(info   ██║  ██║██████╔╝███████╗ )
+	$(info   ██║  ██║██╔══██╗╚════██║ )
+	$(info   ██████╔╝██████╔╝███████║ )
+	$(info   ╚═════╝ ╚═════╝ ╚══════╝ )
 	$(info  -- Depency Build System --)
 	$(info  )
 
