@@ -28,7 +28,7 @@ ifdef HDF5_VER
 	cp $(TAR_DIR)/$(HDF5_DIR).tar.bz2 $(COMP_DIR)  &&\
 	tar -xvf $(HDF5_DIR).tar.bz2  &&\
 	cd $(HDF5_DIR)  &&\
-	CC=mpicc CXX=mpic++ FC=mpif90 F77=mpif77 ./configure --prefix=${PREFIX} \
+	CC=$(MPICC) CXX=$(MPICXX) FC=$(MPIFORT) F77=$(MPIFORT) ./configure --prefix=${PREFIX} \
 	   --enable-parallel --enable-optimization=high --enable-build-mode=production --with-default-api-version=v110  &&\
 	$(MAKE) install -j 8 &&\
 	date > $@  &&\

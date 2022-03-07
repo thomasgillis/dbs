@@ -28,7 +28,7 @@ ifdef P4EST_VER
 	cp $(TAR_DIR)/$(P4EST_DIR).tar.gz $(COMP_DIR)  && \
 	tar -xvf $(P4EST_DIR).tar.gz  && \
 	cd $(P4EST_DIR)  && \
-	CC=mpicc CXX=mpic++ FC=mpif90 F77=mpif77 ./configure --prefix=${PREFIX} \
+	CC=$(MPICC) CXX=$(MPICXX) FC=$(MPIFORT) F77=$(MPIFORT) ./configure --prefix=${PREFIX} \
 	   --enable-mpi --enable-openmp --with-blas=-lopenblas  && \
 	$(MAKE) install -j 8 && \
 	date > $@  && \

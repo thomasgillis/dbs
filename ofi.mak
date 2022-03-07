@@ -24,7 +24,7 @@ $(PREFIX)/ofi.complete: | $(PREFIX) $(TAR_DIR)/ofi-$(OFI_VER).tar.gz
 ifdef OFI_VER
 	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \
-	cp $(TAR_DIR)/v$(OFI_VER).tar.gz $(COMP_DIR)  && \
+	cp $(TAR_DIR)/ofi-$(OFI_VER).tar.gz $(COMP_DIR)  && \
 	tar -xvf v$(OFI_VER).tar.gz  && \
 	cd $(OFI_DIR)  && \
 	./autogen.sh  && \

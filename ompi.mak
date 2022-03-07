@@ -32,6 +32,17 @@ OMPI_UCX_DEP ?= --with-ucx=no
 endif
 
 #-------------------------------------------------------------------------------
+ifdef OMPI_VER
+MPICC = $(PREFIX)/bin/mpicc
+MPICXX = $(PREFIX)/bin/mpic++
+MPIFORT = $(PREFIX)/bin/mpif90
+else
+MPICC = mpicc
+MPICXX = mpic++
+MPIFORT = mpif90
+endif
+
+#-------------------------------------------------------------------------------
 $(PREFIX)/ompi.complete:  | $(PREFIX) $(TAR_DIR)/$(OMPI_DIR).tar.gz
 ifdef OMPI_VER
 	mkdir -p $(COMP_DIR)  && \

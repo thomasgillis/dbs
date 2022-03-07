@@ -26,7 +26,7 @@ $(PREFIX)/oblas.complete: | $(PREFIX) $(TAR_DIR)/oblas-$(OBLAS_VER).tar.gz
 ifdef OBLAS_VER
 	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR) &&\
-	cp $(TAR_DIR)/v$(OBLAS_VER).tar.gz $(COMP_DIR) &&\
+	cp $(TAR_DIR)/oblas-$(OBLAS_VER).tar.gz $(COMP_DIR) &&\
 	tar -xvf v$(OBLAS_VER).tar.gz &&\
 	cd $(OBLAS_DIR) &&\
 	$(MAKE) USE_OPENMP=1 PREFIX=${PREFIX} -j 8 &&\
