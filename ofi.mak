@@ -7,6 +7,7 @@ OFI_DIR = libfabric-$(OFI_VER)
 .PHONY: ofi
 ofi: $(PREFIX)/ofi.complete
 
+.PHONY: ofi_tar
 ofi_tar: $(TAR_DIR)/ofi-$(OFI_VER).tar.gz
 
 $(TAR_DIR)/ofi-$(OFI_VER).tar.gz: | $(TAR_DIR)
@@ -15,11 +16,10 @@ ifdef OFI_VER
 	wget 'https://github.com/ofiwg/libfabric/archive/refs/tags/v$(OFI_VER).tar.gz' &&\
 	mv v$(OFI_VER).tar.gz ofi-$(OFI_VER).tar.gz
 else
-	touch $(TAR_DIR)/v$(OFI_VER).tar.gz
+	touch $(TAR_DIR)/ofi-$(OFI_VER).tar.gz
 endif
 
 #-------------------------------------------------------------------------------
-.DELETE_ON_ERROR:
 $(PREFIX)/ofi.complete: | $(PREFIX) $(TAR_DIR)/ofi-$(OFI_VER).tar.gz
 ifdef OFI_VER
 	mkdir -p $(COMP_DIR)  && \
@@ -53,5 +53,5 @@ ofi_clean:
 #-------------------------------------------------------------------------------
 .PHONY: ofi_reallyclean
 ofi_reallyclean: 
-	@rm -rf $(TAR_DIR)/v$(OFI_VER).tar.gz
+	@rm -rf $(TAR_DIR)/ofi-$(OFI_VER).tar.gz
 

@@ -5,11 +5,10 @@ OMPI_DIR = openmpi-$(OMPI_VER)
 
 #===============================================================================
 .PHONY: ompi
-
-#===============================================================================
-ompi: $(PREFIX)/ompi.complete
+ompi: ucx ofi $(PREFIX)/ompi.complete
 
 #-------------------------------------------------------------------------------
+.PHONY: ompi_tar
 ompi_tar: $(TAR_DIR)/$(OMPI_DIR).tar.gz 
 
 $(TAR_DIR)/$(OMPI_DIR).tar.gz: | $(TAR_DIR)
@@ -33,8 +32,7 @@ OMPI_UCX_DEP ?= --with-ucx=no
 endif
 
 #-------------------------------------------------------------------------------
-.DELETE_ON_ERROR:
-$(PREFIX)/ompi.complete: ucx ofi | $(PREFIX) $(TAR_DIR)/$(OMPI_DIR).tar.gz
+$(PREFIX)/ompi.complete:  | $(PREFIX) $(TAR_DIR)/$(OMPI_DIR).tar.gz
 ifdef OMPI_VER
 	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \

@@ -6,9 +6,10 @@ P4EST_DIR = p4est-$(P4EST_VER)
 #===============================================================================
 .PHONY: p4est
 .NOTPARALLEL: p4est
-p4est: $(PREFIX)/p4est.complete
+p4est: ompi oblas $(PREFIX)/p4est.complete
 
 #-------------------------------------------------------------------------------
+.PHONY: p4est_test
 p4est_tar: $(TAR_DIR)/$(P4EST_DIR).tar.gz
 
 $(TAR_DIR)/$(P4EST_DIR).tar.gz: | $(TAR_DIR)
@@ -20,8 +21,7 @@ else
 endif
 
 #-------------------------------------------------------------------------------
-.DELETE_ON_ERROR:
-$(PREFIX)/p4est.complete: ompi oblas | $(PREFIX) $(TAR_DIR)/$(P4EST_DIR).tar.gz
+$(PREFIX)/p4est.complete:  | $(PREFIX) $(TAR_DIR)/$(P4EST_DIR).tar.gz
 ifdef P4EST_VER
 	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \

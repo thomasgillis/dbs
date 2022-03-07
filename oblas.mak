@@ -9,6 +9,7 @@ OBLAS_DIR = OpenBLAS-$(OBLAS_VER)
 oblas: $(PREFIX)/oblas.complete
 
 #-------------------------------------------------------------------------------
+.PHONY: oblas_tar
 oblas_tar: $(TAR_DIR)/oblas-$(OBLAS_VER).tar.gz 
 
 $(TAR_DIR)/oblas-$(OBLAS_VER).tar.gz: | $(TAR_DIR)
@@ -17,11 +18,10 @@ ifdef OBLAS_VER
 	wget 'https://github.com/xianyi/OpenBLAS/archive/v$(OBLAS_VER).tar.gz' &&\
 	mv v$(OBLAS_VER).tar.gz oblas-$(OBLAS_VER).tar.gz
 else
-	touch $(TAR_DIR)/v$(OBLAS_VER).tar.gz
+	touch $(TAR_DIR)/oblas-$(OBLAS_VER).tar.gz
 endif
 
 #-------------------------------------------------------------------------------
-.DELETE_ON_ERROR:
 $(PREFIX)/oblas.complete: | $(PREFIX) $(TAR_DIR)/oblas-$(OBLAS_VER).tar.gz
 ifdef OBLAS_VER
 	mkdir -p $(COMP_DIR)  && \
@@ -50,7 +50,7 @@ endif
 #-------------------------------------------------------------------------------
 .PHONY: oblas_reallyclean
 oblas_reallyclean: 
-	@rm -rf $(TAR_DIR)/v$(OBLAS_VER).tar.gz
+	@rm -rf $(TAR_DIR)/oblas-$(OBLAS_VER).tar.gz
 #-------------------------------------------------------------------------------
 .PHONY: oblas_clean
 oblas_clean: 

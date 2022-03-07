@@ -6,9 +6,10 @@ HDF5_DIR = hdf5-$(HDF5_VER)
 #===============================================================================
 .PHONY: hdf5
 .NOTPARALLEL: hdf5
-hdf5: $(PREFIX)/hdf5.complete
+hdf5: ompi $(PREFIX)/hdf5.complete
 
 #-------------------------------------------------------------------------------
+.PHONY: hdf5tar
 hdf5_tar: $(TAR_DIR)/$(HDF5_DIR).tar.bz2
 
 $(TAR_DIR)/$(HDF5_DIR).tar.bz2: | $(TAR_DIR)
@@ -20,8 +21,7 @@ else
 endif
 
 #-------------------------------------------------------------------------------
-.DELETE_ON_ERROR:
-$(PREFIX)/hdf5.complete: ompi | $(PREFIX) $(TAR_DIR)/$(HDF5_DIR).tar.bz2
+$(PREFIX)/hdf5.complete:  | $(PREFIX) $(TAR_DIR)/$(HDF5_DIR).tar.bz2
 ifdef HDF5_VER
 	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  &&\
