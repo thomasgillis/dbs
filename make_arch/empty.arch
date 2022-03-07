@@ -1,4 +1,3 @@
-PREFIX = ${HOME}/test_chokotoff
-TAR_DIR = ${HOME}/tar_dir
+PREFIX = ${HOME}/test_dbs
+TAR_DIR = ${HOME}/tar_storage
 
-OBLAS_VER=0.3.18
