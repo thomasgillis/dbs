@@ -37,6 +37,7 @@ include hdf5.mak
 include fftw.mak
 include p4est.mak
 include oblas.mak
+include flups.mak
 
 #===============================================================================
 .PHONY: submit
@@ -44,20 +45,20 @@ submit:
 	sbatch scripts/$(CLUSTER).sh
 
 .PHONY: install
-install: ucx ofi ompi hdf5 fftw p4est oblas
+install: ucx ofi ompi hdf5 fftw p4est oblas flups
 
 .PHONY: tar
-tar: ucx_tar ofi_tar ompi_tar hdf5_tar fftw_tar p4est_tar oblas_tar
+tar: ucx_tar ofi_tar ompi_tar hdf5_tar fftw_tar p4est_tar oblas_tar flups_tar
 
 .PHONY: info
 .NOTPARALLEL: info
-info: module gen_info ucx_info ofi_info ompi_info hdf5_info fftw_info p4est_info oblas_info
+info: module gen_info ucx_info ofi_info ompi_info hdf5_info fftw_info p4est_info oblas_info flups_info
 
 .PHONY: clean
-clean: ucx_clean ofi_clean ompi_clean hdf5_clean fftw_clean p4est_clean oblas_clean
+clean: ucx_clean ofi_clean ompi_clean hdf5_clean fftw_clean p4est_clean oblas_clean flups_clean
 
 .PHONY: reallyclean
-reallyclean: clean ucx_reallyclean ofi_reallyclean ompi_reallyclean hdf5_reallyclean fftw_reallyclean p4est_reallyclean oblas_reallyclean
+reallyclean: clean ucx_reallyclean ofi_reallyclean ompi_reallyclean hdf5_reallyclean fftw_reallyclean p4est_reallyclean oblas_reallyclean flups_reallyclean
 
 #===============================================================================
 $(TAR_DIR):
