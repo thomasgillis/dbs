@@ -51,7 +51,7 @@ tar: ucx_tar ofi_tar ompi_tar hdf5_tar fftw_tar p4est_tar oblas_tar
 
 .PHONY: info
 .NOTPARALLEL: info
-info: module gen_info ucx_info ofi_info ompi_info hdf5_info fftw_info p4est_info oblas_info
+info: logo module gen_info ucx_info ofi_info ompi_info hdf5_info fftw_info p4est_info oblas_info
 
 .PHONY: clean
 clean: ucx_clean ofi_clean ompi_clean hdf5_clean fftw_clean p4est_clean oblas_clean
@@ -91,6 +91,18 @@ gen_info:
 	$(info - non-mpi compilers: CC = $(CC); CXX = $(CXX); FC = $(FC))
 	$(info --------------------------------------------------------------------------------)
 
+.PHONY: logo
+.NOTPARALLEL: logo
+logo:
+	$(info  )
+	$(info ██████╗ ██████╗ ███████╗ )
+	$(info ██╔══██╗██╔══██╗██╔════╝ )
+	$(info ██║  ██║██████╔╝███████╗ )
+	$(info ██║  ██║██╔══██╗╚════██║ )
+	$(info ██████╔╝██████╔╝███████║ )
+	$(info ╚═════╝ ╚═════╝ ╚══════╝ )
+	$(info  -- Depency Build System --)
+	$(info  )
 
 
 #ofi_clean ompi_clean
