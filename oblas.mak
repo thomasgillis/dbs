@@ -28,7 +28,7 @@ ifdef OBLAS_VER
 	tar -xvf v$(OBLAS_VER).tar.gz &&\
 	cd $(OBLAS_DIR) &&\
 	$(MAKE) USE_OPENMP=1 PREFIX=${PREFIX} -j &&\
-	$(MAKE) install -j &&\
+	$(MAKE) PREFIX=${PREFIX} install -j &&\
 	date > $@ &&\
 	hostname >> $@
 else
