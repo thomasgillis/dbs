@@ -34,8 +34,9 @@ endif
 
 #-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/ompi.complete: ucx ofi | $(PREFIX) $(COMP_DIR) $(TAR_DIR)/$(OMPI_DIR).tar.gz
+$(PREFIX)/ompi.complete: ucx ofi | $(PREFIX) $(TAR_DIR)/$(OMPI_DIR).tar.gz
 ifdef OMPI_VER
+	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \
 	cp $(TAR_DIR)/$(OMPI_DIR).tar.gz $(COMP_DIR)  && \
 	tar -xvf $(OMPI_DIR).tar.gz  && \

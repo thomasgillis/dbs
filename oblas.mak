@@ -21,8 +21,9 @@ endif
 
 #-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/oblas.complete: | $(PREFIX) $(COMP_DIR) $(TAR_DIR)/v$(OBLAS_VER).tar.gz
+$(PREFIX)/oblas.complete: | $(PREFIX) $(TAR_DIR)/v$(OBLAS_VER).tar.gz
 ifdef OBLAS_VER
+	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR) &&\
 	cp $(TAR_DIR)/v$(OBLAS_VER).tar.gz $(COMP_DIR) &&\
 	tar -xvf v$(OBLAS_VER).tar.gz &&\
@@ -44,7 +45,6 @@ ifdef OBLAS_VER
 else
 	$(info - OpenBlas not built)
 endif
-	$(info )
 
 #-------------------------------------------------------------------------------
 .PHONY: oblas_reallyclean

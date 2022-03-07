@@ -21,8 +21,9 @@ endif
 
 #-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/p4est.complete: ompi oblas | $(PREFIX) $(COMP_DIR) $(TAR_DIR)/$(P4EST_DIR).tar.gz
+$(PREFIX)/p4est.complete: ompi oblas | $(PREFIX) $(TAR_DIR)/$(P4EST_DIR).tar.gz
 ifdef P4EST_VER
+	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \
 	cp $(TAR_DIR)/$(P4EST_DIR).tar.gz $(COMP_DIR)  && \
 	tar -xvf $(P4EST_DIR).tar.gz  && \

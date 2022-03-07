@@ -21,7 +21,7 @@ endif
 
 #-------------------------------------------------------------------------------
 .DELETE_ON_ERROR:
-$(PREFIX)/fftw.complete: ompi | $(COMP_DIR) $(PREFIX) $(TAR_DIR)/$(FFTW_DIR).tar.gz
+$(PREFIX)/fftw.complete: ompi | $(PREFIX) $(TAR_DIR)/$(FFTW_DIR).tar.gz
 ifdef FFTW_VER
 	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \
