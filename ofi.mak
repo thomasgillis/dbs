@@ -27,7 +27,7 @@ ifdef OFI_VER
 	cd $(OFI_DIR)  && \
 	./autogen.sh  && \
 	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}  && \
-	$(MAKE) install -j  && \
+	$(MAKE) install -j 8 && \
 	date > $@  && \
 	hostname >> $@
 else

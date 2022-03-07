@@ -26,7 +26,7 @@ ifdef UCX_VER
 	tar -xvf $(UCX_DIR).tar.gz  && \
 	cd $(UCX_DIR)  && \
 	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX} --enable-compiler-opt=3  && \
-	$(MAKE) install -j  && \
+	$(MAKE) install -j 8 && \
 	date > $@  && \
 	hostname >> $@
 else

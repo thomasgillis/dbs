@@ -27,8 +27,8 @@ ifdef OBLAS_VER
 	cp $(TAR_DIR)/v$(OBLAS_VER).tar.gz $(COMP_DIR) &&\
 	tar -xvf v$(OBLAS_VER).tar.gz &&\
 	cd $(OBLAS_DIR) &&\
-	$(MAKE) USE_OPENMP=1 PREFIX=${PREFIX} -j &&\
-	$(MAKE) PREFIX=${PREFIX} install -j &&\
+	$(MAKE) USE_OPENMP=1 PREFIX=${PREFIX} -j 8 &&\
+	$(MAKE) PREFIX=${PREFIX} install -j 8 &&\
 	date > $@ &&\
 	hostname >> $@
 else

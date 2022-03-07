@@ -43,7 +43,7 @@ ifdef OMPI_VER
 	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX} \
 		--without-verbs --enable-mpirun-prefix-by-default --with-cuda=no \
 		$(OMPI_OFI_DEP) $(OMPI_UCX_DEP) $(OMPI_MISC_DEP)  && \
-	$(MAKE) install -j  && \
+	$(MAKE) install -j 8 && \
 	date > $@  && \
 	hostname >> $@
 else
