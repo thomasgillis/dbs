@@ -39,8 +39,8 @@ include p4est.mak
 include oblas.mak
 
 #===============================================================================
-.PHONY: submit
-submit:
+.PHONY: submit 
+submit: | tar
 	sbatch scripts/$(CLUSTER).sh
 
 .PHONY: install
