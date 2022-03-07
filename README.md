@@ -36,6 +36,14 @@ CLUSTER=cluster make submit
 CLUSTER=cluster make install
 ```
 
+Once done, you can simply instruct your system to use the newly compiles libs using
+
+```bash
+# put that in your bashrc
+export PREFIX=/the/prefix/you/have/used
+export PATH=${PREFIX}/bin:${PATH}
+```
+
 Other make targets:
 
 - `make info` will display general information
