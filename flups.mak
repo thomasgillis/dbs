@@ -3,9 +3,15 @@
 # useful variables
 FLUPS_DIR = flups-$(FLUPS_VER)
 
+ifdef FLUPS_VER
+FLUPS_CXXFLAGS = -fopenmp -O3 -g -std=c++11
+FLUPS_CCFLAGS = -fopenmp -O3 -g -std=c99
+FLUPS_LDFLAGS = -fopenmp -lstdc++
+endif 
+
+
 #===============================================================================
 .PHONY: flups
-.NOTPARALLEL: flups
 flups: ompi hdf5 fftw $(PREFIX)/flups.complete
 
 #-------------------------------------------------------------------------------
@@ -18,7 +24,7 @@ ifdef FLUPS_VER
 	git clone git@git.immc.ucl.ac.be:examples/flups.git && \
 	mv flups $(FLUPS_DIR) && \
 	cd $(FLUPS_DIR) && \
-	git checkout --track origin/dev-node-centered && \
+	git checkout --track origin/$(FLUPS_VER) && \
 	cd $(TAR_DIR)  && tar -czvf $(FLUPS_DIR).tar.gz $(FLUPS_DIR) && \
 	rm -rf $(FLUPS_DIR)  
 else
@@ -33,9 +39,13 @@ ifdef FLUPS_VER
 	cp $(TAR_DIR)/$(FLUPS_DIR).tar.gz $(COMP_DIR)  && \
 	tar -xvf $(FLUPS_DIR).tar.gz  && \
 	cd $(FLUPS_DIR) && \
-	ARCH_FILE=make_arch/make.dbs MPICC=${MPICC} MPICXX=${MPICXX} HDF5_DIR=${PREFIX} FFTW_DIR=${PREFIX} $(MAKE) install -j 8 && \
+	MPICC=${MPICC} MPICXX=${MPICXX} \
+	CXXFLAGS="$(FLUPS_CXXFLAGS)" CCFLAGS="$(FLUPS_CCFLAGS)" LDFLAGS="$(FLUPS_LDFLAGS)" \
+	HDF5_DIR=${PREFIX} FFTW_DIR=${PREFIX} \
+	$(MAKE) install -j 8 && \
 	date > $@  && \
-	hostname >> $@
+	hostname >> $@ && \
+	git describe --always --dirty >> $@
 else
 	touch $(PREFIX)/flups.complete
 endif
