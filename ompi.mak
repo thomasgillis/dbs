@@ -32,6 +32,17 @@ OMPI_UCX_DEP ?= --with-ucx=no
 endif
 
 #-------------------------------------------------------------------------------
+ifdef OMPI_VER
+MPICC = $(PREFIX)/bin/mpicc
+MPICXX = $(PREFIX)/bin/mpic++
+MPIFORT = $(PREFIX)/bin/mpif90
+else
+MPICC = mpicc
+MPICXX = mpic++
+MPIFORT = mpif90
+endif
+
+#-------------------------------------------------------------------------------
 $(PREFIX)/ompi.complete:  | $(PREFIX) $(TAR_DIR)/$(OMPI_DIR).tar.gz
 ifdef OMPI_VER
 	mkdir -p $(COMP_DIR)  && \
@@ -54,7 +65,7 @@ endif
 .NOTPARALLEL: ompi_info
 ompi_info:
 ifdef OMPI_VER
-	$(info - OMPI version: $(OMPI_VER) and ofi/ucx?: $(OMPI_OFI_DEP) $(OMPI_UCX_DEP))
+	$(info - OMPI version: $(OMPI_VER) and ofi/ucx?: $(OMPI_OFI_DEP) $(OMPI_UCX_DEP) $(OMPI_MISC_DEP))
 else
 	$(info - OMPI not built)
 endif
