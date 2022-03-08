@@ -39,7 +39,7 @@ ifdef FLUPS_VER
 	cp $(TAR_DIR)/$(FLUPS_DIR).tar.gz $(COMP_DIR)  && \
 	tar -xvf $(FLUPS_DIR).tar.gz  && \
 	cd $(FLUPS_DIR) && \
-	MPICC=${MPICC} MPICXX=${MPICXX} \
+	CC=${MPICC} CXX=${MPICXX} \
 	CXXFLAGS="$(FLUPS_CXXFLAGS)" CCFLAGS="$(FLUPS_CCFLAGS)" LDFLAGS="$(FLUPS_LDFLAGS)" \
 	HDF5_DIR=${PREFIX} FFTW_DIR=${PREFIX} \
 	$(MAKE) install -j 8 && \
