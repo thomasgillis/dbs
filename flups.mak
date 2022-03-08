@@ -15,10 +15,11 @@ $(TAR_DIR)/$(FLUPS_DIR).tar.gz: | $(TAR_DIR)
 ifdef FLUPS_VER
 	cd $(TAR_DIR) &&  \
 	rm -rf $(FLUPS_DIR) && \
-	git clone git@git.immc.ucl.ac.be:examples/flups.git $(FLUPS_DIR) && \
+	git clone git@git.immc.ucl.ac.be:examples/flups.git && \
+	mv flups $(FLUPS_DIR) && \
 	cd $(FLUPS_DIR) && \
 	git checkout --track origin/dev-node-centered && \
-	cd $(TAR_DIR) && tar -czvf $(FLUPS_DIR).tar.gz $(FLUPS_DIR) && \
+	cd $(TAR_DIR)  && tar -czvf $(FLUPS_DIR).tar.gz $(FLUPS_DIR) && \
 	rm -rf $(FLUPS_DIR)  
 else
 	touch $(TAR_DIR)/$(FLUPS_DIR).tar.gz
@@ -31,13 +32,10 @@ ifdef FLUPS_VER
 	cd $(COMP_DIR)  && \
 	cp $(TAR_DIR)/$(FLUPS_DIR).tar.gz $(COMP_DIR)  && \
 	tar -xvf $(FLUPS_DIR).tar.gz  && \
-	cd $(FLUPS_DIR) && GITCOMMIT=$(git describe --always --dirty) && cd - && \
-	mv $(FLUPS_DIR) $(FLUPS_DIR)-$(GITCOMMIT) && \
-	cd $(FLUPS_DIR)-$(GITCOMMIT) && \
-	ARCH_FILE=make_arch/make.dbs MPICC=$(MPICC) MPICXX=$(MPICXX) HDF5_DIR=$(PREFIX) FFTW_DIR=$(PREFIX) $(MAKE) intall -j 8 && \ 
+	cd $(FLUPS_DIR) && \
+	ARCH_FILE=make_arch/make.dbs MPICC=${MPICC} MPICXX=${MPICXX} HDF5_DIR=${PREFIX} FFTW_DIR=${PREFIX} $(MAKE) install -j 8 && \
 	date > $@  && \
-	hostname >> $@ && \ 
-	$(GITCOMMIT) >> $@
+	hostname >> $@
 else
 	touch $(PREFIX)/flups.complete
 endif
