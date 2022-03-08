@@ -9,20 +9,22 @@ OBLAS_DIR = OpenBLAS-$(OBLAS_VER)
 oblas: $(PREFIX)/oblas.complete
 
 #-------------------------------------------------------------------------------
-oblas_tar: $(TAR_DIR)/v$(OBLAS_VER).tar.gz 
+.PHONY: oblas_tar
+oblas_tar: $(TAR_DIR)/oblas-$(OBLAS_VER).tar.gz 
 
-$(TAR_DIR)/v$(OBLAS_VER).tar.gz: | $(TAR_DIR)
+$(TAR_DIR)/oblas-$(OBLAS_VER).tar.gz: | $(TAR_DIR)
 ifdef OBLAS_VER
 	cd $(TAR_DIR) && \
-	wget 'https://github.com/xianyi/OpenBLAS/archive/v$(OBLAS_VER).tar.gz'
+	wget 'https://github.com/xianyi/OpenBLAS/archive/v$(OBLAS_VER).tar.gz' &&\
+	mv v$(OBLAS_VER).tar.gz oblas-$(OBLAS_VER).tar.gz
 else
-	touch $(TAR_DIR)/v$(OBLAS_VER).tar.gz
+	touch $(TAR_DIR)/oblas-$(OBLAS_VER).tar.gz
 endif
 
 #-------------------------------------------------------------------------------
-.DELETE_ON_ERROR:
-$(PREFIX)/oblas.complete: | $(PREFIX) $(COMP_DIR) $(TAR_DIR)/v$(OBLAS_VER).tar.gz
+$(PREFIX)/oblas.complete: | $(PREFIX) $(TAR_DIR)/oblas-$(OBLAS_VER).tar.gz
 ifdef OBLAS_VER
+	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR) &&\
 	cp $(TAR_DIR)/v$(OBLAS_VER).tar.gz $(COMP_DIR) &&\
 	tar -xvf v$(OBLAS_VER).tar.gz &&\
@@ -44,12 +46,11 @@ ifdef OBLAS_VER
 else
 	$(info - OpenBlas not built)
 endif
-	$(info )
 
 #-------------------------------------------------------------------------------
 .PHONY: oblas_reallyclean
 oblas_reallyclean: 
-	@rm -rf $(TAR_DIR)/v$(OBLAS_VER).tar.gz
+	@rm -rf $(TAR_DIR)/oblas-$(OBLAS_VER).tar.gz
 #-------------------------------------------------------------------------------
 .PHONY: oblas_clean
 oblas_clean: 

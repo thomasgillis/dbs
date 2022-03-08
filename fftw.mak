@@ -5,10 +5,10 @@ FFTW_DIR = fftw-$(FFTW_VER)
 
 #===============================================================================
 .PHONY: fftw
-.NOTPARALLEL: fftw
-fftw: $(PREFIX)/fftw.complete
+fftw: ompi $(PREFIX)/fftw.complete
 
 #-------------------------------------------------------------------------------
+.PHONY: fftw_tar
 fftw_tar: $(TAR_DIR)/$(FFTW_DIR).tar.gz 
 
 $(TAR_DIR)/$(FFTW_DIR).tar.gz: | $(TAR_DIR)
@@ -20,8 +20,7 @@ else
 endif
 
 #-------------------------------------------------------------------------------
-.DELETE_ON_ERROR:
-$(PREFIX)/fftw.complete: ompi | $(COMP_DIR) $(PREFIX) $(TAR_DIR)/$(FFTW_DIR).tar.gz
+$(PREFIX)/fftw.complete: | $(PREFIX) $(TAR_DIR)/$(FFTW_DIR).tar.gz
 ifdef FFTW_VER
 	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \

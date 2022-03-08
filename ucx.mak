@@ -7,6 +7,7 @@ UCX_DIR = ucx-$(UCX_VER)
 .PHONY: ucx
 ucx: $(PREFIX)/ucx.complete
 
+.PHONY: ucx_tar
 ucx_tar: $(TAR_DIR)/$(UCX_DIR).tar.gz 
 
 $(TAR_DIR)/$(UCX_DIR).tar.gz: | $(TAR_DIR)
@@ -18,9 +19,9 @@ else
 endif
 
 #-------------------------------------------------------------------------------
-.DELETE_ON_ERROR:
-$(PREFIX)/ucx.complete: | $(COMP_DIR) $(PREFIX) $(TAR_DIR)/$(UCX_DIR).tar.gz
+$(PREFIX)/ucx.complete: | $(PREFIX) $(TAR_DIR)/$(UCX_DIR).tar.gz
 ifdef UCX_VER
+	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \
 	cp $(TAR_DIR)/$(UCX_DIR).tar.gz $(COMP_DIR)  && \
 	tar -xvf $(UCX_DIR).tar.gz  && \

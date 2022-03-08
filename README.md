@@ -1,6 +1,6 @@
-# CH0K0T0FF
+# DBS - Dependency Build System
 
-Portable and easy build tool for your libs and dependencies
+Portable and easy build tool for your dependencies
 
 
 ## Global picture
@@ -8,19 +8,17 @@ Portable and easy build tool for your libs and dependencies
 We rely on the widespread `make` tool to handle the different dependencies.
 Each lib's recipe is defined in the `lib.mak` file.
 
-First, you can use the `tar-list.sh` file to obtain the different tars
 For each cluster, you have to create an `cluster.arch` file.
 If you need to specify the version you want. Failing to specify a version implies that the lib will not be built
 
 You should **always** submit a job to build the libraries as the compute nodes are usually different from the login nodes.
-Simply submit in the queue a file like:
-
-```bash
-CLUSTER=cluster make all
-```
+To help you doing that, you can use the `make submit` command.
 
 
 ## Usage
+
+Follow the different steps here
+
 
 ```bash
 # get the list of modules to load
@@ -36,6 +34,14 @@ CLUSTER=cluster make tar
 CLUSTER=cluster make submit
 # or just install everything
 CLUSTER=cluster make install
+```
+
+Once done, you can simply instruct your system to use the newly compiles libs using
+
+```bash
+# put that in your bashrc
+export PREFIX=/the/prefix/you/have/used
+export PATH=${PREFIX}/bin:${PATH}
 ```
 
 Other make targets:
@@ -87,7 +93,7 @@ For each library you must specify the
 
 **OpenMPI specificities**
 
-OpenMPI relies on other libs to handle the actual implementation over the network (`ofi` and/or `ucx`), and other part of the implemenation (`pmix` etc)
+OpenMPI relies on other libs to handle the actual implementation over the network (`ofi` and/or `ucx`), and other part of the implementation (`pmix` etc)
 If you choose to use another version of those libs (i.e. not installed through this makefile) you must declare variables to indicate where to find the lib
 
 - `OMPI_UCX_DEP` will be `--with-ucx=no` unless you specify it otherwise
