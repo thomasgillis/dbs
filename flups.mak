@@ -40,9 +40,9 @@ ifdef FLUPS_VER
 	tar -xvf $(FLUPS_DIR).tar.gz  && \
 	cd $(FLUPS_DIR) && \
 	CC=${MPICC} CXX=${MPICXX} \
-	CXXFLAGS="$(FLUPS_CXXFLAGS)" CCFLAGS="$(FLUPS_CCFLAGS)" LDFLAGS="$(FLUPS_LDFLAGS)" \
-	HDF5_DIR=${PREFIX} FFTW_DIR=${PREFIX} \
-	$(MAKE) install -j 8 && \
+		CXXFLAGS="$(FLUPS_CXXFLAGS)" CCFLAGS="$(FLUPS_CCFLAGS)" LDFLAGS="$(FLUPS_LDFLAGS)" \
+		HDF5_DIR=${PREFIX} FFTW_DIR=${PREFIX} \
+		$(MAKE) install -j 8 && \
 	date > $@  && \
 	hostname >> $@ && \
 	git describe --always --dirty >> $@
