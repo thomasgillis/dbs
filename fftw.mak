@@ -27,7 +27,7 @@ ifdef FFTW_VER
 	cp $(TAR_DIR)/$(FFTW_DIR).tar.gz $(COMP_DIR)  && \
 	tar -xvf $(FFTW_DIR).tar.gz  && \
 	cd $(FFTW_DIR)  && \
-	CC=mpicc CXX=mpic++ FC=mpif90 F77=mpif77 ./configure --prefix=${PREFIX} \
+	CC=$(MPICC) CXX=$(MPICXX) FC=$(MPIFORT) F77=$(MPIFORT) ./configure --prefix=${PREFIX} \
 	   --disable-fortran --enable-avx --enable-openmp --enable-sse2  && \
 	$(MAKE) install -j 8  && \
 	date > $@  && \

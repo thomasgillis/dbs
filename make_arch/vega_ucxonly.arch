@@ -4,7 +4,9 @@ FC = gfortran
 CC = gcc
 CXX = g++
 
-BUILD_DIR = /ceph/hpc/scratch/user/euthomasg
+VEGA_USER := $(shell whoami)
+
+BUILD_DIR = /ceph/hpc/scratch/user/$(VEGA_USER)
 TAR_DIR = $(HOME)/tar_storage
 PREFIX = $(HOME)/lib-OpenMPI-4.1.2-UCX-1.12.0
 
@@ -16,7 +18,10 @@ PREFIX = $(HOME)/lib-OpenMPI-4.1.2-UCX-1.12.0
 #libevent/2.1.12-GCCcore-11.2.0
 #endef
 define MODULE_LIST
-GCC/11.2.0
+GCC/11.2.0 \
+PMIx/4.1.0-GCCcore-11.2.0 \
+hwloc/2.5.0-GCCcore-11.2.0 \
+libevent/2.1.12-GCCcore-11.2.0
 endef
 
 #===============================================================================
@@ -27,7 +32,13 @@ P4EST_VER = 2.8
 OBLAS_VER = 0.3.18
 
 OMPI_VER = 4.1.2
-OMPI_MISC_DEP = --enable-mca-no-build=btl-uct
+
+define OMPI_MISC_DEP
+--with-pmix=$(EBROOTPMIX) \
+--with-hwloc=$(EBROOTHWLOC) \
+--with-libevent=$(EBROOTLIBEVENT) \
+--enable-mca-no-build=btl-uct
+endef
 
 
 
