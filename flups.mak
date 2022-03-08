@@ -1,4 +1,4 @@
-# build recipe for P4EST
+# build recipe for FLUPS
 #===============================================================================
 # useful variables
 FLUPS_DIR = flups-$(FLUPS_VER)
@@ -6,7 +6,7 @@ FLUPS_DIR = flups-$(FLUPS_VER)
 #===============================================================================
 .PHONY: flups
 .NOTPARALLEL: flups
-flups: $(PREFIX)/flups.complete
+flups: ompi hdf5 fftw $(PREFIX)/flups.complete
 
 #-------------------------------------------------------------------------------
 flups_tar: $(TAR_DIR)/$(FLUPS_DIR).tar.gz
@@ -25,16 +25,16 @@ else
 endif
 
 #-------------------------------------------------------------------------------
-.DELETE_ON_ERROR:
-$(PREFIX)/flups.complete: ompi hdf5 fftw | $(PREFIX) $(COMP_DIR) $(TAR_DIR)/$(FLUPS_DIR).tar.gz
+$(PREFIX)/flups.complete: | $(PREFIX) $(TAR_DIR)/$(FLUPS_DIR).tar.gz
 ifdef FLUPS_VER
+	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \
 	cp $(TAR_DIR)/$(FLUPS_DIR).tar.gz $(COMP_DIR)  && \
 	tar -xvf $(FLUPS_DIR).tar.gz  && \
 	cd $(FLUPS_DIR) && GITCOMMIT=$(git describe --always --dirty) && cd - && \
 	mv $(FLUPS_DIR) $(FLUPS_DIR)-$(GITCOMMIT) && \
 	cd $(FLUPS_DIR)-$(GITCOMMIT) && \
-	ARCH_FILE=make_arch/make.$(CLUSTER)_ch0k0t0ff HDF5_DIR=$(PREFIX) FFTW_DIR=$(PREFIX) make intall -j && \ 
+	ARCH_FILE=make_arch/make.dbs MPICC=$(MPICC) MPICXX=$(MPICXX) HDF5_DIR=$(PREFIX) FFTW_DIR=$(PREFIX) $(MAKE) intall -j 8 && \ 
 	date > $@  && \
 	hostname >> $@ && \ 
 	$(GITCOMMIT) >> $@
