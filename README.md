@@ -102,3 +102,11 @@ If you choose to use another version of those libs (i.e. not installed through t
 - `OMPI_HWLOC_DEP` will be `--with-hwloc=internal` unless you specify it otherwise
 - `OMPI_ZLIB_DEP` will be `--with-zlib=internal` unless you specify it otherwise
 - `OMPI_LIBEVENT_DEP` will be `--with-libevent=internal` unless you specify it otherwise
+
+**PMIX specificities**
+
+Similar to OpenMPI, it's possible to choose where to take the different other libs from 
+
+- `OMPI_HWLOC_DEP` will be empty unless you specify it otherwise
+- `OMPI_ZLIB_DEP` will be empty unless you specify it otherwise
+- `OMPI_LIBEVENT_DEP` will be empty unless you specify it otherwise
