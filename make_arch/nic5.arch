@@ -18,4 +18,4 @@ HDF5_VER = 1.12.1
 OBLAS_VER = 0.3.18
 P4EST_VER = 2.8
 FFTW_VER=3.3.10
-FLUPS_VER=dev-node-centered
+FLUPS_BRANCH=dev-node-centered
