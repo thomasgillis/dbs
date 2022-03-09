@@ -30,6 +30,18 @@ OMPI_UCX_DEP = --with-ucx=$(PREFIX)
 else
 OMPI_UCX_DEP ?= --with-ucx=no
 endif
+ifdef LIBEVENT_VER
+OMPI_LIBEVENT_DEP = --with-libevent=$(PREFIX)
+endif
+ifdef HWLOC_VER
+OMPI_HWLOC_DEP = --with-hwloc=$(PREFIX)
+endif
+ifdef ZLIB_VER
+OMPI_ZLIB_DEP = --with-zlib=$(PREFIX)
+endif
+ifdef PMIX_VER
+OMPI_PMIX_DEP = --with-pmix=$(PREFIX)
+endif
 
 #-------------------------------------------------------------------------------
 ifdef OMPI_VER
@@ -66,6 +78,8 @@ endif
 ompi_info:
 ifdef OMPI_VER
 	$(info - OMPI version: $(OMPI_VER) and ofi/ucx?: $(OMPI_OFI_DEP) $(OMPI_UCX_DEP) $(OMPI_MISC_DEP))
+	$(info -      ofi/ucx?: $(OMPI_OFI_DEP) $(OMPI_UCX_DEP) $(OMPI_MISC_DEP))
+	$(info -      pmix/...?: $(OMPI_LIBEVENT_DEP) $(OMPI_HWLOC_DEP) $(OMPI_ZLIB_DEP) $(OMPI_PMIX_DEP))
 else
 	$(info - OMPI not built)
 endif
