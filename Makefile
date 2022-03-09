@@ -60,6 +60,9 @@ clean: ucx_clean ofi_clean ompi_clean hdf5_clean fftw_clean p4est_clean oblas_cl
 .PHONY: reallyclean
 reallyclean: clean ucx_reallyclean ofi_reallyclean ompi_reallyclean hdf5_reallyclean fftw_reallyclean p4est_reallyclean oblas_reallyclean
 
+.PHONY: universe
+universe: submit
+
 #===============================================================================
 $(TAR_DIR):
 	mkdir -p $(TAR_DIR)
