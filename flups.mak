@@ -1,9 +1,9 @@
 # build recipe for FLUPS
 #===============================================================================
 # useful variables
-FLUPS_DIR = flups-$(FLUPS_BRANCH)
+FLUPS_DIR = flups-$(FLUPS_VER)
 
-ifdef FLUPS_BRANCH
+ifdef FLUPS_VER
 FLUPS_CXXFLAGS = -fopenmp -O3 -g -std=c++11
 FLUPS_CCFLAGS = -fopenmp -O3 -g -std=c99
 FLUPS_LDFLAGS = -fopenmp -lstdc++
@@ -18,13 +18,13 @@ flups: ompi hdf5 fftw $(PREFIX)/flups.complete
 flups_tar: $(TAR_DIR)/$(FLUPS_DIR).tar.gz
 
 $(TAR_DIR)/$(FLUPS_DIR).tar.gz: | $(TAR_DIR)
-ifdef FLUPS_BRANCH
+ifdef FLUPS_VER
 	cd $(TAR_DIR) &&  \
 	rm -rf $(FLUPS_DIR) && \
 	git clone git@git.immc.ucl.ac.be:examples/flups.git && \
 	mv flups $(FLUPS_DIR) && \
 	cd $(FLUPS_DIR) && \
-	git checkout --track origin/$(FLUPS_BRANCH) && \
+	git checkout --track origin/$(FLUPS_VER) && \
 	cd $(TAR_DIR)  && tar -czvf $(FLUPS_DIR).tar.gz $(FLUPS_DIR) && \
 	rm -rf $(FLUPS_DIR)  
 else
@@ -33,7 +33,7 @@ endif
 
 #-------------------------------------------------------------------------------
 $(PREFIX)/flups.complete: | $(PREFIX) $(TAR_DIR)/$(FLUPS_DIR).tar.gz
-ifdef FLUPS_BRANCH
+ifdef FLUPS_VER
 	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \
 	cp $(TAR_DIR)/$(FLUPS_DIR).tar.gz $(COMP_DIR)  && \
@@ -54,8 +54,8 @@ endif
 .PHONY: flups_info
 .NOTPARALLEL: flups_info
 flups_info:
-ifdef FLUPS_BRANCH
-	$(info - FLUPS branch: $(FLUPS_BRANCH))
+ifdef FLUPS_VER
+	$(info - FLUPS branch: $(FLUPS_VER))
 else
 	$(info - FLUPS not built)
 endif

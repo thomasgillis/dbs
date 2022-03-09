@@ -16,4 +16,5 @@ OMPI_VER = 4.1.2
 HDF5_VER = 1.12.1
 FFTW_VER = 3.3.10
 OBLAS_VER = 0.3.18
-P4EST_VER= 2.8
+P4EST_VER = 2.8
+FLUPS_VER = dev-node-centered

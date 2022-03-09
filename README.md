@@ -89,6 +89,7 @@ For each library you must specify the
 - `FFTW_VER` - fftw
 - `OBLAS_VER` - openblas
 - `P4EST_VER` - p4est
+- `FLUPS_VER` - flups
 
 
 **OpenMPI specificities**
@@ -99,3 +100,7 @@ If you choose to use another version of those libs (i.e. not installed through t
 - `OMPI_UCX_DEP` will be `--with-ucx=no` unless you specify it otherwise
 - `OMPI_OFI_DEP` will be `--with-ofi=no` unless you specify it otherwise
 - `OMPI_MISC_DEP` might be used to specify the use of `pmix`, `hwloc` etc.
+
+
+**Flups specificities**
+Flups being developed, it has been decided to use a specific git branch for defining the specific version. It is therefore required to detail the needed git branch. Here is the currently used private [git repo](https://git.immc.ucl.ac.be/examples/flups) . Do not hesitate to contact the developper of Flups to ask for an access. 
