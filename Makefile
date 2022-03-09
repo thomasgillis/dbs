@@ -29,6 +29,7 @@ TAG := $(shell date '+%Y-%m-%d-%H%M')
 COMP_DIR := $(BUILD_DIR)/tmp_dbs-$(TAG)-$(UID)
 
 #===============================================================================
+# todo get the lib list using wildcart 
 # list of the differents libs supported
 include ucx.mak
 include ofi.mak
@@ -37,6 +38,10 @@ include hdf5.mak
 include fftw.mak
 include p4est.mak
 include oblas.mak
+include hwloc.mak
+include pmix.mak
+include zlib.mak
+include libevent.mak
 
 #===============================================================================
 .PHONY: submit 
@@ -51,14 +56,14 @@ tar: ucx_tar ofi_tar ompi_tar hdf5_tar fftw_tar p4est_tar oblas_tar
 
 .PHONY: info
 .NOTPARALLEL: info
-info: logo module gen_info ucx_info ofi_info ompi_info hdf5_info fftw_info p4est_info oblas_info
+info: logo module gen_info ucx_info ofi_info ompi_info hdf5_info fftw_info p4est_info oblas_info hwloc_info libevent_info zlib_info pmix_info
 
 .PHONY: clean
-clean: ucx_clean ofi_clean ompi_clean hdf5_clean fftw_clean p4est_clean oblas_clean
+clean: ucx_clean ofi_clean ompi_clean hdf5_clean fftw_clean p4est_clean oblas_clean hwloc_clean libevent_clean zlib_clean pmix_clean
 	@rm -rf $(PREFIX)/*
 
 .PHONY: reallyclean
-reallyclean: clean ucx_reallyclean ofi_reallyclean ompi_reallyclean hdf5_reallyclean fftw_reallyclean p4est_reallyclean oblas_reallyclean
+reallyclean: clean ucx_reallyclean ofi_reallyclean ompi_reallyclean hdf5_reallyclean fftw_reallyclean p4est_reallyclean oblas_reallyclean hwloc_reallyclean libevent_reallyclean zlib_reallyclean pmix_reallyclean
 
 #===============================================================================
 $(TAR_DIR):
