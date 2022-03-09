@@ -1,7 +1,7 @@
 # build recipe for LIBEVENT
 #===============================================================================
 # useful variables
-LIBEVENT_DIR = libevent-$(LIBEVENT_VER)
+LIBEVENT_DIR = libevent-$(LIBEVENT_VER)-stable
 
 #===============================================================================
 .PHONY: libevent
@@ -13,8 +13,7 @@ libevent_tar: $(TAR_DIR)/$(LIBEVENT_DIR).tar.gz
 $(TAR_DIR)/$(LIBEVENT_DIR).tar.gz: | $(TAR_DIR)
 ifdef LIBEVENT_VER
 	cd $(TAR_DIR)&& \
-	wget 'https://github.com/libevent/libevent/releases/download/release-$(LIBEVENT_VER)-stable/libevent-$(LIBEVENT_VER)-stable.tar.gz' &&\
-	mv libevent-$(LIBEVENT_VER)-stable.tar.gz $(LIBEVENT_DIR).tar.gz
+	wget 'https://github.com/libevent/libevent/releases/download/release-$(LIBEVENT_VER)-stable/libevent-$(LIBEVENT_VER)-stable.tar.gz'
 else
 	touch $(TAR_DIR)/$(LIBEVENT_DIR).tar.gz
 endif
@@ -27,7 +26,7 @@ ifdef LIBEVENT_VER
 	cp $(TAR_DIR)/$(LIBEVENT_DIR).tar.gz $(COMP_DIR)  && \
 	tar -xvf $(LIBEVENT_DIR).tar.gz  && \
 	cd $(LIBEVENT_DIR)  && \
-	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX} && \
+	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX} --disable-openssl && \
 	$(MAKE) install -j 8 && \
 	date > $@  && \
 	hostname >> $@

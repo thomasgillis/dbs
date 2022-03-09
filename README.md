@@ -98,4 +98,7 @@ If you choose to use another version of those libs (i.e. not installed through t
 
 - `OMPI_UCX_DEP` will be `--with-ucx=no` unless you specify it otherwise
 - `OMPI_OFI_DEP` will be `--with-ofi=no` unless you specify it otherwise
-- `OMPI_MISC_DEP` might be used to specify the use of `pmix`, `hwloc` etc.
+- `OMPI_PMIX_DEP` will be `--with-pmix=internal` unless you specify it otherwise
+- `OMPI_HWLOC_DEP` will be `--with-hwloc=internal` unless you specify it otherwise
+- `OMPI_ZLIB_DEP` will be `--with-zlib=internal` unless you specify it otherwise
+- `OMPI_LIBEVENT_DEP` will be `--with-libevent=internal` unless you specify it otherwise

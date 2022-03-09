@@ -49,10 +49,10 @@ submit: | tar
 	sbatch scripts/$(CLUSTER).sh
 
 .PHONY: install
-install: ucx ofi ompi hdf5 fftw p4est oblas
+install: ucx ofi ompi hdf5 fftw p4est oblas hwloc libevent zlib pmix
 
 .PHONY: tar
-tar: ucx_tar ofi_tar ompi_tar hdf5_tar fftw_tar p4est_tar oblas_tar
+tar: ucx_tar ofi_tar ompi_tar hdf5_tar fftw_tar p4est_tar oblas_tar hwloc_tar libevent_tar zlib_tar pmix_tar
 
 .PHONY: info
 .NOTPARALLEL: info

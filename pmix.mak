@@ -38,7 +38,7 @@ ifdef PMIX_VER
 	tar -xvf $(PMIX_DIR).tar.gz  && \
 	cd $(PMIX_DIR)  && \
 	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX} \
-		--enable-pmix-binaries \
+		--enable-pmix-binaries --with-ofi=no \
 		$(PMIX_LIBEVENT_DEP) $(PMIX_HWLOC_DEP) $(PMIX_ZLIB_DEP) && \
 	$(MAKE) install -j 8 && \
 	date > $@  && \
@@ -52,7 +52,10 @@ endif
 .NOTPARALLEL: pmix_info
 pmix_info:
 ifdef PMIX_VER
-	$(info - PMIX version: $(PMIX_VER), hwloc/libevent/zlib? $(PMIX_HWLOC_DEP) $(PMIX_LIBEVENT_DEP) $(PMIX_ZLIB_DEP))
+	$(info - PMIX version: $(PMIX_VER))
+	$(info $(space)      libevent?: $(PMIX_LIBEVENT_DEP))
+	$(info $(space)      zlib?: $(PMIX_ZLIB_DEP))
+	$(info $(space)      hwloc?: $(PMIX_HWLOC_DEP))
 else
 	$(info - PMIX not built)
 endif
