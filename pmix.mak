@@ -3,10 +3,23 @@
 # useful variables
 PMIX_DIR = pmix-$(PMIX_VER)
 
-#===============================================================================
-.PHONY: pmix
-pmix: zlib libevent hwloc $(PREFIX)/pmix.complete
+PMIX_DEPS = zlib libevent hwloc
 
+.PHONY: pmix
+pmix: $(PREFIX)/pmix.complete
+
+#===============================================================================
+ifdef LIBEVENT_VER
+PMIX_LIBEVENT_DEP = --with-libevent=$(PREFIX)
+endif
+ifdef HWLOC_VER
+PMIX_HWLOC_DEP = --with-hwloc=$(PREFIX)
+endif
+ifdef ZLIB_VER
+PMIX_ZLIB_DEP = --with-zlib=$(PREFIX)
+endif
+
+#-------------------------------------------------------------------------------
 .PHONY: pmix_tar
 pmix_tar: $(TAR_DIR)/$(PMIX_DIR).tar.gz 
 
@@ -19,18 +32,7 @@ else
 endif
 
 #-------------------------------------------------------------------------------
-ifdef LIBEVENT_VER
-PMIX_LIBEVENT_DEP = --with-libevent=$(PREFIX)
-endif
-ifdef HWLOC_VER
-PMIX_HWLOC_DEP = --with-hwloc=$(PREFIX)
-endif
-ifdef ZLIB_VER
-PMIX_ZLIB_DEP = --with-zlib=$(PREFIX)
-endif
-
-#-------------------------------------------------------------------------------
-$(PREFIX)/pmix.complete: | $(PREFIX) $(TAR_DIR)/$(PMIX_DIR).tar.gz
+$(PREFIX)/pmix.complete: $(foreach lib,$(PMIX_DEPS),$(PREFIX)/$(lib).complete) | $(PREFIX) $(TAR_DIR)/$(PMIX_DIR).tar.gz
 ifdef PMIX_VER
 	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \
