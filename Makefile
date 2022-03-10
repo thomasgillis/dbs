@@ -29,14 +29,18 @@ TAG := $(shell date '+%Y-%m-%d-%H%M')
 COMP_DIR := $(BUILD_DIR)/tmp_dbs-$(TAG)-$(UID)
 
 #===============================================================================
-# list of the differents libs supported
-include ucx.mak
-include ofi.mak
-include ompi.mak
-include hdf5.mak
-include fftw.mak
-include p4est.mak
-include oblas.mak
+# detects which lib is available
+LIBLIST := $(notdir $(basename $(wildcard *.mak)))
+
+# generate usefull lists
+LIBLIST_MAK = $(foreach lib,$(LIBLIST),$(lib).mak)
+LIBLIST_INFO = $(foreach lib,$(LIBLIST),$(lib)_info)
+LIBLIST_TAR = $(foreach lib,$(LIBLIST),$(lib)_tar)
+LIBLIST_CLEAN = $(foreach lib,$(LIBLIST),$(lib)_clean)
+LIBLIST_RCLEAN = $(foreach lib,$(LIBLIST),$(lib)_reallyclean)
+
+include $(LIBLIST_MAK)
+
 
 #===============================================================================
 .PHONY: submit 
@@ -44,21 +48,21 @@ submit: | tar
 	sbatch scripts/$(CLUSTER).sh
 
 .PHONY: install
-install: ucx ofi ompi hdf5 fftw p4est oblas
+install: $(LIBLIST)
 
 .PHONY: tar
-tar: ucx_tar ofi_tar ompi_tar hdf5_tar fftw_tar p4est_tar oblas_tar
+tar: $(LIBLIST_TAR)
 
-.PHONY: info
 .NOTPARALLEL: info
-info: logo module gen_info ucx_info ofi_info ompi_info hdf5_info fftw_info p4est_info oblas_info
+.PHONY: info
+info: logo module gen_info $(LIBLIST_INFO)
 
 .PHONY: clean
-clean: ucx_clean ofi_clean ompi_clean hdf5_clean fftw_clean p4est_clean oblas_clean
+clean: $(LIBLIST_CLEAN)
 	@rm -rf $(PREFIX)/*
 
 .PHONY: reallyclean
-reallyclean: clean ucx_reallyclean ofi_reallyclean ompi_reallyclean hdf5_reallyclean fftw_reallyclean p4est_reallyclean oblas_reallyclean
+reallyclean: clean $(LIBLIST_RCLEAN)
 
 .PHONY: universe
 universe: submit

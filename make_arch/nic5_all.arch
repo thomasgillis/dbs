@@ -1,23 +1,27 @@
-# this file is used to demonstrate a typical configuration
 #===============================================================================
 # GENERAL PARAMETERS
 FC = gfortran
 CC = gcc
 CXX = g++
 
-BUILD_DIR=/scratch
-TAR_DIR = $(HOME)/tar-dir
-PREFIX = $(HOME)/build-dir
+BUILD_DIR = $(SCRATCH)
+TAR_DIR = $(HOME)/tar-storage
+PREFIX = $(HOME)/lib-OpenMPI-4.1.2-all
+
+define MODULE_LIST
+releases/2021b \
+GCC/11.2.0
+endef
 
 #===============================================================================
 UCX_VER = 1.12.0
-OFI_VER = 1.14.0
 OMPI_VER = 4.1.2
 HDF5_VER = 1.12.1
-FFTW_VER = 3.3.10
 OBLAS_VER = 0.3.18
-P4EST_VER= 2.8
+P4EST_VER = 2.8
+FFTW_VER = 3.3.10
 ZLIB_VER = 1.2.11
-LIBEVENT_VER = 2.12.1
-PMIX_VER = 4.1.0
 HWLOC_VER = 2.7.0
+LIBEVENT_VER= 2.1.12
+PMIX_VER = 4.1.2
+
