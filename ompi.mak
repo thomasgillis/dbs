@@ -32,23 +32,21 @@ OMPI_UCX_DEP ?= --with-ucx=no
 endif
 ifdef LIBEVENT_VER
 OMPI_LIBEVENT_DEP = --with-libevent=$(PREFIX)
-else
-OMPI_LIBEVENT_DEP = --with-libevent=internal
 endif
 ifdef HWLOC_VER
 OMPI_HWLOC_DEP = --with-hwloc=$(PREFIX)
 else
-OMPI_HWLOC_DEP = --with-hwloc=internal
+OMPI_HWLOC_DEP ?= --with-hwloc=internal
 endif
 ifdef ZLIB_VER
 OMPI_ZLIB_DEP = --with-zlib=$(PREFIX)
 else
-OMPI_ZLIB_DEP = --with-zlib=internal
+OMPI_ZLIB_DEP ?= --with-zlib=internal
 endif
 ifdef PMIX_VER
 OMPI_PMIX_DEP = --with-pmix=$(PREFIX)
 else
-OMPI_PMIX_DEP = --with-pmix=internal
+OMPI_PMIX_DEP ?= --with-pmix=internal
 endif
 
 #-------------------------------------------------------------------------------
@@ -72,7 +70,7 @@ ifdef OMPI_VER
 	cd $(OMPI_DIR)  && \
 	CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX} \
 		--without-verbs --enable-mpirun-prefix-by-default --with-cuda=no \
-		$(OMPI_OFI_DEP) $(OMPI_UCX_DEP)   \
+		$(OMPI_OFI_DEP) $(OMPI_UCX_DEP) $(OMPI_MISC_OPT)\
 		$(OMPI_PMIX_DEP) $(OMPI_ZLIB_DEP) $(OMPI_HWLOC_DEP) $(OMPI_LIBEVENT_DEP) && \
 	$(MAKE) install -j 8 && \
 	date > $@  && \
