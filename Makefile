@@ -41,7 +41,6 @@ LIBLIST_RCLEAN = $(foreach lib,$(LIBLIST),$(lib)_reallyclean)
 
 include $(LIBLIST_MAK)
 
-
 #===============================================================================
 .PHONY: submit 
 submit: | tar
@@ -116,7 +115,6 @@ logo:
 	$(info )
 
 
-#ofi_clean ompi_clean
 	
 
 

@@ -89,7 +89,7 @@ For each library you must specify the
 - `FFTW_VER` - fftw
 - `OBLAS_VER` - openblas
 - `P4EST_VER` - p4est
-
+- `FLUPS_VER` - flups
 
 **OpenMPI specificities**
 
