@@ -91,7 +91,6 @@ For each library you must specify the
 - `P4EST_VER` - p4est
 - `FLUPS_VER` - flups
 
-
 **OpenMPI specificities**
 
 OpenMPI relies on other libs to handle the actual implementation over the network (`ofi` and/or `ucx`), and other part of the implementation (`pmix` etc)
@@ -99,8 +98,20 @@ If you choose to use another version of those libs (i.e. not installed through t
 
 - `OMPI_UCX_DEP` will be `--with-ucx=no` unless you specify it otherwise
 - `OMPI_OFI_DEP` will be `--with-ofi=no` unless you specify it otherwise
-- `OMPI_MISC_DEP` might be used to specify the use of `pmix`, `hwloc` etc.
+- `OMPI_PMIX_DEP` will be `--with-pmix=internal` unless you specify it otherwise
+- `OMPI_HWLOC_DEP` will be `--with-hwloc=internal` unless you specify it otherwise
+- `OMPI_ZLIB_DEP` will be `--with-zlib=internal` unless you specify it otherwise
+- `OMPI_LIBEVENT_DEP` will be `--with-libevent=internal` unless you specify it otherwise
+
+**PMIX specificities**
+
+Similar to OpenMPI, it's possible to choose where to take the different other libs from 
+
+- `OMPI_HWLOC_DEP` will be empty unless you specify it otherwise
+- `OMPI_ZLIB_DEP` will be empty unless you specify it otherwise
+- `OMPI_LIBEVENT_DEP` will be empty unless you specify it otherwise
 
 
 **Flups specificities**
-Flups being developed, it has been decided to use a specific git branch for defining the specific version. It is therefore required to detail the needed git branch. Here is the currently used private [git repo](https://git.immc.ucl.ac.be/examples/flups) . Do not hesitate to contact the developper of Flups to ask for an access. 
+
+Flups being developed, it has been decided to use a specific git branch for defining the specific version. It is therefore required to detail the needed git branch. Here is the currently used private [git repo](https://git.immc.ucl.ac.be/examples/flups) . Do not hesitate to contact the [Flups developper](mailto:thomas.gillis@uclouvain.be) to ask for an access. 
