@@ -28,7 +28,7 @@ CLUSTER ?= default
 
 #-------------------------------------------------------------------------------
 #include the cluster-dependent information
-include make_arch/${CLUSTER}.arch 
+include clusters/${CLUSTER}.arch 
 
 # include all the lib-related info
 include $(LIBLIST_MAK)
