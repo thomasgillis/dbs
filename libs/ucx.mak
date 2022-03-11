@@ -2,6 +2,7 @@
 #===============================================================================
 # useful variables
 UCX_DIR = ucx-$(UCX_VER)
+UCX_DEP =
 
 #===============================================================================
 .PHONY: ucx
@@ -19,7 +20,7 @@ else
 endif
 
 #-------------------------------------------------------------------------------
-$(PREFIX)/ucx.complete: | $(PREFIX) $(TAR_DIR)/$(UCX_DIR).tar.gz
+$(PREFIX)/ucx.complete: $(foreach lib,$(UCX_DEP),$(PREFIX)/$(lib).complete) | $(PREFIX) $(TAR_DIR)/$(UCX_DIR).tar.gz
 ifdef UCX_VER
 	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \

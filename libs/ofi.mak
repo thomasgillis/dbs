@@ -3,6 +3,8 @@
 # useful variables
 OFI_DIR = libfabric-$(OFI_VER)
 
+OFI_DEP =
+
 #===============================================================================
 .PHONY: ofi
 ofi: $(PREFIX)/ofi.complete
