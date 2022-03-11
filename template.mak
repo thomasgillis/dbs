@@ -30,7 +30,7 @@ target_installcmd ?= $(MAKE) install -j8
 .PHONY: doit
 doit: $(PREFIX)/$(target).complete
 
-.PHONY: touchit
+.PHONY: tit
 touchit: $(foreach lib,$(target_dep),$(PREFIX)/$(lib).complete)  | $(PREFIX)
 	touch $(PREFIX)/$(target).complete
 

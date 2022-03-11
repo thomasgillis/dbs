@@ -1,6 +1,6 @@
 # build recipe for PMIX
 #-------------------------------------------------------------------------------
-pmix_opt = 
+pmix_opt = ""
 # get the correct libevent etc
 ifdef LIBEVENT_VER
 pmix_opt += --with-libevent=$(PREFIX)
@@ -16,11 +16,11 @@ $(info $(pmix_opt))
 
 #-------------------------------------------------------------------------------
 define pmix_template_opt
-	target=pmix \
-	target_ver=$(PMIX_VER) \
+	target="pmix" \
+	target_ver="$(PMIX_VER)" \
 	target_url="https://github.com/openpmix/openpmix/releases/download/v$(PMIX_VER)/pmix-$(PMIX_VER).tar.gz" \
 	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}"\
-	target_dep="zlib libevent pmix"\
+	target_dep="zlib libevent hwloc"\
 	target_confopt="$(pmix_opt)"
 endef
 
@@ -30,27 +30,36 @@ pmix:
 ifdef PMIX_VER
 	@$(pmix_template_opt) $(MAKE) --file=template.mak doit
 else
-	@$(pmix_template_opt) $(MAKE) --file=template.mak touchit
+	@$(pmix_template_opt) $(MAKE) --file=template.mak tit
+endif
+
+#-------------------------------------------------------------------------------
+.PHONY: pmix_tar
+pmix_tar: 
+ifdef ZLIB_VER
+	@$(pmix_template_opt) $(MAKE) --file=template.mak tar
+else
+	@$(pmix_template_opt) $(MAKE) --file=template.mak ttar
 endif
 
 #-------------------------------------------------------------------------------
 .PHONY: pmix_info
 pmix_info:
 ifdef PMIX_VER
-	@$(pmix_template_opt) $(MAKE) --file=template.mak template_info
+	@$(pmix_template_opt) $(MAKE) --file=template.mak info
 else
-	@$(pmix_template_opt) $(MAKE) --file=template.mak template_info_none
+	@$(pmix_template_opt) $(MAKE) --file=template.mak info_none
 endif
 
 #-------------------------------------------------------------------------------
 .PHONY: pmix_clean
 pmix_clean: 
-	@$(pmix_template_opt) $(MAKE) --file=template.mak tempalte_clean
+	@$(pmix_template_opt) $(MAKE) --file=template.mak clean
 
 #-------------------------------------------------------------------------------
 .PHONY: pmix_reallyclean
 pmix_reallyclean: 
-	@$(pmix_template_opt) $(MAKE) --file=template.mak template_reallyclean
+	@$(pmix_template_opt) $(MAKE) --file=template.mak reallyclean
 
 
 # # build recipe for PMIX

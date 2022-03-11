@@ -13,7 +13,7 @@ zlib:
 ifdef ZLIB_VER
 	@$(zlib_template_opt) $(MAKE) --file=template.mak doit
 else
-	@$(zlib_template_opt) $(MAKE) --file=template.mak touchit
+	@$(zlib_template_opt) $(MAKE) --file=template.mak tit
 endif
 
 #-------------------------------------------------------------------------------

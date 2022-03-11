@@ -13,7 +13,16 @@ hwloc:
 ifdef HWLOC_VER
 	@$(hwloc_template_opt) $(MAKE) --file=template.mak doit
 else
-	@$(hwloc_template_opt) $(MAKE) --file=template.mak touchit
+	@$(hwloc_template_opt) $(MAKE) --file=template.mak tit
+endif
+
+#===============================================================================
+.PHONY: hwloc_tar
+hwloc_tar:
+ifdef HWLOC_VER
+	@$(hwloc_template_opt) $(MAKE) --file=template.mak tar
+else
+	@$(hwloc_template_opt) $(MAKE) --file=template.mak ttar
 endif
 
 #-------------------------------------------------------------------------------
