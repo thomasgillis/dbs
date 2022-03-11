@@ -8,7 +8,7 @@ define zlib_template_opt
 endef
 
 #===============================================================================
-.PHONY: zlib
+# no .PHONY here as we want to force the rerun of the dep everytime
 zlib:
 ifdef ZLIB_VER
 	@$(zlib_template_opt) $(MAKE) --file=template.mak doit

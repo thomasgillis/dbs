@@ -18,8 +18,8 @@ else
 endif
 
 #===============================================================================
-.PHONY: oblas
-oblas:
+.PHONY: oblas_tar
+oblas_tar:
 ifdef OBLAS_VER
 	@$(oblas_template_opt) $(MAKE) --file=template.mak tar
 else

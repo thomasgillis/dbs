@@ -45,14 +45,6 @@ UID := $(shell uuidgen -t | head -c 8)
 TAG := $(shell date '+%Y-%m-%d-%H%M')
 COMP_DIR := $(BUILD_DIR)/tmp_dbs-$(TAG)-$(UID)
 
-#===============================================================================
-# define how to make the directories
-$(TAR_DIR):
-	mkdir -p $(TAR_DIR)
-$(COMP_DIR):
-	mkdir -p $(COMP_DIR)
-$(PREFIX):
-	mkdir -p $(PREFIX)
 
 #===============================================================================
 .PHONY: submit 

@@ -8,7 +8,7 @@ define hwloc_template_opt
 endef
 
 #===============================================================================
-.PHONY: hwloc
+# no .PHONY here as we want to force the rerun of the dep everytime
 hwloc:
 ifdef HWLOC_VER
 	@$(hwloc_template_opt) $(MAKE) --file=template.mak doit

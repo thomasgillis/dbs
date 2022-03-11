@@ -115,3 +115,11 @@ Similar to OpenMPI, it's possible to choose where to take the different other li
 **Flups specificities**
 
 Flups being developed, it has been decided to use a specific git branch for defining the specific version. It is therefore required to detail the needed git branch. Here is the currently used private [git repo](https://git.immc.ucl.ac.be/examples/flups) . Do not hesitate to contact the [Flups developper](mailto:thomas.gillis@uclouvain.be) to ask for an access. 
+
+
+## Implementation notes
+
+- `.NOTPARALLEL` in a makefile will force the non-parallelization of the current `make` call on all the prerequisites + recipes.
+- `.PHONY` if a target is declared as `.PHONY` it will be executed only when explicitly requested by a `make` command. Therefore using it as a prerequisite is pointless and it will never be executed. This is why all the "main targets" for the libs cannot be `.PHONY`
+- the dependencies of a lib must be specified in the "main" targets for the lib, e.g. `hdf5: ompi zlib`. This way the dependency will be completed first.
+

@@ -9,7 +9,7 @@ define libevent_template_opt
 endef
 
 #===============================================================================
-.PHONY: libevent
+# no .PHONY here as we want to force the rerun of the dep everytime
 libevent:
 ifdef LIBEVENT_VER
 	@$(libevent_template_opt) $(MAKE) --file=template.mak doit

@@ -12,21 +12,21 @@ ifdef ZLIB_VER
 pmix_opt += --with-zlib=$(PREFIX)
 endif
 
-$(info $(pmix_opt))
-
 #-------------------------------------------------------------------------------
 define pmix_template_opt
 	target="pmix" \
 	target_ver="$(PMIX_VER)" \
 	target_url="https://github.com/openpmix/openpmix/releases/download/v$(PMIX_VER)/pmix-$(PMIX_VER).tar.gz" \
 	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}"\
-	target_dep="zlib libevent hwloc"\
 	target_confopt="$(pmix_opt)"
 endef
 
+
+pmix_dep = zlib libevent hwloc
+
 #===============================================================================
-.PHONY: pmix
-pmix:
+# no .PHONY here as we want to force the rerun of the dep everytime
+pmix: zlib libevent hwloc 
 ifdef PMIX_VER
 	@$(pmix_template_opt) $(MAKE) --file=template.mak doit
 else
