@@ -21,9 +21,9 @@
 target_dir = $(target)-$(traget_ver)
 
 # we handle the optional variables
-target_precmd ?=
-target_confopt ?=
-target_installcmd != $(MAKE) install -j8
+target_precmd ?= $(empty)
+target_confopt ?= $(empty)
+target_installcmd ?= $(MAKE) install -j8
 
 
 #===============================================================================
@@ -37,14 +37,19 @@ touchit: $(foreach lib,$(target_dep),$(PREFIX)/$(lib).complete)  | $(PREFIX)
 .PHONY: tar
 tar: $(TAR_DIR)/$(target)-$(traget_ver).tar.gz
 
+.PHONY: ttar
+ttar:
+	touch $(TAR_DIR)/$(target)-$(traget_ver).tar.gz
+
 #-------------------------------------------------------------------------------
 $(TAR_DIR)/$(target_dir).tar.gz: | $(TAR_DIR)
-	echo "$(url)"
+	echo "$(url)" &&\
 	cd $(TAR_DIR) &&\
 	wget $(target_url) - O $(target_dir).tar.gz
 
 $(PREFIX)/$(target).complete: $(foreach lib,$(target_dep),$(PREFIX)/$(lib).complete)  | $(PREFIX) $(TAR_DIR)/$(target_dir).tar.gz
-	mkdir -p $(COMP_DIR)  && cd $(COMP_DIR) &&\
+	mkdir -p $(COMP_DIR)  &&\
+	cd $(COMP_DIR) &&\
 	cp $(TAR_DIR)/$(target_dir).tar.gz $(COMP_DIR) &&\
 	tar -xvf $(TAR_DIR)/$(target_dir).tar.gz -O $(target_dir) --strip-components=1 &&\
 	cd $(target_dir) && \
@@ -56,25 +61,25 @@ $(PREFIX)/$(target).complete: $(foreach lib,$(target_dep),$(PREFIX)/$(lib).compl
 
 
 #-------------------------------------------------------------------------------
-.PHONY: template_clean
-template_clean: 
+.PHONY: clean
+clean: 
 	@rm -rf $(PREFIX)/$(target).complete
 #-------------------------------------------------------------------------------
-.PHONY: template_reallyclean
-template_reallyclean: 
+.PHONY: reallyclean
+reallyclean: 
 	@rm -rf $(TAR_DIR)/$(target_dir).tar.gz
 
 #-------------------------------------------------------------------------------
-.PHONY: template_info
-template_info:
+.PHONY: info
+info:
 	@echo "- $(target):"
 	@echo "  > version: $(target_ver)"
 	@echo "  > dependencies: $(target_dep)"
 	@echo "  > opt: $(target_confopt)"
 
 #-------------------------------------------------------------------------------
-.PHONY: template_info_none
-template_info_none:
+.PHONY: info_none
+info_none:
 	@echo "- $(target) skipped"
 
 #-------------------------------------------------------------------------------
