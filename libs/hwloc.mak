@@ -1,15 +1,18 @@
 # # build recipe for HWLOC
 #-------------------------------------------------------------------------------
+hwloc_dep = 
+
 define hwloc_template_opt
-	target=hwloc \
-	target_ver=$(HWLOC_VER) \
+	target="hwloc" \
+	target_ver="$(HWLOC_VER)" \
+	target_dep="$(hwloc_dep)" \
 	target_url="https://download.open-mpi.org/release/hwloc/v2.7/hwloc-$(HWLOC_VER).tar.gz" \
 	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}"
 endef
 
 #===============================================================================
-# no .PHONY here as we want to force the rerun of the dep everytime
-hwloc:
+.PHONY: hwloc
+hwloc: $(hwloc_dep)
 ifdef HWLOC_VER
 	@$(hwloc_template_opt) $(MAKE) --file=template.mak doit
 else
@@ -29,20 +32,20 @@ endif
 .PHONY: hwloc_info
 hwloc_info:
 ifdef HWLOC_VER
-	@$(hwloc_template_opt) $(MAKE) --file=template.mak template_info
+	@$(hwloc_template_opt) $(MAKE) --file=template.mak info
 else
-	@$(hwloc_template_opt) $(MAKE) --file=template.mak template_info_none
+	@$(hwloc_template_opt) $(MAKE) --file=template.mak info_none
 endif
 
 #-------------------------------------------------------------------------------
 .PHONY: hwloc_clean
 hwloc_clean: 
-	@$(hwloc_template_opt) $(MAKE) --file=template.mak tempalte_clean
+	@$(hwloc_template_opt) $(MAKE) --file=template.mak clean
 
 #-------------------------------------------------------------------------------
 .PHONY: hwloc_reallyclean
 hwloc_reallyclean: 
-	@$(hwloc_template_opt) $(MAKE) --file=template.mak template_reallyclean
+	@$(hwloc_template_opt) $(MAKE) --file=template.mak reallyclean
 
 # # build recipe for HWLOC
 # #===============================================================================

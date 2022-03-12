@@ -1,15 +1,18 @@
-# # build recipe for ZLIB
+# build recipe for ZLIB
 #-------------------------------------------------------------------------------
+zlib_dep = 
+
 define zlib_template_opt
 	target="zlib" \
 	target_ver="$(ZLIB_VER)" \
+	target_dep="$(zlib_dep)" \
 	target_url="https://zlib.net/zlib-$(ZLIB_VER).tar.gz" \
 	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}"
 endef
 
 #===============================================================================
-# no .PHONY here as we want to force the rerun of the dep everytime
-zlib:
+.PHONY: zlib
+zlib: $(zlib_dep)
 ifdef ZLIB_VER
 	@$(zlib_template_opt) $(MAKE) --file=template.mak doit
 else

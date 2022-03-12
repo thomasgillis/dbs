@@ -1,8 +1,11 @@
 # # build recipe for OBLAS
 #-------------------------------------------------------------------------------
+oblas_dep = 
+
 define oblas_template_opt
 	target="oblas" \
-	target_ver="$(OBLAS_VER)"" \
+	target_ver="$(OBLAS_VER)" \
+	target_dep="$(oblas_dep)" \
 	target_url="https://github.com/xianyi/OpenBLAS/archive/v$(OBLAS_VER).tar.gz" \
 	target_confcmd="$(MAKE) USE_OPENMP=1 PREFIX=${PREFIX} -j8" \
 	target_installcmd="$(MAKE) PREFIX=${PREFIX} install -j8"
@@ -30,20 +33,20 @@ endif
 .PHONY: oblas_info
 oblas_info:
 ifdef OBLAS_VER
-	@$(oblas_template_opt) $(MAKE) --file=template.mak template_info
+	@$(oblas_template_opt) $(MAKE) --file=template.mak info
 else
-	@$(oblas_template_opt) $(MAKE) --file=template.mak template_info_none
+	@$(oblas_template_opt) $(MAKE) --file=template.mak info_none
 endif
 
 #-------------------------------------------------------------------------------
 .PHONY: oblas_clean
 oblas_clean: 
-	@$(oblas_template_opt) $(MAKE) --file=template.mak tempalte_clean
+	@$(oblas_template_opt) $(MAKE) --file=template.mak clean
 
 #-------------------------------------------------------------------------------
 .PHONY: oblas_reallyclean
 oblas_reallyclean: 
-	@$(oblas_template_opt) $(MAKE) --file=template.mak template_reallyclean
+	@$(oblas_template_opt) $(MAKE) --file=template.mak reallyclean
 
 
 # build recipe for OBLAS

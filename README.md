@@ -120,6 +120,6 @@ Flups being developed, it has been decided to use a specific git branch for defi
 ## Implementation notes
 
 - `.NOTPARALLEL` in a makefile will force the non-parallelization of the current `make` call on all the prerequisites + recipes.
-- `.PHONY` if a target is declared as `.PHONY` it will be executed only when explicitly requested by a `make` command. Therefore using it as a prerequisite is pointless and it will never be executed. This is why all the "main targets" for the libs cannot be `.PHONY`
-- the dependencies of a lib must be specified in the "main" targets for the lib, e.g. `hdf5: ompi zlib`. This way the dependency will be completed first.
+- `.PHONY` if a target is declared as `.PHONY` it will be executed only when explicitly requested by a `make` command or as a dependency.
+- the dependencies for a lib must be defined on the top level and forwarded to the `template` level. The top level will ensure that the associated `lib.complete` is done before entering the compilation itself. The `template` level will make sure that the lib is recompiled in the dependency has changed
 
