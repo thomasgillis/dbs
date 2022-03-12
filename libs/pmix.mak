@@ -1,6 +1,6 @@
 # build recipe for PMIX
 #-------------------------------------------------------------------------------
-pmix_opt = ""
+pmix_opt ?= ""
 # get the correct libevent etc
 ifdef LIBEVENT_VER
 pmix_opt += --with-libevent=$(PREFIX)
