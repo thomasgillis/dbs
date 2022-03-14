@@ -8,20 +8,10 @@ VEGA_USER := $(shell whoami)
 
 BUILD_DIR = /ceph/hpc/scratch/user/$(VEGA_USER)
 TAR_DIR = $(HOME)/tar_storage
-PREFIX = $(HOME)/lib-OpenMPI-4.1.2-UCX-1.12.0
+PREFIX = $(HOME)/lib-OpenMPI-4.1.2-all
 
-#define MODULE_LIST
-#GCC/11.2.0 \
-#UCX/1.11.2-GCCcore-11.2.0 \
-#PMIx/4.1.0-GCCcore-11.2.0 \
-#hwloc/2.5.0-GCCcore-11.2.0 \
-#libevent/2.1.12-GCCcore-11.2.0
-#endef
 define MODULE_LIST
-GCC/11.2.0 \
-PMIx/4.1.0-GCCcore-11.2.0 \
-hwloc/2.5.0-GCCcore-11.2.0 \
-libevent/2.1.12-GCCcore-11.2.0
+GCC/11.2.0
 endef
 
 #===============================================================================
@@ -30,15 +20,19 @@ FFTW_VER = 3.3.10
 HDF5_VER = 1.12.1
 P4EST_VER = 2.8
 OBLAS_VER = 0.3.18
+PMIX_VER = 4.1.2
+HWLOC_VER = 2.7.0
+LIBEVENT_VER = 2.1.12
+#ZLIB_VER = 1.2.11
 
 OMPI_VER = 4.1.2
 
-define OMPI_MISC_DEP
---with-pmix=$(EBROOTPMIX) \
---with-hwloc=$(EBROOTHWLOC) \
---with-libevent=$(EBROOTLIBEVENT) \
+define OMPI_MISC_OPT
 --enable-mca-no-build=btl-uct
 endef
+
+OMPI_ZLIB_DEP = --with-zlib=$(EBROOTZLIB)
+PMIX_ZLIB_DEP = --with-zlib=$(EBROOTZLIB)
 
 
 
