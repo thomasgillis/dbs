@@ -5,9 +5,7 @@ Portable and lightweight build system for your dependencies
 
 ## Global picture
 
-We rely on the widespread `make` tool to handle the different dependencies.
-Each lib's recipe is defined in the `lib.mak` file.
-
+We rely on the widespread `make` tool to handle the different dependencies.  Each lib's recipe is defined in the `lib.mak` file.  
 For each cluster/configuration, you have to create an `cluster.arch` file.
 If you need to specify the version you want. Failing to specify a version implies that the lib will not be built
 
@@ -135,4 +133,6 @@ Flups being developed, it has been decided to use a specific git branch for defi
 - `.NOTPARALLEL` in a makefile will force the non-parallelization of the current `make` call on all the prerequisites + recipes.
 - `.PHONY` if a target is declared as `.PHONY` it will be executed only when explicitly requested by a `make` command or as a dependency.
 - the dependencies for a lib must be defined on the top level and forwarded to the `template` level. The top level will ensure that the associated `lib.complete` is done before entering the compilation itself. The `template` level will make sure that the lib is recompiled in the dependency has changed
+- the smaller case variables are internal to the `makefile` while the upper case variables are external (e.g. user-provided)
+
 
