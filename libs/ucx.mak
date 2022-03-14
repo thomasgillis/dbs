@@ -24,7 +24,7 @@ endif
 #-------------------------------------------------------------------------------
 .PHONY: ucx_tar
 ucx_tar: 
-ifdef ZLIB_VER
+ifdef UCX_VER
 	@$(ucx_template_opt) $(MAKE) --file=template.mak tar
 else
 	@$(ucx_template_opt) $(MAKE) --file=template.mak ttar

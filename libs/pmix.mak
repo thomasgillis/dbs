@@ -5,8 +5,8 @@ pmix_opt ?= ""
 ifdef LIBEVENT_VER
 pmix_opt += --with-libevent=$(PREFIX)
 endif
-ifdef PMIX_VER
-pmix_opt += --with-pmix=$(PREFIX)
+ifdef HWLOC_VER
+pmix_opt += --with-hwloc=$(PREFIX)
 endif
 ifdef ZLIB_VER
 pmix_opt += --with-zlib=$(PREFIX)
@@ -39,7 +39,7 @@ endif
 #-------------------------------------------------------------------------------
 .PHONY: pmix_tar
 pmix_tar: 
-ifdef ZLIB_VER
+ifdef PMIX_VER
 	@$(pmix_template_opt) $(MAKE) --file=template.mak tar
 else
 	@$(pmix_template_opt) $(MAKE) --file=template.mak ttar

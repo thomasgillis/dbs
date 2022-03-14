@@ -8,7 +8,7 @@ define p4est_template_opt
 	target_ver="$(P4EST_VER)" \
 	target_dep="$(p4est_dep)" \
 	target_url="https://p4est.github.io/release/p4est-$(P4EST_VER).tar.gz" \
-	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}" \
+	target_confcmd="CC=$(MPICC) CXX=$(MPICXX) FC=$(MPIFORT) F77=$(MPIFORT) ./configure --prefix=${PREFIX}" \
 	target_confopt="--enable-mpi --enable-openmp --with-blas=-lopenblas"
 endef
 
@@ -24,7 +24,7 @@ endif
 #-------------------------------------------------------------------------------
 .PHONY: p4est_tar
 p4est_tar: 
-ifdef ZLIB_VER
+ifdef P4EST_VER
 	@$(p4est_template_opt) $(MAKE) --file=template.mak tar
 else
 	@$(p4est_template_opt) $(MAKE) --file=template.mak ttar

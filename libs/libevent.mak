@@ -9,7 +9,7 @@ define libevent_template_opt
 	target_dep="$(libevent_dep)" \
 	target_url="https://github.com/libevent/libevent/releases/download/release-$(LIBEVENT_VER)-stable/libevent-$(LIBEVENT_VER)-stable.tar.gz" \
 	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}" \
-	target_compopt="--disable-openssl"
+	target_confopt="--disable-openssl"
 endef
 
 #===============================================================================
@@ -24,7 +24,7 @@ endif
 #-------------------------------------------------------------------------------
 .PHONY: libevent_tar
 libevent_tar: 
-ifdef ZLIB_VER
+ifdef LIBEVENT_VER
 	@$(libevent_template_opt) $(MAKE) --file=template.mak tar
 else
 	@$(libevent_template_opt) $(MAKE) --file=template.mak ttar

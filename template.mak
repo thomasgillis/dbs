@@ -15,6 +15,7 @@
 # to delegate the paralle execution to the compilation and not to executing multiple
 # recipe consequently
 .NOTPARALLEL:
+.SILENT:
 
 #===============================================================================
 # define target specific information
@@ -22,7 +23,7 @@ target_dir = $(target)-$(target_ver)
 
 # we handle the optional variables
 target_precmd ?= echo "no pre-configure command"
-target_confopt ?= $(empty)
+target_confopt ?= 
 target_installcmd ?= $(MAKE) install -j8
 
 #===============================================================================
@@ -45,7 +46,7 @@ tit:  | $(PREFIX)
 	touch $(PREFIX)/$(target).complete
 
 .PHONY: tar
-tar: $(TAR_DIR)/$(target)-$(traget_ver).tar.gz
+tar: $(TAR_DIR)/$(target)-$(target_ver).tar.gz
 
 .PHONY: ttar
 ttar:
@@ -63,7 +64,7 @@ $(PREFIX)/$(target).complete: $(foreach lib,$(target_dep),$(PREFIX)/$(lib).compl
 	mv */ $(COMP_DIR)/$(target_dir) &&\
 	cd $(COMP_DIR)/$(target_dir) &&\
 	$(target_precmd) &&\
-	$(target_confcmd) $(target_compopt) &&\
+	$(target_confcmd) $(target_confopt) &&\
 	$(target_installcmd) &&\
 	date > $@  &&\
 	hostname >> $@
@@ -89,6 +90,6 @@ info:
 #-------------------------------------------------------------------------------
 .PHONY: info_none
 info_none:
-	@echo "- $(target) skipped"
+#	@echo "- $(target) skipped"
 
 #-------------------------------------------------------------------------------

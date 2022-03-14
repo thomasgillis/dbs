@@ -1,7 +1,7 @@
 # # build recipe for OMPI
 #-------------------------------------------------------------------------------
-ompi_opt ?= ""
-ompi_opt += "--without-verbs --enable-mpirun-prefix-by-default --with-cuda=no"
+ompi_opt ?= 
+ompi_opt += --without-verbs --enable-mpirun-prefix-by-default --with-cuda=no
 
 # get the correct libevent etc
 ifdef LIBEVENT_VER
@@ -13,16 +13,17 @@ endif
 ifdef ZLIB_VER
 ompi_opt += --with-zlib=$(PREFIX)
 endif
-ifdef OMPI_VER
-ompi_opt = --with-ompi=$(PREFIX)
+ifdef OFI_VER
+ompi_opt += --with-ofi=$(PREFIX)
 else
-ompi_opt ?= --with-ompi=no
+ompi_opt ?= --with-ofi=no
 endif
 ifdef UCX_VER
-ompi_opt = --with-ucx=$(PREFIX)
+ompi_opt += --with-ucx=$(PREFIX)
 else
 ompi_opt ?= --with-ucx=no
 endif
+
 
 #-------------------------------------------------------------------------------
 # dependency list
@@ -38,6 +39,17 @@ define ompi_template_opt
 endef
 
 #===============================================================================
+ifdef OMPI_VER
+MPICC = $(PREFIX)/bin/mpicc
+MPICXX = $(PREFIX)/bin/mpic++
+MPIFORT = $(PREFIX)/bin/mpif90
+else
+MPICC = mpicc
+MPICXX = mpic++
+MPIFORT = mpif90
+endif
+
+#===============================================================================
 .PHONY: ompi
 ompi: $(ompi_dep)
 ifdef OMPI_VER
@@ -49,7 +61,7 @@ endif
 #-------------------------------------------------------------------------------
 .PHONY: ompi_tar
 ompi_tar: 
-ifdef ZLIB_VER
+ifdef OMPI_VER
 	@$(ompi_template_opt) $(MAKE) --file=template.mak tar
 else
 	@$(ompi_template_opt) $(MAKE) --file=template.mak ttar
@@ -129,15 +141,6 @@ ompi_reallyclean:
 # endif
 
 # #-------------------------------------------------------------------------------
-# ifdef OMPI_VER
-# MPICC = $(PREFIX)/bin/mpicc
-# MPICXX = $(PREFIX)/bin/mpic++
-# MPIFORT = $(PREFIX)/bin/mpif90
-# else
-# MPICC = mpicc
-# MPICXX = mpic++
-# MPIFORT = mpif90
-# endif
 
 # #-------------------------------------------------------------------------------
 # $(PREFIX)/ompi.complete:  | $(PREFIX) $(TAR_DIR)/$(OMPI_DIR).tar.gz

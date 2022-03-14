@@ -23,7 +23,7 @@ endif
 #-------------------------------------------------------------------------------
 .PHONY: ofi_tar
 ofi_tar: 
-ifdef ZLIB_VER
+ifdef OFI_VER
 	@$(ofi_template_opt) $(MAKE) --file=template.mak tar
 else
 	@$(ofi_template_opt) $(MAKE) --file=template.mak ttar

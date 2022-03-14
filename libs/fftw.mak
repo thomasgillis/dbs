@@ -1,14 +1,14 @@
 # # build recipe for FFTW
 #-------------------------------------------------------------------------------
 # dependency list
-fftw_dep = 
+fftw_dep = ompi
 
 define fftw_template_opt
 	target="fftw" \
 	target_ver="$(FFTW_VER)" \
 	target_dep="$(fftw_dep)" \
 	target_url="http://www.fftw.org/fftw-${FFTW_VER}.tar.gz" \
-	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}" \
+	target_confcmd="CC=$(MPICC) CXX=$(MPICXX) FC=$(MPIFORT) F77=$(MPIFORT) ./configure --prefix=${PREFIX}" \
 	target_confopt="--disable-fortran --enable-openmp --enable-sse2 --enable-avx --enable-avx2"
 endef
 
@@ -24,7 +24,7 @@ endif
 #-------------------------------------------------------------------------------
 .PHONY: fftw_tar
 fftw_tar: 
-ifdef ZLIB_VER
+ifdef FFTW_VER
 	@$(fftw_template_opt) $(MAKE) --file=template.mak tar
 else
 	@$(fftw_template_opt) $(MAKE) --file=template.mak ttar

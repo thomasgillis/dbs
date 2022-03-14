@@ -7,6 +7,9 @@
 # we forbid the parallel execution to dedicated parallel resources to the compilation of libs
 .NOTPARALLEL:
 
+# disable directory printing
+MAKEFLAGS += --no-print-directory
+
 #-------------------------------------------------------------------------------
 # the first rule encountered is the default one
 .PHONY: default
@@ -49,7 +52,7 @@ COMP_DIR := $(BUILD_DIR)/tmp_dbs-$(TAG)-$(UID)
 #===============================================================================
 .PHONY: submit 
 submit: | tar
-	sbatch scripts/$(CLUSTER).sh
+	sbatch slurm/$(CLUSTER).sh
 
 #-------------------------------------------------------------------------------
 .PHONY: install
