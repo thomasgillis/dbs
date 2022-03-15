@@ -1,0 +1,49 @@
+# # build recipe for HWLOC
+#-------------------------------------------------------------------------------
+hwloc_dep = 
+
+define hwloc_template_opt
+	target="hwloc" \
+	target_ver="$(HWLOC_VER)" \
+	target_dep="$(hwloc_dep)" \
+	target_url="https://download.open-mpi.org/release/hwloc/v2.7/hwloc-$(HWLOC_VER).tar.gz" \
+	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}"
+endef
+
+#===============================================================================
+.PHONY: hwloc
+hwloc: $(hwloc_dep)
+ifdef HWLOC_VER
+	@$(hwloc_template_opt) $(MAKE) --file=template.mak doit
+else
+	@$(hwloc_template_opt) $(MAKE) --file=template.mak tit
+endif
+
+#===============================================================================
+.PHONY: hwloc_tar
+hwloc_tar:
+ifdef HWLOC_VER
+	@$(hwloc_template_opt) $(MAKE) --file=template.mak tar
+else
+	@$(hwloc_template_opt) $(MAKE) --file=template.mak ttar
+endif
+
+#-------------------------------------------------------------------------------
+.PHONY: hwloc_info
+hwloc_info:
+ifdef HWLOC_VER
+	@$(hwloc_template_opt) $(MAKE) --file=template.mak info
+else
+	@$(hwloc_template_opt) $(MAKE) --file=template.mak info_none
+endif
+
+#-------------------------------------------------------------------------------
+.PHONY: hwloc_clean
+hwloc_clean: 
+	@$(hwloc_template_opt) $(MAKE) --file=template.mak clean
+
+#-------------------------------------------------------------------------------
+.PHONY: hwloc_reallyclean
+hwloc_reallyclean: 
+	@$(hwloc_template_opt) $(MAKE) --file=template.mak reallyclean
+
