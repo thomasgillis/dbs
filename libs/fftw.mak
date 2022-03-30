@@ -8,7 +8,7 @@ define fftw_template_opt
 	target_ver="$(FFTW_VER)" \
 	target_dep="$(fftw_dep)" \
 	target_url="http://www.fftw.org/fftw-${FFTW_VER}.tar.gz" \
-	target_confcmd="CC=$(MPICC) CXX=$(MPICXX) FC=$(MPIFORT) F77=$(MPIFORT) ./configure --prefix=${PREFIX}" \
+	target_confcmd="CC=$(DBS_MPICC) CXX=$(MPICXX) FC=$(MPIFORT) F77=$(MPIFORT) ./configure --prefix=${PREFIX}" \
 	target_confopt="--disable-fortran --enable-openmp --enable-sse2 --enable-avx --enable-avx2"
 endef
 

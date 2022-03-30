@@ -12,7 +12,7 @@ define hdf5_template_opt
 	target_ver="$(HDF5_VER)" \
 	target_dep="$(hdf5_dep)" \
 	target_url="http://www.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-$(HDF5_VER)/src/hdf5-$(HDF5_VER).tar.bz2" \
-	target_confcmd="CC=$(MPICC) CXX=$(MPICXX) FC=$(MPIFORT) F77=$(MPIFORT) ./configure --prefix=${PREFIX}" \
+	target_confcmd="CC=$(DBS_MPICC) CXX=$(MPICXX) FC=$(MPIFORT) F77=$(MPIFORT) ./configure --prefix=${PREFIX}" \
 	target_confopt="--enable-parallel --enable-optimization=high --enable-build-mode=production --with-default-api-version=v110 $(hdf5_zlib)"
 endef
 
