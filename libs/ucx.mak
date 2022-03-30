@@ -8,8 +8,7 @@ define ucx_template_opt
 	target_ver="$(UCX_VER)" \
 	target_dep="$(ucx_dep)" \
 	target_url="https://github.com/openucx/ucx/releases/download/v$(UCX_VER)/ucx-$(UCX_VER).tar.gz" \
-	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}" \
-	target_confopt="--enable-compiler-opt=3"
+	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./contrib/configure-release --prefix=${PREFIX}"
 endef
 
 #===============================================================================

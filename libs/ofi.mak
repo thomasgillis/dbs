@@ -8,6 +8,7 @@ define ofi_template_opt
 	target_ver="$(OFI_VER)" \
 	target_dep="$(ofi_dep)" \
 	target_url="https://github.com/ofiwg/libfabric/archive/refs/tags/v$(OFI_VER).tar.gz" \
+	target_precmd="./autogen.sh" \
 	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}"
 endef
 

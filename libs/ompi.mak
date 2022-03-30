@@ -40,11 +40,11 @@ endef
 
 #===============================================================================
 ifdef OMPI_VER
-MPICC = $(PREFIX)/bin/mpicc
+DBS_MPICC = $(PREFIX)/bin/mpicc
 MPICXX = $(PREFIX)/bin/mpic++
 MPIFORT = $(PREFIX)/bin/mpif90
 else
-MPICC = mpicc
+DBS_MPICC = mpicc
 MPICXX = mpic++
 MPIFORT = mpif90
 endif
