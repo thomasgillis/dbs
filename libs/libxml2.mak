@@ -15,7 +15,7 @@ define libxml2_template_opt
 	target_url="https://gitlab.gnome.org/GNOME/libxml2/-/archive/v$(LIBXML2_VER)/libxml2-v$(LIBXML2_VER).tar.gz" \
 	target_precmd="./autogen.sh" \
 	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}"\
-	target_confopt="$(libxml2_opt)"
+	target_confopt="$(libxml2_opt) --without-python"
 endef
 
 #===============================================================================
