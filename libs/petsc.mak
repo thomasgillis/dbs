@@ -20,7 +20,8 @@ define petsc_template_opt
 	target_dep="$(petsc_dep)" \
 	target_url="https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-$(PETSC_VER).tar.gz" \
 	target_confcmd="./configure --prefix=${PREFIX} --with-mpi-dir=$(PREFIX)"\
-	target_confopt="$(petsc_opt)"
+	target_confopt="$(petsc_opt)" \
+	target_installcmd="$(MAKE) all -j8"
 endef
 
 #===============================================================================
