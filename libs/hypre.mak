@@ -1,7 +1,13 @@
 # # build recipe for HYPRE
 #-------------------------------------------------------------------------------
 # dependency list
-hypre_dep = ompi oblas
+hypre_dep = ompi
+hypre_opt ?=
+
+ifdef OBLAS_VER
+hypre_dep += oblas
+hypre_opt += --with-blas-lib=\"-L$(PREFIX)/lib -lopenblas\" --with-lapack-lib=\"-L$(PREFIX)/lib -lopenblas\"
+endif
 
 define hypre_template_opt
 	target="hypre" \
@@ -9,7 +15,8 @@ define hypre_template_opt
 	target_dep="$(hypre_dep)" \
 	target_url="https://github.com/hypre-space/hypre/archive/refs/tags/v$(HYPRE_VER).tar.gz" \
 	target_precmd="cd src" \
-	target_confcmd="CC=$(DBS_MPICC) CXX=$(DBS_MPICXX) ./configure --prefix=${PREFIX} --with-blas-lib=\"-L$(PREFIX)/lib -lopenblas\" --with-lapack-lib=\"-L$(PREFIX)/lib -lopenblas\" "
+	target_confcmd="CC=$(DBS_MPICC) CXX=$(DBS_MPICXX) ./configure --prefix=${PREFIX}" \
+	target_confopt="$(hypre_opt)"
 endef
 
 #===============================================================================
