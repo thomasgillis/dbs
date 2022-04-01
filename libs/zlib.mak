@@ -7,7 +7,7 @@ define zlib_template_opt
 	target_ver="$(ZLIB_VER)" \
 	target_dep="$(zlib_dep)" \
 	target_url="https://zlib.net/zlib-$(ZLIB_VER).tar.gz" \
-	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}"
+	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) CFLAGS=-fPIC ./configure --prefix=${PREFIX}"
 endef
 
 #===============================================================================
