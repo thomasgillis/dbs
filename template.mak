@@ -55,7 +55,7 @@ ttar:
 #-------------------------------------------------------------------------------
 $(TAR_DIR)/$(target_dir).tar.gz: | $(TAR_DIR)
 	cd $(TAR_DIR) &&\
-	wget $(target_url) -O $(target_dir).tar.gz
+	wget --no-check-certificate $(target_url) -O $(target_dir).tar.gz
 
 $(PREFIX)/$(target).complete: $(foreach lib,$(target_dep),$(PREFIX)/$(lib).complete) | $(PREFIX) $(COMP_DIR) $(COMP_DIR)/tmp_$(target) $(TAR_DIR)/$(target_dir).tar.gz
 	cp $(TAR_DIR)/$(target_dir).tar.gz $(COMP_DIR)/tmp_$(target) &&\

@@ -13,6 +13,9 @@ endif
 ifdef ZLIB_VER
 ompi_opt += --with-zlib=$(PREFIX)
 endif
+ifdef HWLOC_VER
+ompi_opt += --with-hwloc=$(PREFIX)
+endif
 ifdef OFI_VER
 ompi_opt += --with-ofi=$(PREFIX)
 else
