@@ -5,7 +5,7 @@ CXX = g++
 
 BUILD_DIR := /pool001/$(shell whoami)
 TAR_DIR := $(HOME)/tar-storage
-PREFIX := $(HOME)/ompi-4.1.2-ucx-1.12.1-ofi-1.14.0
+PREFIX := $(HOME)/ompi-4.1.3-ucx-1.12.1-ofi-1.14.0
 
 define MODULE_LIST
 gcc/11.2.0
@@ -14,13 +14,16 @@ endef
 #===============================================================================
 UCX_VER = 1.12.1
 OFI_VER = 1.14.0
-OMPI_VER = 4.1.2
+OMPI_VER = 4.1.3
 HDF5_VER = 1.12.1
 OBLAS_VER = 0.3.18
 P4EST_VER = 2.8
 FFTW_VER = 3.3.10
-ZLIB_VER = 1.2.11
-HWLOC_VER = 2.7.0
+LIBXML2_VER = 2.9.13
+ZLIB_VER = 1.2.12
+HWLOC_VER = 2.7.1
 LIBEVENT_VER= 2.1.12
 PMIX_VER = 4.1.2
 FLUPS_VER = dev-node-centered
+PETSC_VER = 3.17.0
+HYPRE_VER = 2.24.0
