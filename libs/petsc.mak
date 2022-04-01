@@ -1,7 +1,7 @@
 # # build recipe for PETSC
 #-------------------------------------------------------------------------------
 # dependency list
-petsc_dep = ompi
+petsc_dep = ompi oblas
 
 define petsc_template_opt
 	target="petsc" \
