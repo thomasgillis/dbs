@@ -39,7 +39,6 @@ endif
 .PHONY: hwloc_info
 hwloc_info:
 ifdef HWLOC_VER
-	echo "$(hwloc_opt)"
 	@$(hwloc_template_opt) $(MAKE) --file=template.mak info
 else
 	@$(hwloc_template_opt) $(MAKE) --file=template.mak info_none
