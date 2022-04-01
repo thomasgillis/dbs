@@ -1,14 +1,26 @@
 # # build recipe for PETSC
 #-------------------------------------------------------------------------------
 # dependency list
-petsc_dep = ompi oblas
+petsc_dep = ompi
+
+petsc_opt ?=
+
+ifdef HYPRE_VER
+petsc_dep += hypre
+petsc_opt += --with-hypre-dir=$(PREFIX)
+endif
+ifdef OBLAS_VER
+petsc_dep += oblas
+petsc_opt += --with-openblas-dir=$(PREFIX)
+endif
 
 define petsc_template_opt
 	target="petsc" \
 	target_ver="$(PETSC_VER)" \
 	target_dep="$(petsc_dep)" \
 	target_url="https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-$(PETSC_VER).tar.gz" \
-	target_confcmd="./configure --prefix=${PREFIX} --with-mpi-dir=$(PREFIX) --with-openblas-dir=$(PREFIX)"
+	target_confcmd="./configure --prefix=${PREFIX} --with-mpi-dir=$(PREFIX)"\
+	target_confopt="$(petsc_opt)"
 endef
 
 #===============================================================================
