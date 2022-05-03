@@ -41,7 +41,7 @@ ifdef FLUPS_VER
 	cd $(FLUPS_DIR) && \
 	CC=${DBS_MPICC} CXX=${DBS_MPICXX} \
 		CXXFLAGS="$(FLUPS_CXXFLAGS)" CCFLAGS="$(FLUPS_CCFLAGS)" LDFLAGS="$(FLUPS_LDFLAGS)" \
-		HDF5_DIR=${PREFIX} FFTW_DIR=${PREFIX} \
+		HDF5_DIR=${PREFIX} FFTW_DIR=${PREFIX} H3LPR_DIR=${PREFIX} \
 		$(MAKE) install -j 8 && \
 	date > $@  && \
 	hostname >> $@ && \
