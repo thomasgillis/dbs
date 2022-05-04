@@ -45,11 +45,13 @@ endef
 ifdef OMPI_VER
 DBS_MPICC = $(PREFIX)/bin/mpicc
 DBS_MPICXX = $(PREFIX)/bin/mpic++
-MPIFORT = $(PREFIX)/bin/mpif90
+DBS_MPIFORT = $(PREFIX)/bin/mpif90
+DBS_MPIEXEC = $(PREFIX)/bin/mpiexec
 else
 DBS_MPICC = mpicc
 DBS_MPICXX = mpic++
-MPIFORT = mpif90
+DBS_MPIFORT = mpif90
+DBS_MPIEXEC = mpiexec
 endif
 
 #===============================================================================

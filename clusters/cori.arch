@@ -1,0 +1,38 @@
+#===============================================================================
+# GENERAL PARAMETERS
+FC = gfortran
+CC = gcc
+CXX = g++
+
+BUILD_DIR = $(SCRATCH)
+TAR_DIR = $(HOME)/tar_storage
+PREFIX = $(HOME)/lib-dbs
+
+define MODULE_LIST
+module swap PrgEnv-${PE_ENV,,} PrgEnv-gnu/6.0.10
+module load cray-hdf5-parallel
+module unload darshan
+module use /global/common/software/m3169/cori/modulefiles
+module load openmpi/4.1.2
+endef
+
+#===============================================================================
+#UCX_VER = 1.12.1
+#OFI_VER = 1.14.1
+#OMPI_VER = 4.1.3
+OBLAS_VER = 0.3.18
+#LIBXML2_VER = 2.9.13
+#ZLIB_VER = 1.2.12
+#HWLOC_VER = 2.7.1
+#LIBEVENT_VER= 2.1.12
+#PMIX_VER = 4.1.2
+#HDF5_VER = 1.12.1
+P4EST_VER = 2.8
+FFTW_VER = 3.3.10
+FLUPS_VER = develop
+PETSC_VER = 3.17.1
+HYPRE_VER = 2.24.0
+H3LPR_VER = develop
+
+
+

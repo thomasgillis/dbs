@@ -9,6 +9,33 @@ FLUPS_CCFLAGS = -fopenmp -O3 -g -std=c99 -DNDEBUG
 FLUPS_LDFLAGS = -fopenmp -lstdc++
 endif 
 
+# fill some of the optional parameters
+flups_opt ?= ""
+
+# hdf5
+ifdef HDF5_VER
+flups_opt += HDF5_DIR=${PREFIX}
+else
+flups_opt += HDF5_DIR=${FLUPS_HDF5_DIR}
+ifndef FLUPS_HDF5_DIR
+$(error "FLUPS needs to know where to find HDF5, plese define FLUPS_HDF5_DIR")
+endif
+endif
+
+# h3lpr
+ifndef H3LPR_VER
+$(error "H3LPR_VER must be given for FLUPS")
+endif
+
+# fftw
+ifdef FFTW_VER
+flups_opt += FFTW_DIR=${PREFIX}
+else
+flups_opt += FFTW_DIR=${FLUPS_FFTW_DIR}
+ifndef FLUPS_FFTW_DIR
+$(error "FLUPS needs to know where to find FFTW, plese define FLUPS_FFTW_DIR")
+endif
+endif
 
 #===============================================================================
 .PHONY: flups
@@ -41,7 +68,7 @@ ifdef FLUPS_VER
 	cd $(FLUPS_DIR) && \
 	CC=${DBS_MPICC} CXX=${DBS_MPICXX} \
 		CXXFLAGS="$(FLUPS_CXXFLAGS)" CCFLAGS="$(FLUPS_CCFLAGS)" LDFLAGS="$(FLUPS_LDFLAGS)" \
-		HDF5_DIR=${PREFIX} FFTW_DIR=${PREFIX} H3LPR_DIR=${PREFIX} \
+		$(flups_opt) \
 		ARCH_FILE=make_arch/make.default \
 		$(MAKE) install -j 8 && \
 	date > $@  && \

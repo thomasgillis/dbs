@@ -5,13 +5,35 @@ petsc_dep = ompi
 
 petsc_opt ?=
 
+# Add hypre
 ifdef HYPRE_VER
 petsc_dep += hypre
 petsc_opt += --with-hypre-dir=$(PREFIX)
 endif
+
+# Add oblas
 ifdef OBLAS_VER
 petsc_dep += oblas
 petsc_opt += --with-openblas-dir=$(PREFIX)
+endif
+
+# Add ompi
+ifdef OMPI_VER
+  petsc_opt += --with-mpi-dir=${PREFIX}
+else
+  # we search for the full path of mpiexec
+  ifneq (, $(shell which mpiexec 2>/dev/null))
+    # if the path is found we remove the "bin/" and store the path
+    petsc_opt += --with-mpi-dir=$(dir $(subst bin/,,$(shell which $(DBS_MPIEXEC))))
+  else
+	# if we build petsc it's a big issue, otherwise we just add 'NOT-FOUND'
+    ifeq ($(MAKECMDGOALS),petsc)
+      $(error "No mpiexec in $(PATH), please fix your modules or use DBS to install OMPI")
+    else
+      $(warning "No mpiexec in $(PATH), please fix your modules or use DBS to install OMPI")
+      petsc_opt += --with-mpi-dir=\"NOT FOUND\"
+    endif
+  endif
 endif
 
 define petsc_template_opt
@@ -19,7 +41,7 @@ define petsc_template_opt
 	target_ver="$(PETSC_VER)" \
 	target_dep="$(petsc_dep)" \
 	target_url="https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-$(PETSC_VER).tar.gz" \
-	target_confcmd="./configure --prefix=${PREFIX} --with-mpi-dir=$(PREFIX)"\
+	target_confcmd="./configure --prefix=${PREFIX}"\
 	target_confopt="$(petsc_opt)" \
 	target_installcmd="$(MAKE) all -j8 && make install"
 endef
