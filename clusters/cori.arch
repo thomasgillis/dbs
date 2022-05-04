@@ -10,8 +10,8 @@ PREFIX = $(HOME)/lib-dbs
 
 define MODULE_LIST
 module swap PrgEnv-${PE_ENV,,} PrgEnv-gnu/6.0.10
-module load cray-hdf5-parallel \
-module unload darshan \
+module load cray-hdf5-parallel
+module unload darshan
 module use /global/common/software/m3169/cori/modulefiles
 module load openmpi/4.1.2
 endef
