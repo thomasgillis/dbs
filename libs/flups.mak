@@ -4,15 +4,15 @@
 FLUPS_DIR = flups-$(FLUPS_VER)
 
 ifdef FLUPS_VER
-FLUPS_CXXFLAGS = -fopenmp -O3 -g -std=c++11
-FLUPS_CCFLAGS = -fopenmp -O3 -g -std=c99
+FLUPS_CXXFLAGS = -fopenmp -O3 -g -std=c++11 -DNDEBUG
+FLUPS_CCFLAGS = -fopenmp -O3 -g -std=c99 -DNDEBUG
 FLUPS_LDFLAGS = -fopenmp -lstdc++
 endif 
 
 
 #===============================================================================
 .PHONY: flups
-flups: ompi hdf5 fftw $(PREFIX)/flups.complete
+flups: ompi hdf5 h3lpr fftw $(PREFIX)/flups.complete
 
 #-------------------------------------------------------------------------------
 flups_tar: $(TAR_DIR)/$(FLUPS_DIR).tar.gz
@@ -41,7 +41,8 @@ ifdef FLUPS_VER
 	cd $(FLUPS_DIR) && \
 	CC=${DBS_MPICC} CXX=${DBS_MPICXX} \
 		CXXFLAGS="$(FLUPS_CXXFLAGS)" CCFLAGS="$(FLUPS_CCFLAGS)" LDFLAGS="$(FLUPS_LDFLAGS)" \
-		HDF5_DIR=${PREFIX} FFTW_DIR=${PREFIX} \
+		HDF5_DIR=${PREFIX} FFTW_DIR=${PREFIX} H3LPR_DIR=${PREFIX} \
+		ARCH_FILE=make_arch/make.default \
 		$(MAKE) install -j 8 && \
 	date > $@  && \
 	hostname >> $@ && \
