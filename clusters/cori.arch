@@ -35,4 +35,5 @@ HYPRE_VER = 2.24.0
 H3LPR_VER = develop
 
 
-
+# flups specific param
+FLUPS_HDF5_DIR = ${CRAY_HDF5_PARALLEL_DIR} 
