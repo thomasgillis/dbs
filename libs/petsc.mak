@@ -14,9 +14,11 @@ petsc_dep += oblas
 petsc_opt += --with-openblas-dir=$(PREFIX)
 endif
 ifdef OMPI_VER
-petsc_opt = --with-mpi-dir=${PREFIX}
+petsc_opt += --with-mpi-dir=${PREFIX}
 else
-petsc_opt += --with-cc=$(DBS_MPICC) --with-cxx=$(DBS_MPICXX)
+# we search for the full path of mpiexec and then remove the "bin/" to get the path
+petsc_opt += --with-mpi-dir=$(dir $(subst bin/,,$(shell which $(DBS_MPIEXEC))))
+#petsc_opt += --with-cc=$(DBS_MPICC) --with-cxx=$(DBS_MPICXX) --with-mpi-f90=$(DBS_MPIFORT) --with-mpiexec=$(DBS_MPIEXEC)
 endif
 
 define petsc_template_opt
@@ -47,6 +49,7 @@ else
 	@$(petsc_template_opt) $(MAKE) --file=template.mak ttar
 endif
 
+include tools/makefun.mak
 #-------------------------------------------------------------------------------
 .PHONY: petsc_info
 petsc_info:
