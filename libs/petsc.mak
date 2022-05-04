@@ -19,15 +19,21 @@ endif
 
 # Add ompi
 ifdef OMPI_VER
-petsc_opt += --with-mpi-dir=${PREFIX}
+  petsc_opt += --with-mpi-dir=${PREFIX}
 else
-# we search for the full path of mpiexec and then remove the "bin/" to get the path
-ifeq (, $(shell which mpiexec))
-$(error "No mpiexec in $(PATH), please fix your modules or use DBS to install OMPI")
-else
-petsc_opt += --with-mpi-dir=$(dir $(subst bin/,,$(shell which $(DBS_MPIEXEC))))
-endif
-#petsc_opt += --with-cc=$(DBS_MPICC) --with-cxx=$(DBS_MPICXX) --with-mpi-f90=$(DBS_MPIFORT) --with-mpiexec=$(DBS_MPIEXEC)
+  # we search for the full path of mpiexec
+  ifneq (, $(shell which mpiexec 2>/dev/null))
+    # if the path is found we remove the "bin/" and store the path
+    petsc_opt += --with-mpi-dir=$(dir $(subst bin/,,$(shell which $(DBS_MPIEXEC))))
+  else
+	# if we build petsc it's a big issue, otherwise we just add 'NOT-FOUND'
+    ifeq ($(MAKECMDGOALS),petsc)
+      $(error "No mpiexec in $(PATH), please fix your modules or use DBS to install OMPI")
+    else
+      $(warning "No mpiexec in $(PATH), please fix your modules or use DBS to install OMPI")
+      petsc_opt += --with-mpi-dir=\"NOT FOUND\"
+    endif
+  endif
 endif
 
 define petsc_template_opt
