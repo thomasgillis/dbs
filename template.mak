@@ -42,8 +42,8 @@ $(COMP_DIR)/tmp_$(target):
 doit: $(PREFIX)/$(target).complete
 
 .PHONY: tit
-tit:  | $(PREFIX)
-	touch $(PREFIX)/$(target).complete
+tit: | $(PREFIX)
+	touch -a $(PREFIX)/$(target).complete
 
 .PHONY: tar
 tar: $(TAR_DIR)/$(target)-$(target_ver).tar.gz
