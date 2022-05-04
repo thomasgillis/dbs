@@ -5,19 +5,28 @@ petsc_dep = ompi
 
 petsc_opt ?=
 
+# Add hypre
 ifdef HYPRE_VER
 petsc_dep += hypre
 petsc_opt += --with-hypre-dir=$(PREFIX)
 endif
+
+# Add oblas
 ifdef OBLAS_VER
 petsc_dep += oblas
 petsc_opt += --with-openblas-dir=$(PREFIX)
 endif
+
+# Add ompi
 ifdef OMPI_VER
 petsc_opt += --with-mpi-dir=${PREFIX}
 else
 # we search for the full path of mpiexec and then remove the "bin/" to get the path
+ifeq (, $(shell which mpiexec))
+$(error "No mpiexec in $(PATH), please fix your modules or use DBS to install OMPI")
+else
 petsc_opt += --with-mpi-dir=$(dir $(subst bin/,,$(shell which $(DBS_MPIEXEC))))
+endif
 #petsc_opt += --with-cc=$(DBS_MPICC) --with-cxx=$(DBS_MPICXX) --with-mpi-f90=$(DBS_MPIFORT) --with-mpiexec=$(DBS_MPIEXEC)
 endif
 
@@ -49,7 +58,6 @@ else
 	@$(petsc_template_opt) $(MAKE) --file=template.mak ttar
 endif
 
-include tools/makefun.mak
 #-------------------------------------------------------------------------------
 .PHONY: petsc_info
 petsc_info:
