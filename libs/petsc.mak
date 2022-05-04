@@ -13,10 +13,10 @@ ifdef OBLAS_VER
 petsc_dep += oblas
 petsc_opt += --with-openblas-dir=$(PREFIX)
 endif
-
-petsc_mpi_dir ?= ${PATH}
 ifdef OMPI_VER
-petsc_mpi_dir = ${PREFIX}
+petsc_opt = --with-mpi-dir=${PREFIX}
+else
+petsc_opt += --with-cc=$(DBS_MPICC) --with-cxx=$(DBS_MPICXX)
 endif
 
 define petsc_template_opt
@@ -24,7 +24,7 @@ define petsc_template_opt
 	target_ver="$(PETSC_VER)" \
 	target_dep="$(petsc_dep)" \
 	target_url="https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-$(PETSC_VER).tar.gz" \
-	target_confcmd="./configure --prefix=${PREFIX} --with-mpi-dir=$(petsc_mpi_dir)"\
+	target_confcmd="./configure --prefix=${PREFIX}"\
 	target_confopt="$(petsc_opt)" \
 	target_installcmd="$(MAKE) all -j8 && make install"
 endef

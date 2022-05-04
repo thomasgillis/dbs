@@ -30,7 +30,7 @@ endef
 P4EST_VER = 2.8
 FFTW_VER = 3.3.10
 FLUPS_VER = develop
-PETSC_VER = 3.17.0
+PETSC_VER = 3.17.1
 HYPRE_VER = 2.24.0
 H3LPR_VER = develop
 
