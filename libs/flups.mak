@@ -10,13 +10,13 @@ FLUPS_LDFLAGS = -fopenmp -lstdc++
 endif 
 
 # fill some of the optional parameters
-flups_opt ?= ""
+flups_opt ?= 
 
 # hdf5
 ifdef HDF5_VER
 flups_opt += HDF5_DIR=${PREFIX}
 else
-flups_opt += HDF5_DIR=${FLUPS_HDF5_DIR}
+flups_opt += HDF5_DIR=$(strip ${FLUPS_HDF5_DIR})
 ifndef FLUPS_HDF5_DIR
 $(error "FLUPS needs to know where to find HDF5, plese define FLUPS_HDF5_DIR")
 endif
@@ -25,13 +25,15 @@ endif
 # h3lpr
 ifndef H3LPR_VER
 $(error "H3LPR_VER must be given for FLUPS")
+else
+flups_opt += H3LPR_DIR=$(PREFIX)
 endif
 
 # fftw
 ifdef FFTW_VER
 flups_opt += FFTW_DIR=${PREFIX}
 else
-flups_opt += FFTW_DIR=${FLUPS_FFTW_DIR}
+flups_opt += FFTW_DIR=$(strip ${FLUPS_FFTW_DIR})
 ifndef FLUPS_FFTW_DIR
 $(error "FLUPS needs to know where to find FFTW, plese define FLUPS_FFTW_DIR")
 endif
@@ -84,6 +86,7 @@ endif
 flups_info:
 ifdef FLUPS_VER
 	$(info - FLUPS branch: $(FLUPS_VER))
+	@echo "  > opt: $(flups_opt)"
 else
 	$(info - FLUPS not built)
 endif

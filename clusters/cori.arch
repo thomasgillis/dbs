@@ -10,11 +10,13 @@ PREFIX = $(HOME)/lib-dbs
 
 define MODULE_LIST
 module swap PrgEnv-${PE_ENV,,} PrgEnv-gnu/6.0.10
-module load cray-hdf5-parallel
+module load cray-hdf5-parallel/1.10.5.2
 module unload darshan
 module use /global/common/software/m3169/cori/modulefiles
 module load openmpi/4.1.2
 endef
+
+#module load cray-hdf5-parallel
 
 #===============================================================================
 #UCX_VER = 1.12.1
@@ -36,4 +38,5 @@ H3LPR_VER = develop
 
 
 # flups specific param
-FLUPS_HDF5_DIR = ${CRAY_HDF5_PARALLEL_DIR} 
+FLUPS_HDF5_DIR = ${HDF5_DIR}
+#FLUPS_HDF5_DIR = ${CRAY_HDF5_PARALLEL_DIR} 
