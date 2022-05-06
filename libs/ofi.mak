@@ -1,7 +1,9 @@
 # # build recipe for OFI
 #-------------------------------------------------------------------------------
 # dependency list
-ofi_dep =
+ofi_dep = zlib
+# from https://github.com/easybuilders/easybuild-easyconfigs/blob/develop/easybuild/easyconfigs/l/libfabric
+ofi_opt = --disable-usnic --disable-sockets
 
 define ofi_template_opt
 	target="ofi" \
@@ -9,7 +11,8 @@ define ofi_template_opt
 	target_dep="$(ofi_dep)" \
 	target_url="https://github.com/ofiwg/libfabric/archive/refs/tags/v$(OFI_VER).tar.gz" \
 	target_precmd="./autogen.sh" \
-	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}"
+	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}" \
+	target_confopt="$(ofi_opt)"
 endef
 
 #===============================================================================

@@ -1,14 +1,15 @@
 # # build recipe for UCX
 #-------------------------------------------------------------------------------
 # dependency list
-ucx_dep =
+ucx_dep = zlib
 
 define ucx_template_opt
 	target="ucx" \
 	target_ver="$(UCX_VER)" \
 	target_dep="$(ucx_dep)" \
 	target_url="https://github.com/openucx/ucx/releases/download/v$(UCX_VER)/ucx-$(UCX_VER).tar.gz" \
-	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./contrib/configure-release --prefix=${PREFIX}"
+	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./contrib/configure-release --prefix=${PREFIX}" \
+	target_confopt="--enable-optimizations --enable-cma --enable-mt"
 endef
 
 #===============================================================================

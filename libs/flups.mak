@@ -18,13 +18,17 @@ flups_opt += HDF5_DIR=${PREFIX}
 else
 flups_opt += HDF5_DIR=$(strip ${FLUPS_HDF5_DIR})
 ifndef FLUPS_HDF5_DIR
+ifdef FLUPS_VER
 $(error "FLUPS needs to know where to find HDF5, plese define FLUPS_HDF5_DIR")
+endif
 endif
 endif
 
 # h3lpr
 ifndef H3LPR_VER
+ifdef FLUPS_VER
 $(error "H3LPR_VER must be given for FLUPS")
+endif
 else
 flups_opt += H3LPR_DIR=$(PREFIX)
 endif
@@ -35,7 +39,9 @@ flups_opt += FFTW_DIR=${PREFIX}
 else
 flups_opt += FFTW_DIR=$(strip ${FLUPS_FFTW_DIR})
 ifndef FLUPS_FFTW_DIR
+ifdef FLUPS_VER
 $(error "FLUPS needs to know where to find FFTW, plese define FLUPS_FFTW_DIR")
+endif
 endif
 endif
 
