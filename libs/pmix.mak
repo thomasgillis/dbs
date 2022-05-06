@@ -1,6 +1,11 @@
 # build recipe for PMIX
 #-------------------------------------------------------------------------------
-pmix_opt ?= ""
+# define the deps
+pmix_dep = zlib libevent hwloc ofi
+
+# get the options
+pmix_opt ?= --enable-pmix-binaries
+
 # get the correct libevent etc
 ifdef LIBEVENT_VER
 pmix_opt += --with-libevent=$(PREFIX)
@@ -11,11 +16,11 @@ endif
 ifdef ZLIB_VER
 pmix_opt += --with-zlib=$(PREFIX)
 endif
+ifdef OFI_VER
+pmix_opt += --with-ofi=$(PREFIX)
+endif
 
 #-------------------------------------------------------------------------------
-# define the deps
-pmix_dep = zlib libevent hwloc
-
 # get all that to the target
 define pmix_template_opt
 	target="pmix" \

@@ -6,33 +6,28 @@ CXX = g++
 
 BUILD_DIR = /ceph/hpc/scratch/user/euthomasg
 TAR_DIR = $(HOME)/tar_storage
-PREFIX = $(HOME)/lib-OpenMPI-4.1.3-UCX-1.12.1-OFI-1.14.1
+PREFIX = $(HOME)/lib-OpenMPI-4.1.3-lite
 
 define MODULE_LIST
-GCC/11.2.0
+OpenMPI/4.1.3-GCC-11.2.0
 endef
 
 #===============================================================================
-# ompi related
-UCX_VER = 1.12.1
-OFI_VER = 1.14.1
-OMPI_VER = 4.1.3
-LIBXML2_VER = 2.9.13
-#ZLIB_VER = 1.2.12
-HWLOC_VER = 2.7.1
-LIBEVENT_VER= 2.1.12
-PMIX_VER = 4.1.2
-# other libs
+#UCX_VER = 1.12.1
+#OFI_VER = 1.14.1
+#OMPI_VER = 4.1.3
 HDF5_VER = 1.12.1
 OBLAS_VER = 0.3.18
 P4EST_VER = 2.8
 FFTW_VER = 3.3.10
+#LIBXML2_VER = 2.9.13
+#ZLIB_VER = 1.2.12
+#HWLOC_VER = 2.7.1
+#LIBEVENT_VER= 2.1.12
+#PMIX_VER = 4.1.2
 FLUPS_VER = develop
-PETSC_VER = 3.17.0
+PETSC_VER = 3.17.1
 HYPRE_VER = 2.24.0
 H3LPR_VER = develop
-
-#OMPI_MISC_DEP = --enable-mca-no-build=btl-uct
-
 
 
