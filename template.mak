@@ -46,10 +46,10 @@ tit: | $(PREFIX)
 	touch -a $(PREFIX)/$(target).complete
 
 .PHONY: tar
-tar: $(TAR_DIR)/$(target)-$(target_ver).tar.gz
+tar: $(TAR_DIR)/$(target)-$(target_ver).tar.gz | $(TAR_DIR)
 
 .PHONY: ttar
-ttar:
+ttar: | $(TAR_DIR)
 	touch $(TAR_DIR)/$(target)-$(traget_ver).tar.gz
 
 #-------------------------------------------------------------------------------
