@@ -10,6 +10,7 @@ PREFIX = $(HOME)/lib-OpenMPI-4.1.3-lite
 
 define MODULE_LIST
 OpenMPI/4.1.3-GCC-11.2.0
+CMake/3.21.1-GCCcore-11.2.0
 endef
 
 #===============================================================================
@@ -29,5 +30,7 @@ FLUPS_VER = develop
 PETSC_VER = 3.17.1
 HYPRE_VER = 2.24.0
 H3LPR_VER = develop
+HEFFTE_VER = master
 
 
+#end of life

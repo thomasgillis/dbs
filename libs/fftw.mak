@@ -9,7 +9,7 @@ define fftw_template_opt
 	target_dep="$(fftw_dep)" \
 	target_url="http://www.fftw.org/fftw-${FFTW_VER}.tar.gz" \
 	target_confcmd="CC=$(DBS_MPICC) CXX=$(DBS_MPICXX) FC=$(DBS_MPIFORT) F77=$(DBS_MPIFORT) ./configure --prefix=${PREFIX}" \
-	target_confopt="--enable-shared --enable-mpi --disable-fortran --enable-openmp"
+	target_confopt="--enable-shared --enable-mpi --enable-fortran --enable-openmp --enable-float"
 endef
 
 #===============================================================================

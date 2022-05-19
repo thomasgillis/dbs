@@ -4,8 +4,8 @@
 H3LPR_DIR = h3lpr-$(H3LPR_VER)
 
 ifdef H3LPR_VER
-H3LPR_CXXFLAGS = -fopenmp -O3 -g -std=c++17
-H3LPR_CCFLAGS = -fopenmp -O3 -g -std=c99
+H3LPR_CXXFLAGS = -fopenmp -O3 -g -std=c++17 -DNDEBUG
+H3LPR_CCFLAGS = -fopenmp -O3 -g -std=c99 -DNDEBUG
 H3LPR_LDFLAGS = -fopenmp -lstdc++
 endif 
 
@@ -13,7 +13,6 @@ endif
 #===============================================================================
 .PHONY: h3lpr
 h3lpr: $(PREFIX)/h3lpr.complete
-
 #-------------------------------------------------------------------------------
 h3lpr_tar: $(TAR_DIR)/$(H3LPR_DIR).tar.gz
 
