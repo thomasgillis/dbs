@@ -1,3 +1,8 @@
 PREFIX = ${HOME}/test_dbs
 TAR_DIR = ${HOME}/tar_storage
+H3LPR_VER = develop
+
+FC = gfortran
+CC = gcc
+CXX = g++
 
