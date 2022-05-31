@@ -39,7 +39,7 @@ ifdef H3LPR_VER
 	cp $(TAR_DIR)/$(H3LPR_DIR).tar.gz $(COMP_DIR)  && \
 	tar -xvf $(H3LPR_DIR).tar.gz  && \
 	cd $(H3LPR_DIR) && \
-	CC=${MPICC} CXX=${MPICXX} \
+	CC=${DBS_MPICC} CXX=${DBS_MPICXX} \
 		CXXFLAGS="$(H3LPR_CXXFLAGS)" CCFLAGS="$(H3LPR_CCFLAGS)" LDFLAGS="$(H3LPR_LDFLAGS)" \
 		$(MAKE) install -j 8 && \
 	date > $@  && \
