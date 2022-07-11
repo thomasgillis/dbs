@@ -24,7 +24,7 @@ ifdef H3LPR_VER
 	git clone git@github.com:van-Rees-Lab/h3lpr.git && \
 	mv h3lpr $(H3LPR_DIR) && \
 	cd $(H3LPR_DIR) && \
-	git switch $(H3LPR_VER) && \
+	git checkout $(H3LPR_VER) && \
 	cd $(TAR_DIR)  && tar -czvf $(H3LPR_DIR).tar.gz $(H3LPR_DIR) && \
 	rm -rf $(H3LPR_DIR)  
 else
