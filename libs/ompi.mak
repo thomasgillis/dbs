@@ -1,7 +1,7 @@
 # # build recipe for OMPI
 #-------------------------------------------------------------------------------
 ompi_opt ?= 
-ompi_opt += --without-verbs --enable-mpirun-prefix-by-default --with-cuda=no
+ompi_opt += --without-verbs --enable-mpirun-prefix-by-default --with-cuda=no ${OMPI_MISC_OPTS}
 
 # get the correct libevent etc
 ifdef LIBEVENT_VER
