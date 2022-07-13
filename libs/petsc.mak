@@ -3,7 +3,7 @@
 # dependency list
 petsc_dep = ompi
 
-petsc_opt ?=
+petsc_opt ?= --with-fortran-bindings=0
 
 # Add hypre
 ifdef HYPRE_VER
