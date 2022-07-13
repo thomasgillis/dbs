@@ -7,8 +7,8 @@ define oblas_template_opt
 	target_ver="$(OBLAS_VER)" \
 	target_dep="$(oblas_dep)" \
 	target_url="https://github.com/xianyi/OpenBLAS/archive/v$(OBLAS_VER).tar.gz" \
-	target_confcmd="$(MAKE) USE_OPENMP=1 PREFIX=${PREFIX} -j8" \
-	target_installcmd="$(MAKE) PREFIX=${PREFIX} install -j8"
+	target_confcmd="$(MAKE) USE_OPENMP=1 DBS_PREFIX=${DBS_PREFIX} -j8" \
+	target_installcmd="$(MAKE) DBS_PREFIX=${DBS_PREFIX} install -j8"
 endef
 
 #===============================================================================

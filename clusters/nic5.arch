@@ -4,9 +4,9 @@ FC = gfortran
 CC = gcc
 CXX = g++
 
-BUILD_DIR = $(HOME)
-TAR_DIR = $(HOME)/tar-storage
-PREFIX = $(HOME)/lib-OpenMPI-4.1.2
+DBS_BUILD_DIR = $(HOME)
+DBS_TAR_DIR = $(HOME)/tar-storage
+DBS_PREFIX = $(HOME)/lib-OpenMPI-4.1.2
 
 define MODULE_LIST
 releases/2021b \

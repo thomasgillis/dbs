@@ -5,9 +5,9 @@ FC = gfortran
 CC = gcc
 CXX = g++
 
-BUILD_DIR=/scratch
-TAR_DIR = $(HOME)/tar-dir
-PREFIX = $(HOME)/build-dir
+DBS_BUILD_DIR=/scratch
+DBS_TAR_DIR = $(HOME)/tar-dir
+DBS_PREFIX = $(HOME)/build-dir
 
 #===============================================================================
 UCX_VER = 1.12.0

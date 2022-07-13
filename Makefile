@@ -37,16 +37,16 @@ include clusters/${CLUSTER}.arch
 include $(LIBLIST_MAK)
 
 #-------------------------------------------------------------------------------
-# get the PREFIX and BUILD_DIR
-PREFIX ?= ${HOME}
-BUILD_DIR ?= ${HOME}
-TAR_DIR ?= ${HOME}
+# get the DBS_PREFIX and DBS_BUILD_DIR
+DBS_PREFIX ?= ${HOME}
+DBS_BUILD_DIR ?= ${HOME}
+DBS_TAR_DIR ?= ${HOME}
 
 #-------------------------------------------------------------------------------
 # ":=" force the evaluation at creation of the var
 UID := $(shell uuidgen -t | head -c 8)
 TAG := $(shell date '+%Y-%m-%d-%H%M')
-COMP_DIR := $(BUILD_DIR)/tmp_dbs-$(TAG)-$(UID)
+COMP_DIR := $(DBS_BUILD_DIR)/tmp_dbs-$(TAG)-$(UID)
 
 
 #===============================================================================
@@ -63,13 +63,20 @@ install: $(LIBLIST)
 tar: $(LIBLIST_TAR)
 
 #-------------------------------------------------------------------------------
+.PHONY: liblist
+info:
+	$(info --------------------------------------------------------------------------------)
+	$(info supported libs: $(LIBLIST))
+	$(info --------------------------------------------------------------------------------)
+
+#-------------------------------------------------------------------------------
 .PHONY: info
-info: logo module gen_info $(LIBLIST_INFO)
+info: logo module liblist gen_info $(LIBLIST_INFO)
 
 #-------------------------------------------------------------------------------
 .PHONY: clean
 clean: $(LIBLIST_CLEAN)
-	@rm -rf $(PREFIX)/*
+	@rm -rf $(DBS_PREFIX)/*
 
 #-------------------------------------------------------------------------------
 .PHONY: reallyclean
@@ -99,14 +106,11 @@ endif
 #-------------------------------------------------------------------------------
 .PHONY: gen_info
 gen_info:
-	$(info --------------------------------------------------------------------------------)
-	$(info supported libs: $(LIBLIST))
-	$(info --------------------------------------------------------------------------------)
 	$(info GENERAL INFO)
 	$(info - build for: $(CLUSTER))
-	$(info - prefix: $(PREFIX))
-	$(info - build dir: $(BUILD_DIR))
-	$(info - tar dir: $(TAR_DIR))
+	$(info - DBS_PREFIX: $(DBS_PREFIX))
+	$(info - build dir: $(DBS_BUILD_DIR))
+	$(info - tar dir: $(DBS_TAR_DIR))
 	$(info - non-mpi compilers: CC = $(CC); CXX = $(CXX); FC = $(FC))
 	$(info --------------------------------------------------------------------------------)
 

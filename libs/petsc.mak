@@ -8,18 +8,18 @@ petsc_opt ?= --with-fortran-bindings=0
 # Add hypre
 ifdef HYPRE_VER
 petsc_dep += hypre
-petsc_opt += --with-hypre-dir=$(PREFIX)
+petsc_opt += --with-hypre-dir=$(DBS_PREFIX)
 endif
 
 # Add oblas
 ifdef OBLAS_VER
 petsc_dep += oblas
-petsc_opt += --with-openblas-dir=$(PREFIX)
+petsc_opt += --with-openblas-dir=$(DBS_PREFIX)
 endif
 
 # Add ompi
 ifdef OMPI_VER
-  petsc_opt += --with-mpi-dir=${PREFIX}
+  petsc_opt += --with-mpi-dir=${DBS_PREFIX}
 else
   # we search for the full path of mpiexec
   ifneq (, $(shell which mpiexec 2>/dev/null))
@@ -41,7 +41,7 @@ define petsc_template_opt
 	target_ver="$(PETSC_VER)" \
 	target_dep="$(petsc_dep)" \
 	target_url="https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-$(PETSC_VER).tar.gz" \
-	target_confcmd="./configure --prefix=${PREFIX}"\
+	target_confcmd="./configure --DBS_PREFIX=${DBS_PREFIX}"\
 	target_confopt="$(petsc_opt)" \
 	target_installcmd="$(MAKE) all -j8 && make install"
 endef

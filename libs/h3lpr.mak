@@ -12,14 +12,14 @@ endif
 
 #===============================================================================
 .PHONY: h3lpr
-h3lpr: $(PREFIX)/h3lpr.complete
+h3lpr: $(DBS_PREFIX)/h3lpr.complete
 
 #-------------------------------------------------------------------------------
-h3lpr_tar: $(TAR_DIR)/$(H3LPR_DIR).tar.gz
+h3lpr_tar: $(DBS_TAR_DIR)/$(H3LPR_DIR).tar.gz
 
-$(TAR_DIR)/$(H3LPR_DIR).tar.gz: | $(TAR_DIR)
+$(DBS_TAR_DIR)/$(H3LPR_DIR).tar.gz: | $(DBS_TAR_DIR)
 ifdef H3LPR_VER
-	cd $(TAR_DIR) &&  \
+	cd $(DBS_TAR_DIR) &&  \
 	rm -rf $(H3LPR_DIR) && \
 	git clone git@github.com:van-Rees-Lab/h3lpr.git && \
 	mv h3lpr $(H3LPR_DIR) && \
@@ -28,15 +28,15 @@ ifdef H3LPR_VER
 	cd $(TAR_DIR)  && tar -czvf $(H3LPR_DIR).tar.gz $(H3LPR_DIR) && \
 	rm -rf $(H3LPR_DIR)  
 else
-	touch $(TAR_DIR)/$(H3LPR_DIR).tar.gz
+	touch $(DBS_TAR_DIR)/$(H3LPR_DIR).tar.gz
 endif
 
 #-------------------------------------------------------------------------------
-$(PREFIX)/h3lpr.complete: | $(PREFIX) $(TAR_DIR)/$(H3LPR_DIR).tar.gz
+$(DBS_PREFIX)/h3lpr.complete: | $(DBS_PREFIX) $(DBS_TAR_DIR)/$(H3LPR_DIR).tar.gz
 ifdef H3LPR_VER
 	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \
-	cp $(TAR_DIR)/$(H3LPR_DIR).tar.gz $(COMP_DIR)  && \
+	cp $(DBS_TAR_DIR)/$(H3LPR_DIR).tar.gz $(COMP_DIR)  && \
 	tar -xvf $(H3LPR_DIR).tar.gz  && \
 	cd $(H3LPR_DIR) && \
 	CC=${DBS_MPICC} CXX=${DBS_MPICXX} \
@@ -46,7 +46,7 @@ ifdef H3LPR_VER
 	hostname >> $@ && \
 	git describe --always --dirty >> $@
 else
-	touch $(PREFIX)/h3lpr.complete
+	touch $(DBS_PREFIX)/h3lpr.complete
 endif
 
 #-------------------------------------------------------------------------------
@@ -62,8 +62,8 @@ endif
 #-------------------------------------------------------------------------------
 .PHONY: h3lpr_reallyclean
 h3lpr_reallyclean: 
-	@rm -rf $(TAR_DIR)/$(H3LPR_DIR).tar.gz
+	@rm -rf $(DBS_TAR_DIR)/$(H3LPR_DIR).tar.gz
 #-------------------------------------------------------------------------------
 .PHONY: h3lpr_clean
 h3lpr_clean: 
-	@rm -rf $(PREFIX)/h3lpr.complete
+	@rm -rf $(DBS_PREFIX)/h3lpr.complete

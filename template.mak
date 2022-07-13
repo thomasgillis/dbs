@@ -5,7 +5,7 @@
 # - target_url the url to be used in the wget
 # - target_ver: the version of the lib
 # - target_dep: the list of lib that the target depends on
-# - target_confcmd: the compilation command to be used (eg `CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}`)
+# - target_confcmd: the compilation command to be used (eg `CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --DBS_PREFIX=${DBS_PREFIX}`)
 # - target_precmd: (optional, default: empty) the precompilation command to run (eg `./autogen.sh`)
 # - target_confopt: (optional, default: empty) the compilation options to add to the configure
 # - target_installcmd: (optional, default: `$(MAKE) install -j8`)
@@ -28,10 +28,10 @@ target_installcmd ?= $(MAKE) install -j8
 
 #===============================================================================
 # define how to make the directories
-$(PREFIX):
-	mkdir -p $(PREFIX)
-$(TAR_DIR):
-	mkdir -p $(TAR_DIR)
+$(DBS_PREFIX):
+	mkdir -p $(DBS_PREFIX)
+$(DBS_TAR_DIR):
+	mkdir -p $(DBS_TAR_DIR)
 $(COMP_DIR):
 	mkdir -p $(COMP_DIR)
 $(COMP_DIR)/tmp_$(target):
@@ -39,26 +39,26 @@ $(COMP_DIR)/tmp_$(target):
 
 #===============================================================================
 .PHONY: doit
-doit: $(PREFIX)/$(target).complete
+doit: $(DBS_PREFIX)/$(target).complete
 
 .PHONY: tit
-tit: | $(PREFIX)
-	touch -a $(PREFIX)/$(target).complete
+tit: | $(DBS_PREFIX)
+	touch -a $(DBS_PREFIX)/$(target).complete
 
 .PHONY: tar
-tar: $(TAR_DIR)/$(target)-$(target_ver).tar.gz | $(TAR_DIR)
+tar: $(DBS_TAR_DIR)/$(target)-$(target_ver).tar.gz | $(DBS_TAR_DIR)
 
 .PHONY: ttar
-ttar: | $(TAR_DIR)
-	touch $(TAR_DIR)/$(target)-$(traget_ver).tar.gz
+ttar: | $(DBS_TAR_DIR)
+	touch $(DBS_TAR_DIR)/$(target)-$(traget_ver).tar.gz
 
 #-------------------------------------------------------------------------------
-$(TAR_DIR)/$(target_dir).tar.gz: | $(TAR_DIR)
-	cd $(TAR_DIR) &&\
+$(DBS_TAR_DIR)/$(target_dir).tar.gz: | $(DBS_TAR_DIR)
+	cd $(DBS_TAR_DIR) &&\
 	wget --no-check-certificate $(target_url) -O $(target_dir).tar.gz
 
-$(PREFIX)/$(target).complete: $(foreach lib,$(target_dep),$(PREFIX)/$(lib).complete) | $(PREFIX) $(COMP_DIR) $(COMP_DIR)/tmp_$(target) $(TAR_DIR)/$(target_dir).tar.gz
-	cp $(TAR_DIR)/$(target_dir).tar.gz $(COMP_DIR)/tmp_$(target) &&\
+$(DBS_PREFIX)/$(target).complete: $(foreach lib,$(target_dep),$(DBS_PREFIX)/$(lib).complete) | $(DBS_PREFIX) $(COMP_DIR) $(COMP_DIR)/tmp_$(target) $(DBS_TAR_DIR)/$(target_dir).tar.gz
+	cp $(DBS_TAR_DIR)/$(target_dir).tar.gz $(COMP_DIR)/tmp_$(target) &&\
 	cd $(COMP_DIR)/tmp_$(target) &&\
 	tar -xvf $(target_dir).tar.gz &&\
 	mv */ $(COMP_DIR)/$(target_dir) &&\
@@ -73,11 +73,11 @@ $(PREFIX)/$(target).complete: $(foreach lib,$(target_dep),$(PREFIX)/$(lib).compl
 #-------------------------------------------------------------------------------
 .PHONY: clean
 clean: 
-	@rm -rf $(PREFIX)/$(target).complete
+	@rm -rf $(DBS_PREFIX)/$(target).complete
 #-------------------------------------------------------------------------------
 .PHONY: reallyclean
 reallyclean: 
-	@rm -rf $(TAR_DIR)/$(target_dir).tar.gz
+	@rm -rf $(DBS_TAR_DIR)/$(target_dir).tar.gz
 
 #-------------------------------------------------------------------------------
 .PHONY: info

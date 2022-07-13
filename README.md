@@ -40,8 +40,8 @@ Once done, you can simply instruct your system to use the newly compiles libs us
 
 ```bash
 # put that in your bashrc
-export PREFIX=/the/prefix/you/have/used
-export PATH=${PREFIX}/bin:${PATH}
+export DBS_PREFIX=/the/DBS_PREFIX/you/have/used
+export PATH=${DBS_PREFIX}/bin:${PATH}
 ```
 
 Other make targets:
@@ -51,8 +51,8 @@ Other make targets:
 - `make submit` will submit the job on the cluster
 - `make install` will start the installation of the libs
 - `make tar` will download the tar needed
-- `make clean` will rm the already build `.complete` files in the `$(PREFIX)` folder
-- `make reallyclean` will rm the tar in the `$(TAR_DIR)` folder
+- `make clean` will rm the already build `.complete` files in the `$(DBS_PREFIX)` folder
+- `make reallyclean` will rm the tar in the `$(DBS_TAR_DIR)` folder
 
 ### Add your architecture
 
@@ -61,10 +61,10 @@ In this file you should to specify
 
 **general parameters**:
 
-- `FC`, `CC`, and `CXX` as the non-mpi compilers to use
-- `BUILD_DIR` the location where the temporary (and unique) build directory will be created
-- `TAR_DIR` where the find the tar, obtained using `tar-list.sh`
-- `PREFIX` where the libs will be installed
+- `FC`, `CC`, and `CXX` as the non-mpi compilers to use, those can typically not be installed with `dbs`
+- `DBS_BUILD_DIR` the location where the temporary (and unique) build directory will be created
+- `DBS_TAR_DIR` where the find the tar, obtained using `tar-list.sh`
+- `DBS_PREFIX` where the libs will be installed
 
 **module information**:
 
@@ -84,19 +84,10 @@ Nothing will be done with that information expect displaying it to the user if r
 
 **Library dependent parameters**
 
-For each library you must specify the 
-- `ZLIB_VER` - zlib
-- `LIBEVENT_VER` - libevent
-- `HWLOC_VER` - hwloc
-- `PMIX_VER` - pmix
-- `UCX_VER` - ucx
-- `OFI_VER` - ofi/libfabric
-- `OMPI_VER` - openmpi
-- `HDF5_VER` - hdf5
-- `FFTW_VER` - fftw
-- `OBLAS_VER` - openblas
-- `P4EST_VER` - p4est
-- `FLUPS_VER` - flups
+For each of the library you can specify the version required as `<LIBNAME>_VER`. 
+To get a list of the supported libs, run `make liblist`
+
+Some libraries are more complicated than others and deserve some explanation:
 
 ### OpenMPI
 

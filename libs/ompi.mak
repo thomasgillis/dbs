@@ -5,24 +5,24 @@ ompi_opt += --without-verbs --enable-mpirun-prefix-by-default --with-cuda=no ${O
 
 # get the correct libevent etc
 ifdef LIBEVENT_VER
-ompi_opt += --with-libevent=$(PREFIX)
+ompi_opt += --with-libevent=$(DBS_PREFIX)
 endif
 ifdef PMIX_VER
-ompi_opt += --with-pmix=$(PREFIX)
+ompi_opt += --with-pmix=$(DBS_PREFIX)
 endif
 ifdef ZLIB_VER
-ompi_opt += --with-zlib=$(PREFIX)
+ompi_opt += --with-zlib=$(DBS_PREFIX)
 endif
 ifdef HWLOC_VER
-ompi_opt += --with-hwloc=$(PREFIX)
+ompi_opt += --with-hwloc=$(DBS_PREFIX)
 endif
 ifdef OFI_VER
-ompi_opt += --with-ofi=$(PREFIX)
+ompi_opt += --with-ofi=$(DBS_PREFIX)
 else
 ompi_opt ?= --with-ofi=no
 endif
 ifdef UCX_VER
-ompi_opt += --with-ucx=$(PREFIX)
+ompi_opt += --with-ucx=$(DBS_PREFIX)
 else
 ompi_opt ?= --with-ucx=no
 endif
@@ -37,16 +37,16 @@ define ompi_template_opt
 	target_ver="$(OMPI_VER)" \
 	target_dep="$(ompi_dep)" \
 	target_url="https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-$(OMPI_VER).tar.gz" \
-	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}" \
+	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --DBS_PREFIX=${DBS_PREFIX}" \
 	target_confopt="$(ompi_opt)"
 endef
 
 #===============================================================================
 ifdef OMPI_VER
-DBS_MPICC = $(PREFIX)/bin/mpicc
-DBS_MPICXX = $(PREFIX)/bin/mpic++
-DBS_MPIFORT = $(PREFIX)/bin/mpif90
-DBS_MPIEXEC = $(PREFIX)/bin/mpiexec
+DBS_MPICC = $(DBS_PREFIX)/bin/mpicc
+DBS_MPICXX = $(DBS_PREFIX)/bin/mpic++
+DBS_MPIFORT = $(DBS_PREFIX)/bin/mpif90
+DBS_MPIEXEC = $(DBS_PREFIX)/bin/mpiexec
 else
 DBS_MPICC = mpicc
 DBS_MPICXX = mpic++

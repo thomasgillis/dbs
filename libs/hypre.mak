@@ -6,7 +6,7 @@ hypre_opt ?=
 
 ifdef OBLAS_VER
 hypre_dep += oblas
-hypre_opt += --with-blas-lib=\"-L$(PREFIX)/lib -lopenblas\" --with-lapack-lib=\"-L$(PREFIX)/lib -lopenblas\"
+hypre_opt += --with-blas-lib=\"-L$(DBS_PREFIX)/lib -lopenblas\" --with-lapack-lib=\"-L$(DBS_PREFIX)/lib -lopenblas\"
 endif
 
 define hypre_template_opt
@@ -15,7 +15,7 @@ define hypre_template_opt
 	target_dep="$(hypre_dep)" \
 	target_url="https://github.com/hypre-space/hypre/archive/refs/tags/v$(HYPRE_VER).tar.gz" \
 	target_precmd="cd src" \
-	target_confcmd="CC=$(DBS_MPICC) CXX=$(DBS_MPICXX) ./configure --prefix=${PREFIX}" \
+	target_confcmd="CC=$(DBS_MPICC) CXX=$(DBS_MPICXX) ./configure --DBS_PREFIX=${DBS_PREFIX}" \
 	target_confopt="$(hypre_opt) --enable-shared"
 endef
 

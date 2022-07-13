@@ -7,7 +7,7 @@ hwloc_opt ?= --disable-cairo --disable-opencl --disable-cuda --disable-nvml --di
 hwloc_preopt ?=
 
 ifdef LIBXML2_VER
-hwloc_preopt += HWLOC_LIBXML2_CFLAGS=\"-I$(PREFIX)/include/libxml2\" HWLOC_LIBXML2_LIBS=\"-L$(PREFIX)/lib -lz\"
+hwloc_preopt += HWLOC_LIBXML2_CFLAGS=\"-I$(DBS_PREFIX)/include/libxml2\" HWLOC_LIBXML2_LIBS=\"-L$(DBS_PREFIX)/lib -lz\"
 endif
 
 define hwloc_template_opt
@@ -15,7 +15,7 @@ define hwloc_template_opt
 	target_ver="$(HWLOC_VER)" \
 	target_dep="$(hwloc_dep)" \
 	target_url="https://download.open-mpi.org/release/hwloc/v2.7/hwloc-$(HWLOC_VER).tar.gz" \
-	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) $(hwloc_preopt) ./configure --prefix=${PREFIX}" \
+	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) $(hwloc_preopt) ./configure --DBS_PREFIX=${DBS_PREFIX}" \
 	target_confopt="$(hwloc_opt)"
 endef
 

@@ -6,9 +6,9 @@ CXX = g++
 
 VEGA_USER := $(shell whoami)
 
-BUILD_DIR = /ceph/hpc/scratch/user/$(VEGA_USER)
-TAR_DIR = $(HOME)/tar_storage
-PREFIX = $(HOME)/lib-OpenMPI-4.1.2-all
+DBS_BUILD_DIR = /ceph/hpc/scratch/user/$(VEGA_USER)
+DBS_TAR_DIR = $(HOME)/tar_storage
+DBS_PREFIX = $(HOME)/lib-OpenMPI-4.1.2-all
 
 define MODULE_LIST
 GCC/11.2.0

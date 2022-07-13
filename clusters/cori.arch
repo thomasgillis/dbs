@@ -4,9 +4,9 @@ FC = gfortran
 CC = gcc
 CXX = g++
 
-BUILD_DIR = $(SCRATCH)
-TAR_DIR = $(HOME)/tar_storage
-PREFIX = $(HOME)/lib-dbs
+DBS_BUILD_DIR = $(SCRATCH)
+DBS_TAR_DIR = $(HOME)/tar_storage
+DBS_PREFIX = $(HOME)/lib-dbs
 
 define MODULE_LIST
 module swap PrgEnv-${PE_ENV,,} PrgEnv-gnu/6.0.10

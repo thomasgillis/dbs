@@ -5,7 +5,7 @@ libxml2_dep = zlib
 libxml2_opt ?=
 
 ifdef ZLIB_VER
-libxml2_opt += --with-zlib=$(PREFIX)
+libxml2_opt += --with-zlib=$(DBS_PREFIX)
 endif
 
 define libxml2_template_opt
@@ -14,7 +14,7 @@ define libxml2_template_opt
 	target_dep="$(libxml2_dep)" \
 	target_url="https://gitlab.gnome.org/GNOME/libxml2/-/archive/v$(LIBXML2_VER)/libxml2-v$(LIBXML2_VER).tar.gz" \
 	target_precmd="./autogen.sh" \
-	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}"\
+	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --DBS_PREFIX=${DBS_PREFIX}"\
 	target_confopt="$(libxml2_opt) --without-python"
 endef
 
