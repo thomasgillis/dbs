@@ -8,7 +8,7 @@ define p4est_template_opt
 	target_ver="$(P4EST_VER)" \
 	target_dep="$(p4est_dep)" \
 	target_url="https://p4est.github.io/release/p4est-$(P4EST_VER).tar.gz" \
-	target_confcmd="CC=$(DBS_MPICC) CXX=$(DBS_MPICXX) FC=$(DBS_MPIFORT) F77=$(DBS_MPIFORT) ./configure --DBS_PREFIX=${DBS_PREFIX}" \
+	target_confcmd="CC=$(DBS_MPICC) CXX=$(DBS_MPICXX) FC=$(DBS_MPIFORT) F77=$(DBS_MPIFORT) ./configure --prefix=${DBS_PREFIX}" \
 	target_confopt="--enable-mpi --enable-openmp --with-blas=-lopenblas"
 endef
 

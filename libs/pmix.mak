@@ -27,7 +27,7 @@ define pmix_template_opt
 	target_ver="$(PMIX_VER)" \
 	target_dep="$(pmix_dep)" \
 	target_url="https://github.com/openpmix/openpmix/releases/download/v$(PMIX_VER)/pmix-$(PMIX_VER).tar.gz" \
-	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --DBS_PREFIX=${DBS_PREFIX}" \
+	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${DBS_PREFIX}" \
 	target_confopt="$(pmix_opt)"
 endef
 

@@ -14,7 +14,7 @@ define libxml2_template_opt
 	target_dep="$(libxml2_dep)" \
 	target_url="https://gitlab.gnome.org/GNOME/libxml2/-/archive/v$(LIBXML2_VER)/libxml2-v$(LIBXML2_VER).tar.gz" \
 	target_precmd="./autogen.sh" \
-	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --DBS_PREFIX=${DBS_PREFIX}"\
+	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${DBS_PREFIX}"\
 	target_confopt="$(libxml2_opt) --without-python"
 endef
 

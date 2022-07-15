@@ -5,7 +5,7 @@
 # - target_url the url to be used in the wget
 # - target_ver: the version of the lib
 # - target_dep: the list of lib that the target depends on
-# - target_confcmd: the compilation command to be used (eg `CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --DBS_PREFIX=${DBS_PREFIX}`)
+# - target_confcmd: the compilation command to be used (eg `CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${DBS_PREFIX}`)
 # - target_precmd: (optional, default: empty) the precompilation command to run (eg `./autogen.sh`)
 # - target_confopt: (optional, default: empty) the compilation options to add to the configure
 # - target_installcmd: (optional, default: `$(MAKE) install -j8`)

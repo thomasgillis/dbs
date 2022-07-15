@@ -84,7 +84,7 @@ Nothing will be done with that information expect displaying it to the user if r
 
 **Library dependent parameters**
 
-For each of the library you can specify the version required as `<LIBNAME>_VER`. 
+For each of the library you can specify the version required as `<LIBNAME>_VER` or the directory to find the library using `<LIBNAME>_DIR`.
 To get a list of the supported libs, run `make liblist`
 
 Some libraries are more complicated than others and deserve some explanation:

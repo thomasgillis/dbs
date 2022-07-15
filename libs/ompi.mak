@@ -6,9 +6,16 @@ ompi_opt += --without-verbs --enable-mpirun-prefix-by-default --with-cuda=no ${O
 # get the correct libevent etc
 ifdef LIBEVENT_VER
 ompi_opt += --with-libevent=$(DBS_PREFIX)
+else ifdef LIBEVENT_MODDIR
+ompi_opt += --with-libevent=$(LIBEVENT_MODDIR)
+else
+$(warning "No libevent given for OpenMPI, either install it using LIBEVENT_VER or specify a path using ")
+else
 endif
 ifdef PMIX_VER
 ompi_opt += --with-pmix=$(DBS_PREFIX)
+else ifdef PMIX_MODDIR
+ompi_opt += --with-pmix=$(PMIX_MODDIR)
 endif
 ifdef ZLIB_VER
 ompi_opt += --with-zlib=$(DBS_PREFIX)
@@ -37,7 +44,7 @@ define ompi_template_opt
 	target_ver="$(OMPI_VER)" \
 	target_dep="$(ompi_dep)" \
 	target_url="https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-$(OMPI_VER).tar.gz" \
-	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --DBS_PREFIX=${DBS_PREFIX}" \
+	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${DBS_PREFIX}" \
 	target_confopt="$(ompi_opt)"
 endef
 
