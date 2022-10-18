@@ -1,0 +1,45 @@
+#===============================================================================
+# GENERAL PARAMETERS
+FC = gfortran
+CC = gcc
+CXX = g++
+
+BUILD_DIR = /project/scratch/p200067
+TAR_DIR = $(HOME)/tar_storage
+PREFIX = $(HOME)/lib-MPICH-4.0.2
+
+define MODULE_LIST
+module use /apps/USE/easybuild/release/2021.5/modules/all
+module load GCC/10.3.0
+module load Automake/1.16.3-GCCcore-10.3.0
+module load Autoconf/2.71-GCCcore-10.3.0
+module load libtool/2.4.6-GCCcore-10.3.0
+module load CMake/3.20.1-GCCcore-10.3.0
+endef
+
+#===============================================================================
+#UCX_VER = 1.13.0
+#OFI_VER = 1.14.1
+#OMPI_VER = 4.1.4
+MPICH_VER = 4.0.2
+HDF5_VER = 1.12.1
+OBLAS_VER = 0.3.20
+#P4EST_VER = 2.8
+FFTW_VER = 3.3.10
+#LIBXML2_VER = 2.9.13
+#ZLIB_VER = 1.2.12
+#HWLOC_VER = 2.7.1
+#LIBEVENT_VER= 2.1.12
+#PMIX_VER = 4.1.1
+#FLUPS_VER = develop
+#PETSC_VER = 3.17.1
+#HYPRE_VER = 2.24.0
+#H3LPR_VER = develop
+#SCOREP_VER = 7.1
+#HEFFTE_VER = master
+#ACCFFT_VER = master
+
+#FLUPS_HDF5_DIR=${EBROOTHDF5}
+#FLUPS_FFTW_DIR=${EBROOTFFTW}
+
+#end of life
