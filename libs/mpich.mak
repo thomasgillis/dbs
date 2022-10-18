@@ -2,24 +2,13 @@
 #-------------------------------------------------------------------------------
 mpich_opt ?= 
 mpich_opt += --disable-fortran
+mpich_opt += --with-device=ch4:ucx
+#mpich_opt += --with-slurm
 #mpich_opt += --disable-cxx --disable-fortran
-
-# get the correct libevent etc
-ifdef OFI_VER
-mpich_opt += --with-ofi=$(PREFIX)
-else
-mpich_opt ?= --with-ofi=no
-endif
-ifdef UCX_VER
-mpich_opt += --with-ucx=$(PREFIX)
-else
-mpich_opt ?= --with-ucx=no
-endif
-
 
 #-------------------------------------------------------------------------------
 # dependency list
-mpich_dep = ucx ofi
+mpich_dep =
 
 define mpich_template_opt
 	target="mpich" \
