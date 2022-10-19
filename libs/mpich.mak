@@ -3,13 +3,14 @@
 mpich_opt ?= 
 mpich_opt += --disable-fortran
 mpich_opt += --with-device=ch4:ucx
-#mpich_opt += --with-pmi=slurm
-#mpich_opt += --with-slurm
-#mpich_opt += --disable-cxx --disable-fortran
+mpich_opt += --enable-fast
+#mpich_opt += --with-pmi=pmix --with-pmix=$(PREFIX) --with-hwloc=$(PREFIX)
+#mpich_opt += --with-pmi=slurm --with-slurm-include=/usr/include --with-slurm-lib=/opt/parastation/plugins/
 
 #-------------------------------------------------------------------------------
 # dependency list
 mpich_dep =
+#mpich_dep = pmix hwloc
 
 define mpich_template_opt
 	target="mpich" \
