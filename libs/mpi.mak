@@ -29,9 +29,21 @@ DBS_MPIFORT = mpif90
 DBS_MPIEXEC = mpiexec
 endif
 
+#-------------------------------------------------------------------------------
+define mpi_template_opt
+    target="mpi" \
+    target_ver="$(MPI_VER)" \
+    target_dep="$(mpi_dep)" \
+    target_url="" \
+    target_confcmd="" \
+    target_confopt=""
+endef
+
 #===============================================================================
+# by default we only touch the mpi.complete file, nothing to do there
 .PHONY: mpi
 mpi: $(mpi_dep)
+	@$(mpi_template_opt) $(MAKE) --file=template.mak tit
 
 #-------------------------------------------------------------------------------
 .PHONY: mpi_tar

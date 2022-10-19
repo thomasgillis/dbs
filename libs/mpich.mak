@@ -3,6 +3,7 @@
 mpich_opt ?= 
 mpich_opt += --disable-fortran
 mpich_opt += --with-device=ch4:ucx
+#mpich_opt += --with-pmi=slurm
 #mpich_opt += --with-slurm
 #mpich_opt += --disable-cxx --disable-fortran
 
