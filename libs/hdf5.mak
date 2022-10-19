@@ -15,8 +15,6 @@ ifdef ZLIB_VER
 hdf5_zlib = --with-zlib=$(PREFIX)
 endif
 
-$(info DBS_COMPILER = $(DBS_MPICC))
-
 define hdf5_template_opt
 	target="hdf5" \
 	target_ver="$(HDF5_VER)" \
