@@ -1,7 +1,7 @@
 # # build recipe for FFTW
 #-------------------------------------------------------------------------------
 # dependency list
-fftw_dep = ompi
+fftw_dep = mpi
 
 define fftw_template_opt
 	target="fftw" \

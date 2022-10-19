@@ -47,7 +47,7 @@ endif
 
 #===============================================================================
 .PHONY: flups
-flups: ompi hdf5 h3lpr fftw $(PREFIX)/flups.complete
+flups: mpi hdf5 h3lpr fftw $(PREFIX)/flups.complete
 
 #-------------------------------------------------------------------------------
 flups_tar: $(TAR_DIR)/$(FLUPS_DIR).tar.gz

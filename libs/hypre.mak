@@ -1,7 +1,7 @@
 # # build recipe for HYPRE
 #-------------------------------------------------------------------------------
 # dependency list
-hypre_dep = ompi
+hypre_dep = mpi
 hypre_opt ?=
 
 ifdef OBLAS_VER

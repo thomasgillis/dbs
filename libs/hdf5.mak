@@ -1,17 +1,21 @@
 # # build recipe for HDF5
 #-------------------------------------------------------------------------------
 # dependency list
-hdf5_dep = zlib
-ifdef OMPI_VER
-hdf5_dep += ompi
-endif
-ifdef MPICH_VER
-hdf5_dep += mpich
-endif
+hdf5_dep = zlib mpi
+
+
+#ifdef OMPI_VER
+#hdf5_dep += mpi
+#endif
+#ifdef MPICH_VER
+#hdf5_dep += mpich
+#endif
 
 ifdef ZLIB_VER
 hdf5_zlib = --with-zlib=$(PREFIX)
 endif
+
+$(info DBS_COMPILER = $(DBS_MPICC))
 
 define hdf5_template_opt
 	target="hdf5" \

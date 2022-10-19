@@ -20,17 +20,17 @@ define mpich_template_opt
 endef
 
 #===============================================================================
-ifdef MPICH_VER
-DBS_MPICC = $(PREFIX)/bin/mpicc
-DBS_MPICXX = $(PREFIX)/bin/mpicxx
-DBS_MPIFORT = $(PREFIX)/bin/mpif90
-DBS_MPIEXEC = $(PREFIX)/bin/mpiexec
-else
-DBS_MPICC = mpicc
-DBS_MPICXX = mpic++
-DBS_MPIFORT = mpif90
-DBS_MPIEXEC = mpiexec
-endif
+#ifdef MPICH_VER
+#DBS_MPICC = $(PREFIX)/bin/mpicc
+#DBS_MPICXX = $(PREFIX)/bin/mpicxx
+#DBS_MPIFORT = $(PREFIX)/bin/mpif90
+#DBS_MPIEXEC = $(PREFIX)/bin/mpiexec
+#else
+#DBS_MPICC = mpicc
+#DBS_MPICXX = mpic++
+#DBS_MPIFORT = mpif90
+#DBS_MPIEXEC = mpiexec
+#endif
 
 #===============================================================================
 .PHONY: mpich

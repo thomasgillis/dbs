@@ -6,7 +6,7 @@ CXX = g++
 
 BUILD_DIR = /project/scratch/p200067
 TAR_DIR = $(HOME)/tar_storage
-PREFIX = $(HOME)/lib-MPICH-4.0.2
+PREFIX = $(HOME)/lib-MPICH-4.1a1
 
 define MODULE_LIST
 module use /apps/USE/easybuild/release/2021.5/modules/all
@@ -21,7 +21,8 @@ endef
 #UCX_VER = 1.13.0
 #OFI_VER = 1.14.1
 #OMPI_VER = 4.1.4
-MPICH_VER = 4.0.2
+#MPICH_VER = 4.0.2
+MPICH_VER = 4.1a1
 HDF5_VER = 1.12.1
 OBLAS_VER = 0.3.20
 #P4EST_VER = 2.8

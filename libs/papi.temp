@@ -1,0 +1,53 @@
+# # build recipe for PAPI
+#-------------------------------------------------------------------------------
+papi_dep =
+
+papi_opt ?=
+
+define papi_template_opt
+	target="papi" \
+	target_ver="$(PAPI_VER)" \
+	target_dep="$(papi_dep)" \
+	target_url="https://perftools.pages.jsc.fz-juelich.de/cicd/papi/tags/papi-$(PAPI_VER)/papi-$(PAPI_VER).tar.gz" \
+	target_confcmd="$(MAKE) USE_OPENMP=1 PREFIX=${PREFIX} -j8" \
+	target_installcmd="$(MAKE) PREFIX=${PREFIX} install -j8" \
+	target_confopt="$(papi_opt)"
+endef
+
+#===============================================================================
+.PHONY: papi
+papi:
+ifdef PAPI_VER
+	@$(papi_template_opt) $(MAKE) --file=template.mak doit
+else
+	@$(papi_template_opt) $(MAKE) --file=template.mak tit
+endif
+
+#===============================================================================
+.PHONY: papi_tar
+papi_tar:
+ifdef PAPI_VER
+	@$(papi_template_opt) $(MAKE) --file=template.mak tar
+else
+	@$(papi_template_opt) $(MAKE) --file=template.mak ttar
+endif
+
+#-------------------------------------------------------------------------------
+.PHONY: papi_info
+papi_info:
+ifdef PAPI_VER
+	@$(papi_template_opt) $(MAKE) --file=template.mak info
+else
+	@$(papi_template_opt) $(MAKE) --file=template.mak info_none
+endif
+
+#-------------------------------------------------------------------------------
+.PHONY: papi_clean
+papi_clean: 
+	@$(papi_template_opt) $(MAKE) --file=template.mak clean
+
+#-------------------------------------------------------------------------------
+.PHONY: papi_reallyclean
+papi_reallyclean: 
+	@$(papi_template_opt) $(MAKE) --file=template.mak reallyclean
+

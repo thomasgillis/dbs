@@ -42,17 +42,17 @@ define ompi_template_opt
 endef
 
 #===============================================================================
-ifdef OMPI_VER
-DBS_MPICC = $(PREFIX)/bin/mpicc
-DBS_MPICXX = $(PREFIX)/bin/mpic++
-DBS_MPIFORT = $(PREFIX)/bin/mpif90
-DBS_MPIEXEC = $(PREFIX)/bin/mpiexec
-else
-DBS_MPICC = mpicc
-DBS_MPICXX = mpic++
-DBS_MPIFORT = mpif90
-DBS_MPIEXEC = mpiexec
-endif
+#ifdef OMPI_VER
+#DBS_MPICC = $(PREFIX)/bin/mpicc
+#DBS_MPICXX = $(PREFIX)/bin/mpic++
+#DBS_MPIFORT = $(PREFIX)/bin/mpif90
+#DBS_MPIEXEC = $(PREFIX)/bin/mpiexec
+#else
+#DBS_MPICC = mpicc
+#DBS_MPICXX = mpic++
+#DBS_MPIFORT = mpif90
+#DBS_MPIEXEC = mpiexec
+#endif
 
 #===============================================================================
 .PHONY: ompi
