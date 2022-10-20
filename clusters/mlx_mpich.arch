@@ -6,7 +6,7 @@ CXX = g++
 
 BUILD_DIR = /project/scratch/p200067
 TAR_DIR = $(HOME)/tar_storage
-PREFIX = $(HOME)/lib-MPICH-4.1a1
+PREFIX = $(HOME)/lib-MPICH-4.1a1-UCX-1.13.1
 
 define MODULE_LIST
 module use /apps/USE/easybuild/release/2021.5/modules/all
@@ -18,7 +18,7 @@ module load CMake/3.20.1-GCCcore-10.3.0
 endef
 
 #===============================================================================
-#UCX_VER = 1.13.0
+UCX_VER = 1.13.1
 #OFI_VER = 1.14.1
 #OMPI_VER = 4.1.4
 #MPICH_VER = 4.0.2
