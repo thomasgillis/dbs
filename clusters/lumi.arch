@@ -1,0 +1,42 @@
+#===============================================================================
+# GENERAL PARAMETERS
+FC = ftn
+CC = cc
+CXX = CC
+
+BUILD_DIR=/scratch/project_465000098
+TAR_DIR=$(HOME)/tar_storage
+PREFIX=$(HOME)/lib-MPICH-4.1a1
+
+define MODULE_LIST
+module load CrayEnv
+#module load buildtools/22.08
+module load libfabric/1.15.0.0
+endef
+
+#===============================================================================
+OFI_DIR=/opt/cray/libfabric/1.15.0.0
+#UCX_VER = 1.13.1
+#OFI_VER = 1.16.1
+#OMPI_VER = 4.1.4
+#MPICH_VER = 4.0.2
+MPICH_VER = 4.1a1
+HDF5_VER = 1.12.1
+OBLAS_VER = 0.3.20
+#P4EST_VER = 2.8
+FFTW_VER = 3.3.10
+#LIBXML2_VER = 2.9.13
+#ZLIB_VER = 1.2.12
+#HWLOC_VER = 2.7.1
+#LIBEVENT_VER= 2.1.12
+#PMIX_VER = 4.1.1
+#FLUPS_VER = develop
+#PETSC_VER = 3.17.1
+#HYPRE_VER = 2.24.0
+#H3LPR_VER = develop
+#SCOREP_VER = 7.1
+#HEFFTE_VER = master
+#ACCFFT_VER = master
+
+
+#end of life

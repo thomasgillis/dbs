@@ -2,15 +2,16 @@
 #-------------------------------------------------------------------------------
 mpich_opt ?= 
 mpich_opt += --disable-fortran
-mpich_opt += --with-device=ch4:ucx
+mpich_opt += --with-device=ch4:ofi
 #mpich_opt += --enable-fast
-mpich_opt +=  --with-ucx=${PREFIX}
+mpich_opt += --with-libfabric=${OFI_DIR}
+#mpich_opt +=  --with-ucx=${PREFIX}
 #mpich_opt += --with-pmi=pmix --with-pmix=$(PREFIX) --with-hwloc=$(PREFIX)
 #mpich_opt += --with-pmi=slurm --with-slurm-include=/usr/include --with-slurm-lib=/opt/parastation/plugins/
 
 #-------------------------------------------------------------------------------
 # dependency list
-mpich_dep = ucx
+mpich_dep = ucx ofi
 #mpich_dep = pmix hwloc
 
 define mpich_template_opt
