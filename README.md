@@ -102,14 +102,17 @@ If you choose to use another version of those libs (i.e. not specified by `XXX_V
 - `OMPI_LIBEVENT_DEP` will be `--with-libevent=internal` unless you specify it otherwise
 - `OMPI_MISC_OPTS` can be used to give other options to `ompi`
 
+### MPICH
 
-### PMIX
+Similar to `ompi`, `mpich` can also rely on different external libraries.
+By default any library requested through dbs will be added to mpich.
+If both `UCX_VER` and `OFI_VER` are specified `dbs` will choose `UCX` over `OFI` and display a warning.
+However you can also customize the dependencies using
 
-Similar to OpenMPI, it's possible to choose where to take the different dependencies if not installed through `DBS`:
+- `MPICH_UCX_DEP` will be `--with-ucx=no` by default. To install the provided version, use `MPICH_UCX_DEP=--with-ucx=embedded`
+- `MPICH_OFI_DEP` will be `--with-ofi=no` by default. To install the provided version, use `MPICH_UCX_DEP=--with-libfabric=embedded`
+- `MPICH_MISC_OPTS` can be used to further detail the configuration.
 
-- `OMPI_HWLOC_DEP` will be empty unless you specify it otherwise
-- `OMPI_ZLIB_DEP` will be empty unless you specify it otherwise
-- `OMPI_LIBEVENT_DEP` will be empty unless you specify it otherwise
 
 ### FLUPS
 **Flups specificities**

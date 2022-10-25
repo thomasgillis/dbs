@@ -1,18 +1,46 @@
 # # build recipe for MPICH
 #-------------------------------------------------------------------------------
 mpich_opt ?= 
-mpich_opt += --disable-fortran
-mpich_opt += --with-device=ch4:ofi
-#mpich_opt += --enable-fast
-mpich_opt += --with-libfabric=${OFI_DIR}
-#mpich_opt +=  --with-ucx=${PREFIX}
-#mpich_opt += --with-pmi=pmix --with-pmix=$(PREFIX) --with-hwloc=$(PREFIX)
-#mpich_opt += --with-pmi=slurm --with-slurm-include=/usr/include --with-slurm-lib=/opt/parastation/plugins/
+mpich_opt += --disable-fortran ${MPICH_MISC_OPTS}
+
+mpich_device_list = 
+# ------------  UCX ------------
+ifdef UCX_VER
+mpich_device_list += `ucx`
+mpich_opt += --with-ucx=$(PREFIX)
+else
+MPICH_UCX_DEP ?= --with-ucx=no
+mpich_opt += ${MPICH_UCX_DEP}
+endif
+# ------------  OFI ------------
+ifdef OFI_VER
+# .............................
+ifndef UCX_VER
+mpich_device_list += `ofi`
+mpich_opt += --with-libfabric=$(PREFIX)
+else
+mpich_opt += --with-libfabric=no
+$(warning OFI and UCX will not been build both with MPICH, using UCX by default)
+endif
+# .............................
+else
+MPICH_OFI_DEP ?= --with-libfabric=no
+mpich_opt += ${MPICH_OFI_DEP}
+endif
+# ------------  PMIX ------------
+ifdef PMIX_VER
+mpich_opt += --with-pmi=pmix --with-pmix=$(PREFIX)
+endif
+# ------------  HWLOC ------------
+ifdef HWLOC_VER
+mpich_opt += --with-hwloc=${PREFIX}
+endif
+# increment the defice list
+mpich_opt += --with-device=ch4:${mpich_device_list}
 
 #-------------------------------------------------------------------------------
 # dependency list
-mpich_dep = ucx ofi
-#mpich_dep = pmix hwloc
+mpich_dep = ucx ofi mpix hwloc
 
 define mpich_template_opt
 	target="mpich" \
@@ -22,19 +50,6 @@ define mpich_template_opt
 	target_confcmd="CC=$(CC) CXX=$(CXX) ./configure --prefix=${PREFIX}" \
 	target_confopt="$(mpich_opt)"
 endef
-
-#===============================================================================
-#ifdef MPICH_VER
-#DBS_MPICC = $(PREFIX)/bin/mpicc
-#DBS_MPICXX = $(PREFIX)/bin/mpicxx
-#DBS_MPIFORT = $(PREFIX)/bin/mpif90
-#DBS_MPIEXEC = $(PREFIX)/bin/mpiexec
-#else
-#DBS_MPICC = mpicc
-#DBS_MPICXX = mpic++
-#DBS_MPIFORT = mpif90
-#DBS_MPIEXEC = mpiexec
-#endif
 
 #===============================================================================
 .PHONY: mpich
