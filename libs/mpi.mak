@@ -23,10 +23,10 @@ DBS_MPICXX = $(PREFIX)/bin/mpicxx
 DBS_MPIFORT = $(PREFIX)/bin/mpif90
 DBS_MPIEXEC = $(PREFIX)/bin/mpirun
 else
-DBS_MPICC = mpicc
-DBS_MPICXX = mpic++
-DBS_MPIFORT = mpif90
-DBS_MPIEXEC = mpiexec
+DBS_MPICC ?= mpicc
+DBS_MPICXX ?= mpic++
+DBS_MPIFORT ?= mpif90
+DBS_MPIEXEC ?= mpiexec
 endif
 
 #-------------------------------------------------------------------------------

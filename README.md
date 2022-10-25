@@ -56,15 +56,17 @@ Other make targets:
 
 ### Add your architecture
 
-Each `cluster` has a corresponding `make_arch/cluster.arch` file.
-In this file you should to specify
+Each `cluster` has a corresponding `clusters/cluster.arch` file.
+(You may also used another directory to keep your clusters files using `CLUSTERS_DIR=/your/path`.)
+In the `arch` file you should to specify
 
 **general parameters**:
 
-- `FC`, `CC`, and `CXX` as the non-mpi compilers to use
+- `FC`, `CC`, and `CXX` as the non-mpi compilers to use, the `mpi` compilers should be detected automatically
 - `BUILD_DIR` the location where the temporary (and unique) build directory will be created
 - `TAR_DIR` where the find the tar, obtained using `tar-list.sh`
 - `PREFIX` where the libs will be installed
+- `DBS_MPICC`, `DBS_MPICXX`, `DBS_MPIFORT`, `DBS_MPIEXEC` will default to `mpicc`, `mpicxx`, `mpif90`, and `mpiexec` if unspecified. If an MPI implementation is installed with dbs then will be used, if not dbs will use the one found in path.
 
 **module information**:
 
@@ -84,45 +86,32 @@ Nothing will be done with that information expect displaying it to the user if r
 
 **Library dependent parameters**
 
-For each library you must specify the 
-- `ZLIB_VER` - zlib
-- `LIBEVENT_VER` - libevent
-- `HWLOC_VER` - hwloc
-- `PMIX_VER` - pmix
-- `UCX_VER` - ucx
-- `OFI_VER` - ofi/libfabric
-- `OMPI_VER` - openmpi
-- `HDF5_VER` - hdf5
-- `FFTW_VER` - fftw
-- `OBLAS_VER` - openblas
-- `P4EST_VER` - p4est
-- `FLUPS_VER` - flups
+For each library you must specify the version using `XXX_VER`.
+As an example, `MPICH_VER=4.0.2` will get you `mpich` at the version `4.0.2`.
 
 ### OpenMPI
 
-**OpenMPI specificities**
+OpenMPI relies on other libs to handle the actual implementation over the network (`ofi` and/or `ucx`), and other part of the implementation (`pmix`, etc)
+If you choose to use another version of those libs (i.e. not specified by `XXX_VER`) you must declare variables to indicate where to find the lib
 
-OpenMPI relies on other libs to handle the actual implementation over the network (`ofi` and/or `ucx`), and other part of the implementation (`pmix` etc)
-If you choose to use another version of those libs (i.e. not installed through this makefile) you must declare variables to indicate where to find the lib
-
-- `OMPI_UCX_DEP` will be `--with-ucx=no` unless you specify it otherwise
+- `OMPI_UCX_DEP` will be `--with-ucx=no` unless you specify it otherwise (e.g. `OMPI_UCX_DEP=--with-ucx=/your/ucx/path`)
 - `OMPI_OFI_DEP` will be `--with-ofi=no` unless you specify it otherwise
 - `OMPI_PMIX_DEP` will be `--with-pmix=internal` unless you specify it otherwise
 - `OMPI_HWLOC_DEP` will be `--with-hwloc=internal` unless you specify it otherwise
 - `OMPI_ZLIB_DEP` will be `--with-zlib=internal` unless you specify it otherwise
 - `OMPI_LIBEVENT_DEP` will be `--with-libevent=internal` unless you specify it otherwise
-- `OMPI_MISC_OPTS` can be used to give options to `ompi`
+- `OMPI_MISC_OPTS` can be used to give other options to `ompi`
+
 
 ### PMIX
-**PMIX specificities**
 
-Similar to OpenMPI, it's possible to choose where to take the different other libs from 
+Similar to OpenMPI, it's possible to choose where to take the different dependencies if not installed through `DBS`:
 
 - `OMPI_HWLOC_DEP` will be empty unless you specify it otherwise
 - `OMPI_ZLIB_DEP` will be empty unless you specify it otherwise
 - `OMPI_LIBEVENT_DEP` will be empty unless you specify it otherwise
 
-
+### FLUPS
 **Flups specificities**
 
 Flups being developed, it has been decided to use a specific git branch for defining the specific version. It is therefore required to detail the needed git branch. Here is the currently used private [git repo](https://git.immc.ucl.ac.be/examples/flups) . Do not hesitate to contact the [Flups developper](mailto:thomas.gillis@uclouvain.be) to ask for an access. 
