@@ -56,8 +56,8 @@ Other make targets:
 
 ### Add your architecture
 
-Each `cluster` has a corresponding `clusters/cluster.arch` file.
-(You may also used another directory to keep your clusters files using `CLUSTERS_DIR=/your/path`.)
+Each `cluster` has a corresponding `clusters/cluster.arch` file and a `slurm/cluster.sh` file.
+(You may also used another directory to keep your clusters files using `CLUSTERS_DIR=/your/path` and your slurm files with `SLURM_DIR=/you/path`.)
 In the `arch` file you should to specify
 
 **general parameters**:

@@ -32,9 +32,10 @@ CLUSTER ?= default
 #-------------------------------------------------------------------------------
 #include the cluster-dependent information
 CLUSTERS_DIR ?= clusters
-include ${CLUSTERS_DIR}/${CLUSTER}.arch 
+SLURM_DIR ?= slurm
 
 # include all the lib-related info
+include ${CLUSTERS_DIR}/${CLUSTER}.arch 
 include $(LIBLIST_MAK)
 
 #-------------------------------------------------------------------------------
@@ -56,7 +57,7 @@ COMP_DIR := $(BUILD_DIR)/tmp_dbs-$(TAG)-$(UID)
 #===============================================================================
 .PHONY: submit 
 submit: | tar
-	sbatch slurm/$(CLUSTER).sh
+	sbatch ${SLURM_DIR}/$(CLUSTER).sh
 
 #-------------------------------------------------------------------------------
 .PHONY: install
