@@ -31,7 +31,8 @@ CLUSTER ?= default
 
 #-------------------------------------------------------------------------------
 #include the cluster-dependent information
-include clusters/${CLUSTER}.arch 
+CLUSTERS_DIR ?= clusters
+include ${CLUSTERS_DIR}/${CLUSTER}.arch 
 
 # include all the lib-related info
 include $(LIBLIST_MAK)
