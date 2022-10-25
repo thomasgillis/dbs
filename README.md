@@ -94,12 +94,12 @@ As an example, `MPICH_VER=4.0.2` will get you `mpich` at the version `4.0.2`.
 OpenMPI relies on other libs to handle the actual implementation over the network (`ofi` and/or `ucx`), and other part of the implementation (`pmix`, etc)
 If you choose to use another version of those libs (i.e. not specified by `XXX_VER`) you must declare variables to indicate where to find the lib
 
-- `OMPI_UCX_DEP` will be `--with-ucx=no` unless you specify it otherwise (e.g. `OMPI_UCX_DEP=--with-ucx=/your/ucx/path`)
-- `OMPI_OFI_DEP` will be `--with-ofi=no` unless you specify it otherwise
+- `OMPI_UCX_DEP` will be empty unless you specify it otherwise (e.g. `OMPI_UCX_DEP=--with-ucx=/your/ucx/path`)
+- `OMPI_OFI_DEP` will be empty unless you specify it otherwise
 - `OMPI_PMIX_DEP` will be `--with-pmix=internal` unless you specify it otherwise
 - `OMPI_HWLOC_DEP` will be `--with-hwloc=internal` unless you specify it otherwise
-- `OMPI_ZLIB_DEP` will be `--with-zlib=internal` unless you specify it otherwise
-- `OMPI_LIBEVENT_DEP` will be `--with-libevent=internal` unless you specify it otherwise
+- `OMPI_ZLIB_DEP` will be empty unless you specify it otherwise
+- `OMPI_LIBEVENT_DEP` will be empty unless you specify it otherwise
 - `OMPI_MISC_OPTS` can be used to give other options to `ompi`
 
 ### MPICH

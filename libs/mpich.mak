@@ -3,10 +3,9 @@
 mpich_opt ?= 
 mpich_opt += --disable-fortran ${MPICH_MISC_OPTS}
 
-mpich_device_list = 
 # ------------  UCX ------------
 ifdef UCX_VER
-mpich_device_list += `ucx`
+mpich_opt += --with-device=ch4:ucx
 mpich_opt += --with-ucx=$(PREFIX)
 else
 MPICH_UCX_DEP ?= --with-ucx=no
@@ -16,7 +15,7 @@ endif
 ifdef OFI_VER
 # .............................
 ifndef UCX_VER
-mpich_device_list += `ofi`
+mpich_opt += --with-device=ch4:ofi
 mpich_opt += --with-libfabric=$(PREFIX)
 else
 mpich_opt += --with-libfabric=no
@@ -35,12 +34,10 @@ endif
 ifdef HWLOC_VER
 mpich_opt += --with-hwloc=${PREFIX}
 endif
-# increment the defice list
-mpich_opt += --with-device=ch4:${mpich_device_list}
 
 #-------------------------------------------------------------------------------
 # dependency list
-mpich_dep = ucx ofi mpix hwloc
+mpich_dep = ucx ofi pmix hwloc
 
 define mpich_template_opt
 	target="mpich" \

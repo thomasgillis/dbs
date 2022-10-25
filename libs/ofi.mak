@@ -3,7 +3,7 @@
 # dependency list
 ofi_dep = zlib
 # from https://github.com/easybuilders/easybuild-easyconfigs/blob/develop/easybuild/easyconfigs/l/libfabric
-ofi_opt = --disable-usnic --disable-sockets
+#ofi_opt = --disable-usnic --disable-sockets
 
 define ofi_template_opt
 	target="ofi" \

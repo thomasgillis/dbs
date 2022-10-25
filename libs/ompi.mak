@@ -7,9 +7,6 @@ ompi_opt += --without-verbs --enable-mpirun-prefix-by-default --with-cuda=no ${O
 # ............................
 ifdef LIBEVENT_VER
 ompi_opt += --with-libevent=$(PREFIX)
-else
-OMPI_LIBEVENT_DEP ?= --with-libevent=internal
-ompi_opt += ${OMPI_LIBEVENT_DEP}
 endif
 # ............................
 ifdef PMIX_VER
@@ -21,9 +18,6 @@ endif
 # ............................
 ifdef ZLIB_VER
 ompi_opt += --with-zlib=$(PREFIX)
-else
-OMPI_ZLIB_DEP ?= --with-zlib=internal
-ompi_opt += ${OMPI_ZLIB_DEP}
 endif
 # ............................
 ifdef HWLOC_VER
@@ -35,16 +29,16 @@ endif
 # ............................
 ifdef OFI_VER
 ompi_opt += --with-ofi=$(PREFIX)
-else
-OMPI_OFI_DEP ?= --with-ofi=no
-ompi_opt += ${OMPI_OFI_DEP}
+#else
+#OMPI_OFI_DEP ?= --with-ofi=no
+#ompi_opt += ${OMPI_OFI_DEP}
 endif
 # ............................
 ifdef UCX_VER
 ompi_opt += --with-ucx=$(PREFIX)
-else
-OMPI_UCX_DEP ?= --with-ucx=no
-ompi_opt += ${OMPI_UCX_DEP}
+#else
+#OMPI_UCX_DEP ?= --with-ucx=no
+#ompi_opt += ${OMPI_UCX_DEP}
 endif
 
 
