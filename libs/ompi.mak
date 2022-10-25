@@ -4,27 +4,47 @@ ompi_opt ?=
 ompi_opt += --without-verbs --enable-mpirun-prefix-by-default --with-cuda=no ${OMPI_MISC_OPTS}
 
 # get the correct libevent etc
+# ............................
 ifdef LIBEVENT_VER
 ompi_opt += --with-libevent=$(PREFIX)
+else
+OMPI_LIBEVENT_DEP ?= --with-libevent=internal
+ompi_opt += ${OMPI_LIBEVENT_DEP}
 endif
+# ............................
 ifdef PMIX_VER
 ompi_opt += --with-pmix=$(PREFIX)
+else
+OMPI_PMIX_DEP ?= --with-pmix=internal
+ompi_opt += ${OMPI_PMIX_DEP}
 endif
+# ............................
 ifdef ZLIB_VER
 ompi_opt += --with-zlib=$(PREFIX)
+else
+OMPI_ZLIB_DEP ?= --with-zlib=internal
+ompi_opt += ${OMPI_ZLIB_DEP}
 endif
+# ............................
 ifdef HWLOC_VER
 ompi_opt += --with-hwloc=$(PREFIX)
+else
+OMPI_HWLOC_DEP ?= --with-hwloc=internal
+ompi_opt += ${OMPI_HWLOC_DEP}
 endif
+# ............................
 ifdef OFI_VER
 ompi_opt += --with-ofi=$(PREFIX)
 else
-ompi_opt ?= --with-ofi=no
+OMPI_OFI_DEP ?= --with-ofi=no
+ompi_opt += ${OMPI_OFI_DEP}
 endif
+# ............................
 ifdef UCX_VER
 ompi_opt += --with-ucx=$(PREFIX)
 else
-ompi_opt ?= --with-ucx=no
+OMPI_UCX_DEP ?= --with-ucx=no
+ompi_opt += ${OMPI_UCX_DEP}
 endif
 
 
@@ -40,19 +60,6 @@ define ompi_template_opt
 	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}" \
 	target_confopt="$(ompi_opt)"
 endef
-
-#===============================================================================
-#ifdef OMPI_VER
-#DBS_MPICC = $(PREFIX)/bin/mpicc
-#DBS_MPICXX = $(PREFIX)/bin/mpic++
-#DBS_MPIFORT = $(PREFIX)/bin/mpif90
-#DBS_MPIEXEC = $(PREFIX)/bin/mpiexec
-#else
-#DBS_MPICC = mpicc
-#DBS_MPICXX = mpic++
-#DBS_MPIFORT = mpif90
-#DBS_MPIEXEC = mpiexec
-#endif
 
 #===============================================================================
 .PHONY: ompi
