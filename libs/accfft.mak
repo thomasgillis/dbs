@@ -1,12 +1,13 @@
 # # build recipe for ACCFFT
 #-------------------------------------------------------------------------------
 # dependency list
-accfft_dep = ompi fftw
+accfft_dep = fftw
 
-accfft_opt = -DCMAKE_INSTALL_PREFIX=${PREFIX} -DBUILD_GPU=false -DCXX_FLAGS=\"-O3 -march=native\" -DBUILD_SHARED=true
+accfft_opt = -DCMAKE_INSTALL_PREFIX=${PREFIX} -DBUILD_GPU=false -DCXX_FLAGS=\"-O3 -march=native\" -DBUILD_SHARED=true -DCMAKE_POLICY_DEFAULT_CMP0074=NEW 
 
 ifdef FFTW_VER
-accfft_opt += -DFFTW_ROOT=${PREFIX}
+## accfft_opt += -DFFTW_ROOT=${PREFIX} -DFFTW_LIBRARIES=${PREFIX}/lib
+accfft_opt += -DFFTW_LIBRARIES=${PREFIX}/lib/
 else
 accfft_opt += -DFFTW_ROOT=${EBROOTFFTW}
 endif
