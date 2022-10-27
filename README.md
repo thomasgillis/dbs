@@ -56,8 +56,10 @@ Other make targets:
 
 ### Add your architecture
 
-Each `cluster` has a corresponding `clusters/cluster.arch` file and a `slurm/cluster.sh` file.
-(You may also used another directory to keep your clusters files using `CLUSTERS_DIR=/your/path` and your slurm files with `SLURM_DIR=/you/path`.)
+Each `cluster` (or every configuration on the same `cluster`) has a corresponding `clusters/cluster.arch` file and a `submit/cluster.sh` file.
+For more flexibility you may also used another directory to keep your clusters files using `CLUSTERS_DIR=/your/path` as well as your submission file with `SUBMIT_DIR=/your/path` (must be done in your environment).
+
+
 In the `arch` file you should to specify
 
 **general parameters**:
@@ -67,6 +69,8 @@ In the `arch` file you should to specify
 - `TAR_DIR` where the find the tar, obtained using `tar-list.sh`
 - `PREFIX` where the libs will be installed
 - `DBS_MPICC`, `DBS_MPICXX`, `DBS_MPIFORT`, `DBS_MPIEXEC` will default to `mpicc`, `mpicxx`, `mpif90`, and `mpiexec` if unspecified. If an MPI implementation is installed with dbs then will be used, if not dbs will use the one found in path.
+
+:warning: We support a generic workload manager, although the default is `slurm`. To use another system make sure that your `cluster.sh` file is compatible and use `SUBMIT_CMD=workload_cmd` either in your `arch` file or the environment.
 
 **module information**:
 
