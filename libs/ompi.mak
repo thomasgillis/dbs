@@ -41,6 +41,13 @@ ompi_opt += --with-ucx=$(PREFIX)
 #ompi_opt += ${OMPI_UCX_DEP}
 endif
 
+#-------------------------------------------------------------------------------
+# extract the first two digits of the version
+empty:=
+space:=$(empty) $(empty)
+ompi_ver_wordlist = $(subst .,$(space),$(OMPI_VER)) 
+ompi_ver_spaced = $(wordlist 1,2,$(ompi_ver_wordlist))
+ompi_ver_short = $(subst $(space),.,$(ompi_ver_spaced))
 
 #-------------------------------------------------------------------------------
 # dependency list
@@ -50,7 +57,7 @@ define ompi_template_opt
 	target="ompi" \
 	target_ver="$(OMPI_VER)" \
 	target_dep="$(ompi_dep)" \
-	target_url="https://download.open-mpi.org/release/open-mpi/v4.1/openmpi-$(OMPI_VER).tar.gz" \
+	target_url="https://download.open-mpi.org/release/open-mpi/v$(ompi_ver_short)/openmpi-$(OMPI_VER).tar.gz" \
 	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}" \
 	target_confopt="$(ompi_opt)"
 endef
