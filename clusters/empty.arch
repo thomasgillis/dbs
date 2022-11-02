@@ -1,3 +1,0 @@
-PREFIX = ${HOME}/test_dbs
-TAR_DIR = ${HOME}/tar_storage
-
