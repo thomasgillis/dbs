@@ -6,7 +6,7 @@ Portable and lightweight build system for your dependencies
 ## Global picture
 
 We rely on the widespread `make` tool to handle the different dependencies.  Each lib's recipe is defined in the `lib.mak` file.  
-For each cluster/configuration, you have to create an `cluster.arch` file.
+For each cluster/configuration, you have to create an `.arch` file.
 If you need to specify the version you want. Failing to specify a version implies that the lib will not be built
 
 You should **always** submit a job to build the libraries as the compute nodes are usually different from the login nodes.
@@ -53,6 +53,15 @@ Other make targets:
 - `make tar` will download the tar needed
 - `make clean` will rm the already build `.complete` files in the `$(PREFIX)` folder
 - `make reallyclean` will rm the tar in the `$(TAR_DIR)` folder
+
+
+### Cluster-dependent configuration
+To accomodate different clusters/use cases the user can define the following variables
+
+- `CONF_DIR` points to the configuration directory, `config` by default
+- `CLUSTERS_DIR` points to the architecture directory, `${CONF_DIR}` by default
+- `SUBMIT_DIR` points to the `.sh` submission directory, `${CONF_DIR}` by default
+- `SUBMIT_CMD` allows you to redefine the job-submission command, `sbatch` by default. This variable can also be set in the `.arch` file.
 
 ### Add your architecture
 
