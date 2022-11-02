@@ -1,7 +1,7 @@
 # # build recipe for ACCFFT
 #-------------------------------------------------------------------------------
 # dependency list
-accfft_dep = fftw
+accfft_dep = fftw mpi
 
 accfft_opt = -DCMAKE_INSTALL_PREFIX=${PREFIX} -DBUILD_GPU=false -DCXX_FLAGS=\"-O3 -march=native\" -DBUILD_SHARED=true -DCMAKE_POLICY_DEFAULT_CMP0074=NEW 
 
