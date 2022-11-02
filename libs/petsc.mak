@@ -1,8 +1,7 @@
 # # build recipe for PETSC
 #-------------------------------------------------------------------------------
 # dependency list
-petsc_dep = ompi
-
+petsc_dep = mpi
 petsc_opt ?= --with-fortran-bindings=0
 
 # Add hypre
@@ -17,9 +16,11 @@ petsc_dep += oblas
 petsc_opt += --with-openblas-dir=$(PREFIX)
 endif
 
-# Add ompi
-ifdef OMPI_VER
-  petsc_opt += --with-mpi-dir=${PREFIX}
+# if we need to build petsc, we have to find a valid mpi somehow
+ifdef PETSC_VER
+ifdef MPI_VER
+  # if it's build with dbs, it's easy
+ petsc_opt += --with-mpi-dir=${PREFIX}
 else
   # we search for the full path of mpiexec
   ifneq (, $(shell which mpiexec 2>/dev/null))
@@ -28,12 +29,13 @@ else
   else
 	# if we build petsc it's a big issue, otherwise we just add 'NOT-FOUND'
     ifeq ($(MAKECMDGOALS),petsc)
-      $(error "No mpiexec in $(PATH), please fix your modules or use DBS to install OMPI")
+      $(error "No mpiexec in $(PATH), please fix your modules or use DBS to install MPI")
     else
-      $(warning "No mpiexec in $(PATH), please fix your modules or use DBS to install OMPI")
+      $(warning "No mpiexec in $(PATH), please fix your modules or use DBS to install MPI")
       petsc_opt += --with-mpi-dir=\"NOT FOUND\"
     endif
   endif
+endif
 endif
 
 define petsc_template_opt

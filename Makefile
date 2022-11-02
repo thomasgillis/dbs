@@ -47,6 +47,9 @@ PREFIX ?= ${HOME}
 BUILD_DIR ?= ${HOME}
 TAR_DIR ?= ${HOME}
 
+#export the prefix in the path, it allows to easily find mpi compilers once installed with dbs
+#PATH := $(PREFIX)/bin:$(PATH)
+
 #-------------------------------------------------------------------------------
 # ":=" forces the evaluation at creation of the var
 UID := $(shell uuidgen -t | head -c 8)
@@ -113,6 +116,7 @@ gen_info:
 	$(info - build dir: $(BUILD_DIR))
 	$(info - tar dir: $(TAR_DIR))
 	$(info - non-mpi compilers: CC = $(CC); CXX = $(CXX); FC = $(FC))
+	$(info - mpi compilers: CC = $(DBS_MPICC); CXX = $(DBS_MPICXX))
 	$(info --------------------------------------------------------------------------------)
 
 #-------------------------------------------------------------------------------

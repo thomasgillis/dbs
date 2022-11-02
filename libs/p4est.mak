@@ -1,7 +1,7 @@
 # # build recipe for P4EST
 #-------------------------------------------------------------------------------
 # dependency list
-p4est_dep = ompi oblas
+p4est_dep = mpi oblas
 
 define p4est_template_opt
 	target="p4est" \
