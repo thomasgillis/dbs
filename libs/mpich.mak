@@ -8,8 +8,10 @@ ifdef UCX_VER
 mpich_opt += --with-device=ch4:ucx
 mpich_opt += --with-ucx=$(PREFIX)
 else
-MPICH_UCX_DEP ?= --with-ucx=no
+#MPICH_UCX_DEP ?= --with-ucx=no
+ifdef MPICH_UCX_DEP
 mpich_opt += ${MPICH_UCX_DEP}
+endif
 endif
 # ------------  OFI ------------
 ifdef OFI_VER
@@ -23,8 +25,10 @@ $(warning OFI and UCX will not been build both with MPICH, using UCX by default)
 endif
 # .............................
 else
-MPICH_OFI_DEP ?= --with-libfabric=no
+#MPICH_OFI_DEP ?= --with-libfabric=no
+ifdef MPICH_OFI_DEP
 mpich_opt += ${MPICH_OFI_DEP}
+endif
 endif
 # ------------  PMIX ------------
 ifdef PMIX_VER
