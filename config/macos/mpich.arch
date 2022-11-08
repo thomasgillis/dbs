@@ -1,0 +1,23 @@
+#===============================================================================
+# GENERAL PARAMETERS
+CC = clang
+CXX = clang++
+
+BUILD_DIR = ${HOME}/dbs_tmp
+TAR_DIR = $(HOME)/dbs_tar_storage
+PREFIX = $(HOME)/dbs_lib/lib_MPICH-4.1a1
+
+define MODULE_LIST
+
+endef
+
+#===============================================================================
+#UCX_VER = 1.13.1
+MPICH_VER = 4.1a1
+MPIC_MISC_OPTS = --enable-threads=multiple --enable-thread-cs=per-vci
+GBENCH_VER = 1.7.0
+
+
+SUBMIT_CMD = bash
+
+#end of life
