@@ -1,6 +1,5 @@
 # # build recipe for PETSC
 #-------------------------------------------------------------------------------
-# dependency list
 petsc_dep = mpi
 petsc_opt ?= --with-fortran-bindings=0
 
@@ -16,9 +15,14 @@ petsc_dep += oblas
 petsc_opt += --with-openblas-dir=$(PREFIX)
 endif
 
-# if we need to build petsc, we have to find a valid mpi somehow
+# Add mpi
 ifdef PETSC_VER
-ifdef MPI_VER
+# we cannot use the value of MPI_VER because the recipte might not have been run at this stage
+# so we do the MPICH and OMPI separately
+ifdef MPICH_VER
+  # if it's build with dbs, it's easy
+ petsc_opt += --with-mpi-dir=${PREFIX}
+else ifdef OMPI_VER
   # if it's build with dbs, it's easy
  petsc_opt += --with-mpi-dir=${PREFIX}
 else
