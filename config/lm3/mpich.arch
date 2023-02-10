@@ -1,0 +1,31 @@
+#===============================================================================
+# GENERAL PARAMETERS
+FC = gfortran
+CC = gcc
+CXX = g++
+
+BUILD_DIR = ${GLOBALSCRATCH}
+TAR_DIR = $(HOME)/tar_storage
+PREFIX = $(HOME)/lib-MPICH-4.1-UCX-1.13.1
+
+define MODULE_LIST
+module purge
+module load releases/2021b
+module load GCC/11.2.0
+module load Automake Autoconf libtool CMake
+endef
+
+#===============================================================================
+UCX_VER = 1.13.1
+MPICH_VER = 4.1
+HDF5_VER = 1.12.1
+OBLAS_VER = 0.3.20
+FFTW_VER = 3.3.10
+FLUPS_VER = develop
+H3LPR_VER = develop
+HYPRE_VER = 2.24.0
+PETSC_VER = 3.17.1
+
+MPICH_MISC_OPTS = --enable-fast=03,ndebug,alwaysinline
+
+#end of life
