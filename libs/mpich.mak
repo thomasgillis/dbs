@@ -1,7 +1,8 @@
 # # build recipe for MPICH
 #-------------------------------------------------------------------------------
 mpich_opt ?= 
-mpich_opt += --disable-fortran ${MPICH_MISC_OPTS}
+mpich_opt += ${MPICH_MISC_OPTS}
+#mpich_opt += --disable-fortran ${MPICH_MISC_OPTS}
 
 # ------------  UCX ------------
 ifdef UCX_VER
