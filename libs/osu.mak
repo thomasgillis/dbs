@@ -9,7 +9,8 @@ define osu_template_opt
 	target_dep="$(osu_dep)" \
 	target_url="https://mvapich.cse.ohio-state.edu/download/mvapich/osu-micro-benchmarks-$(OSU_VER).tar.gz" \
 	target_confcmd="CC=$(DBS_MPICC) CXX=$(DBS_MPICXX) ./configure --prefix=${PREFIX}" \
-	target_confopt=""
+	target_confopt="" \
+	target_installcmd="$(MAKE) -j8 && make install"
 endef
 
 #===============================================================================
