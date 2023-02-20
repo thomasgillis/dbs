@@ -11,12 +11,22 @@ define fftw_template_opt
 	target_confcmd="CC=$(DBS_MPICC) CXX=$(DBS_MPICXX) FC=$(DBS_MPIFORT) F77=$(DBS_MPIFORT) ./configure --prefix=${PREFIX}" \
 	target_confopt="--enable-shared --enable-mpi --disable-fortran --enable-openmp"
 endef
+define fftw_template_opt_single
+	target="fftw" \
+	target_ver="$(FFTW_VER)" \
+	target_dep="$(fftw_dep)" \
+	target_url="http://www.fftw.org/fftw-${FFTW_VER}.tar.gz" \
+	target_confcmd="CC=$(DBS_MPICC) CXX=$(DBS_MPICXX) FC=$(DBS_MPIFORT) F77=$(DBS_MPIFORT) ./configure --prefix=${PREFIX}" \
+	target_confopt="--enable-shared --enable-mpi --disable-fortran --enable-openmp --enable-float"
+endef
 
 #===============================================================================
 .PHONY: fftw
 fftw: $(fftw_dep)
 ifdef FFTW_VER
 	@$(fftw_template_opt) $(MAKE) --file=template.mak doit
+	$(MAKE) fftw_clean
+	@$(fftw_template_opt_single) $(MAKE) --file=template.mak doit
 else
 	@$(fftw_template_opt) $(MAKE) --file=template.mak tit
 endif
@@ -35,6 +45,7 @@ endif
 fftw_info:
 ifdef FFTW_VER
 	@$(fftw_template_opt) $(MAKE) --file=template.mak info
+	@$(fftw_template_opt_single) $(MAKE) --file=template.mak info
 else
 	@$(fftw_template_opt) $(MAKE) --file=template.mak info_none
 endif
