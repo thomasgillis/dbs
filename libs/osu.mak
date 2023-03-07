@@ -53,32 +53,30 @@ osu_reallyclean:
 	@$(osu_template_opt) $(MAKE) --file=template.mak reallyclean
 
 #-------------------------------------------------------------------------------
-.PHONY: osu_dbg
-osu_dbg: osu
-ifdef OSU_VER
-	${PREFIX}/bin/mpiexec -n ${OSU_NP} --ppn ${OSU_PPN} --gpus-per-proc 1 hostname
-endif
+bw_testname=${PREFIX}/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw
+lat_testname=${PREFIX}/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency
+mpi_exec=${DBS_MPIEXEC} -n ${OSU_NP} --ppn ${OSU_PPN} --gpus-per-proc 1
 
 .PHONY: osu_lat
 osu_lat: osu
 ifdef OSU_VER
-	@echo "${OSU_RUN_OPTS} ${PREFIX}/bin/mpiexec -n ${OSU_NP} --ppn ${OSU_PPN} --gpus-per-proc 1 ${PREFIX}/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency H H";\
-	${OSU_RUN_OPTS} ${PREFIX}/bin/mpiexec -n ${OSU_NP} --ppn ${OSU_PPN} --gpus-per-proc 1 ${PREFIX}/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency H H; \
-	echo "${OSU_RUN_OPTS} ${PREFIX}/bin/mpiexec -n ${OSU_NP} --ppn ${OSU_PPN} --gpus-per-proc 1 ${PREFIX}/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency H D";\
-	${OSU_RUN_OPTS} ${PREFIX}/bin/mpiexec -n ${OSU_NP} --ppn ${OSU_PPN} --gpus-per-proc 1 ${PREFIX}/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency H D; \
-	echo "${OSU_RUN_OPTS} ${PREFIX}/bin/mpiexec -n ${OSU_NP} --ppn ${OSU_PPN} --gpus-per-proc 1 ${PREFIX}/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency D D";\
-	${OSU_RUN_OPTS} ${PREFIX}/bin/mpiexec -n ${OSU_NP} --ppn ${OSU_PPN} --gpus-per-proc 1 ${PREFIX}/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_latency D D; 
+	@echo "${OSU_RUN_CPU_OPTS} ${mpi_exec} ${lat_testname} H H";\
+	${OSU_RUN_CPU_OPTS} ${mpi_exec} ${lat_testname} H H; \
+	echo "${OSU_RUN_GPU_OPTS} ${mpi_exec} ${lat_testname} H D";\
+	${OSU_RUN_GPU_OPTS} ${mpi_exec} ${lat_testname} H D; \
+	echo "${OSU_RUN_GPU_OPTS} ${mpi_exec} ${lat_testname} D D";\
+	${OSU_RUN_GPU_OPTS} ${mpi_exec} ${lat_testname} D D; 
 endif
 
 .PHONY: osu_bw
 osu_bw: osu
 ifdef OSU_VER
-	@echo "${OSU_RUN_OPTS} ${PREFIX}/bin/mpiexec -n ${OSU_NP} --ppn ${OSU_PPN} --gpus-per-proc 1 ${PREFIX}/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw H H";\
-	${OSU_RUN_OPTS} ${PREFIX}/bin/mpiexec -n ${OSU_NP} --ppn ${OSU_PPN} --gpus-per-proc 1 ${PREFIX}/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw H H; \
-	echo "${OSU_RUN_OPTS} ${PREFIX}/bin/mpiexec -n ${OSU_NP} --ppn ${OSU_PPN} --gpus-per-proc 1 ${PREFIX}/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw H D";\
-	${OSU_RUN_OPTS} ${PREFIX}/bin/mpiexec -n ${OSU_NP} --ppn ${OSU_PPN} --gpus-per-proc 1 ${PREFIX}/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw H D; \
-	echo "${OSU_RUN_OPTS} ${PREFIX}/bin/mpiexec -n ${OSU_NP} --ppn ${OSU_PPN} --gpus-per-proc 1 ${PREFIX}/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw D D";\
-	${OSU_RUN_OPTS} ${PREFIX}/bin/mpiexec -n ${OSU_NP} --ppn ${OSU_PPN} --gpus-per-proc 1 ${PREFIX}/libexec/osu-micro-benchmarks/mpi/pt2pt/osu_bw D D; 
+	@echo "${OSU_RUN_CPU_OPTS} ${mpi_exec} ${bw_testname} H H";\
+	${OSU_RUN_CPU_OPTS} ${mpi_exec} ${bw_testname} H H; \
+	echo "${OSU_RUN_GPU_OPTS} ${mpi_exec} ${bw_testname} H D";\
+	${OSU_RUN_GPU_OPTS} ${mpi_exec} ${bw_testname} H D; \
+	echo "${OSU_RUN_GPU_OPTS} ${mpi_exec} ${bw_testname} D D";\
+	${OSU_RUN_GPU_OPTS} ${mpi_exec} ${bw_testname} D D; 
 endif
 
 #-------------------------------------------------------------------------------

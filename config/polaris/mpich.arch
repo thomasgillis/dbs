@@ -17,9 +17,11 @@ endef
 #===============================================================================
 MPICH_VER = 4.1.1
 MPICH_MISC_OPTS = --with-device=ch4:ofi --with-libfabric=/opt/cray/libfabric/1.11.0.4.125 --with-cuda=${NVIDIA_PATH}/cuda
+
 OSU_VER = 7.0.1
 OSU_MISC_OPTS = --enable-cuda --with-cuda=${NVIDIA_PATH}/cuda
-OSU_RUN_OPTS = MPIR_CVAR_DEBUG_SUMMARY=1 FI_PROVIDER=verbs
+OSU_RUN_CPU_OPTS = FI_PROVIDER=verbs MPIR_CVAR_ENABLE_GPU=0
+OSU_RUN_GPU_OPTS = FI_PROVIDER=verbs
 # pbs specific runs
 SUBMIT_CMD = qsub
 

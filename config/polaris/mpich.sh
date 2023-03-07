@@ -25,9 +25,6 @@ then PPN=2;
 else PPN=1;
 fi
 
-cat ${PBS_NODEFILE}
-
-OSU_NP=${NN} OSU_PPN=${PPN} CLUSTER=polaris/mpich make osu_dbg
 OSU_NP=${NN} OSU_PPN=${PPN} CLUSTER=polaris/mpich make osu_lat
 OSU_NP=${NN} OSU_PPN=${PPN} CLUSTER=polaris/mpich make osu_bw
 #-------------------------------------------------------------------------------
