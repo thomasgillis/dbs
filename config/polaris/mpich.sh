@@ -10,7 +10,8 @@
 cd ${PBS_O_WORKDIR}
 
 #-------------------------------------------------------------------------------
-module load nvhpc
+module swap PrgEnv-nvhpc PrgEnv-gnu
+module load nvhpc-mixed
 module load libfabric/1.11.0.4.125
 #-------------------------------------------------------------------------------
 module list
