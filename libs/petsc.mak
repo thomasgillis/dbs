@@ -1,7 +1,6 @@
 # # build recipe for PETSC
 #-------------------------------------------------------------------------------
 petsc_dep = mpi
-petsc_opt ?= --with-fortran-bindings=0
 
 # Add hypre
 ifdef HYPRE_VER
@@ -13,6 +12,8 @@ endif
 ifdef OBLAS_VER
 petsc_dep += oblas
 petsc_opt += --with-openblas-dir=$(PREFIX)
+else
+petsc_opt = --with-fortran-bindings=0
 endif
 
 # Add mpi
