@@ -49,6 +49,7 @@ define mpich_template_opt
 	target_ver="$(MPICH_VER)" \
 	target_dep="$(mpich_dep)" \
 	target_url="https://www.mpich.org/static/downloads/$(MPICH_VER)/mpich-$(MPICH_VER).tar.gz" \
+	target_precmd="cd modules/yaksa; ./autogen.sh --pup-max-nesting=0; cd -" \
 	target_confcmd="CC=$(CC) CXX=$(CXX) ./configure --prefix=${PREFIX}" \
 	target_confopt="$(mpich_opt)"
 endef
