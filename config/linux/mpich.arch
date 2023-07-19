@@ -1,0 +1,30 @@
+#===============================================================================
+# GENERAL PARAMETERS
+CC = clang
+CXX = clang++
+#CC = gcc-12
+#CXX = g++-12
+
+BUILD_DIR = ${HOME}/dbs_tmp
+TAR_DIR = $(HOME)/dbs_tar_storage
+#PREFIX = $(HOME)/dbs_lib/lib_MPICH-4.1.1-OFI-1.18.0-GCC-12
+PREFIX = $(HOME)/dbs_lib/lib_MPICH-4.1.1-OFI-1.18.0
+define MODULE_LIST
+endef
+
+#===============================================================================
+OFI_VER=1.18.0
+#OFI_MISC_OPTS = --enable-psm3
+OFI_GIT=fix-clang
+OFI_REPO=https://github.com/thomasgillis/libfabric
+PMI_VER = 4.1.1
+MPICH_VER = 4.1.1
+MPICH_MISC_OPTS = --enable-threads=multiple --enable-thread-cs=per-vci --disable-error-checking --enable-fast=03,ndebug,alwaysinline --disable-fortran --disable-cxx
+H3LPR_VER = develop
+FFTW_VER = 3.3.10
+HDF5_VER = 1.12.1
+
+
+SUBMIT_CMD = bash
+
+#end of life

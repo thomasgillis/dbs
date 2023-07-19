@@ -1,0 +1,21 @@
+#===============================================================================
+# GENERAL PARAMETERS
+CC = gcc
+CXX = g++
+
+BUILD_DIR = ${HOME}/dbs/tmp
+TAR_DIR = $(HOME)/dbs
+PREFIX = $(HOME)/dbs/lib
+
+define MODULE_LIST
+endef
+
+#===============================================================================
+
+PARMETIS_VER=main
+GKLIB_VER=master
+METIS_VER=5.2.1
+
+SUBMIT_CMD = bash
+
+#end of life

@@ -15,7 +15,7 @@ $(TAR_DIR)/$(GKLIB_DIR).tar.gz: | $(TAR_DIR)
 ifdef GKLIB_VER
 	cd $(TAR_DIR) &&  \
 	rm -rf $(GKLIB_DIR) && \
-	git clone git@github.com:KarypisLab/GKlib.git && \
+	git clone git@github.com:KarypisLab/GKlib.git gklib && \
 	mv gklib $(GKLIB_DIR) && \
 	cd $(GKLIB_DIR) && \
 	git checkout $(GKLIB_VER) && \
@@ -32,11 +32,11 @@ ifdef GKLIB_VER
 	cd $(COMP_DIR)  && \
 	cp $(TAR_DIR)/$(GKLIB_DIR).tar.gz $(COMP_DIR)  && \
 	tar -xvf $(GKLIB_DIR).tar.gz  && \
-	cd $(GKLIB_DIR) && \
-	make config cc=$(DBS_MPICC) prefix=$(PREFIX) && \
-	$(MAKE) install && \
+	cd $(GKLIB_DIR)  && \
+	make config cc=$(DBS_MPICC) prefix=$(PREFIX)  && \
+	$(MAKE) install  && \
 	date > $@  && \
-	hostname >> $@ && \
+	hostname >> $@  && \
 	git describe --always --dirty >> $@
 else
 	touch $(PREFIX)/gklib.complete
