@@ -22,6 +22,6 @@ FFTW_VER = 3.3.10
 FLUPS_VER=develop
 H3LPR_VER=develop
 
-MPICH_MISC_OPTS = --enable-fast=03,ndebug,alwaysinline
+MPICH_MISC_OPTS = --enable-fast=O3,ndebug,alwaysinline
 
 #end of life

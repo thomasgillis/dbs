@@ -25,6 +25,6 @@ OBLAS_VER = 0.3.20
 FFTW_VER = 3.3.10
 ACCFFT_VER = master
 
-MPICH_MISC_OPTS = --enable-fast=03,ndebug,alwaysinline
+MPICH_MISC_OPTS = --enable-fast=O3,ndebug,alwaysinline
 
 #end of life

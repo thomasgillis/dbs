@@ -26,6 +26,6 @@ H3LPR_VER = develop
 HYPRE_VER = 2.24.0
 PETSC_VER = 3.17.1
 
-MPICH_MISC_OPTS = --enable-fast=03,ndebug,alwaysinline
+MPICH_MISC_OPTS = --enable-fast=O3,ndebug,alwaysinline
 
 #end of life
