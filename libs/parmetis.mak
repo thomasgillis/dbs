@@ -18,7 +18,7 @@ $(TAR_DIR)/$(PARMETIS_DIR).tar.gz: | $(TAR_DIR)
 ifdef PARMETIS_VER
 	cd $(TAR_DIR)  &&  \
 	rm -rf $(PARMETIS_DIR)  && \
-	git clone git@github.com:KarypisLab/ParMETIS.git parmetis  && \
+	git clone https://github.com/KarypisLab/ParMETIS.git parmetis  && \
 	mv parmetis $(PARMETIS_DIR)  && \
 	cd $(PARMETIS_DIR)  && \
 	git checkout $(PARMETIS_VER)  && \

@@ -9,13 +9,21 @@ GKLIB_DIR = gklib-$(GKLIB_VER)
 gklib: $(PREFIX)/gklib.complete
 
 #-------------------------------------------------------------------------------
+$(PREFIX):
+	mkdir -p $(PREFIX)
+$(TAR_DIR):
+	mkdir -p $(TAR_DIR) $(COMP_DIR):
+	mkdir -p $(COMP_DIR)
+$(COMP_DIR)/tmp_$(target):
+	mkdir -p $(COMP_DIR)/tmp_$(target)
+
 gklib_tar: $(TAR_DIR)/$(GKLIB_DIR).tar.gz
 
 $(TAR_DIR)/$(GKLIB_DIR).tar.gz: | $(TAR_DIR)
 ifdef GKLIB_VER
 	cd $(TAR_DIR) &&  \
 	rm -rf $(GKLIB_DIR) && \
-	git clone git@github.com:KarypisLab/GKlib.git gklib && \
+	git clone https://github.com/KarypisLab/GKlib.git gklib && \
 	mv gklib $(GKLIB_DIR) && \
 	cd $(GKLIB_DIR) && \
 	git checkout $(GKLIB_VER) && \
