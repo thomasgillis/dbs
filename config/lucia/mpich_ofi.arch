@@ -26,6 +26,6 @@ MPICH_VER = 4.1.1
 #HYPRE_VER = 2.27.0
 #P4EST_VER = 2.8
 
-MPICH_MISC_OPTS = --enable-fast=03,ndebug,alwaysinline
+MPICH_MISC_OPTS = --enable-fast=O3,ndebug,alwaysinline
 
 #end of life

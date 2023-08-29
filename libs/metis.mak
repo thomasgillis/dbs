@@ -1,7 +1,7 @@
 # # build recipe for METIS
 #-------------------------------------------------------------------------------
 # dependency list
-metis_dep =  gklib
+metis_dep = gklib
 metis_git =
 metis_repo =
 metis_opt = $(METIS_MISC_OPTS)

@@ -19,7 +19,7 @@ OFI_GIT=fix-clang
 OFI_REPO=https://github.com/thomasgillis/libfabric
 PMI_VER = 4.1.1
 MPICH_VER = 4.1.1
-MPICH_MISC_OPTS = --enable-threads=multiple --enable-thread-cs=per-vci --disable-error-checking --enable-fast=03,ndebug,alwaysinline --disable-fortran --disable-cxx
+MPICH_MISC_OPTS = --enable-threads=multiple --enable-thread-cs=per-vci --disable-error-checking --enable-fast=O3,ndebug,alwaysinline --disable-fortran --disable-cxx
 H3LPR_VER = develop
 FFTW_VER = 3.3.10
 HDF5_VER = 1.12.1
