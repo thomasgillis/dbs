@@ -1,9 +1,9 @@
 #!/bin/bash -l
-#SBATCH --partition=cpu
+#SBATCH --partition=gpu
 #SBATCH --time=2:00:00
 #SBATCH --ntasks=8
 #SBATCH --nodes=1
-#SBATCH --account=p200067
+#SBATCH --account=p200210
 #SBATCH --qos=short
 
 echo "loading modules"

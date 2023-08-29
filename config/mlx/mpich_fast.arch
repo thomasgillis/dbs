@@ -4,9 +4,9 @@ FC = gfortran
 CC = gcc
 CXX = g++
 
-BUILD_DIR = /project/scratch/p200067
+BUILD_DIR = /project/scratch/p200210
 TAR_DIR = $(HOME)/tar_storage
-PREFIX = $(HOME)/lib-MPICH-4.1a1-UCX-1.13.1-fast
+PREFIX = $(HOME)/lib-MPICH-4.1.2-UCX-1.14.1
 
 define MODULE_LIST
 module use /apps/USE/easybuild/release/2021.5/modules/all
@@ -18,13 +18,12 @@ module load CMake/3.20.1-GCCcore-10.3.0
 endef
 
 #===============================================================================
-UCX_VER = 1.13.1
-MPICH_VER = 4.1a1
+UCX_VER = 1.14.1
+MPICH_VER = 4.1.2
 HDF5_VER = 1.12.1
-OBLAS_VER = 0.3.20
 FFTW_VER = 3.3.10
-ACCFFT_VER = master
-
-MPICH_MISC_OPTS = --enable-fast=O3,ndebug,alwaysinline
+OSU_VER = 7.2
+H3LPR_VER = main
+MPICH_MISC_OPTS = --enable-fast=O3,ndebug,alwaysinline --disable-error-checking --disable-tag-error-bits
 
 #end of life

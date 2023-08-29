@@ -15,9 +15,9 @@ define p3dfft_template_opt
 	target_ver="$(P3DFFT_VER)" \
 	target_dep="$(p3dfft_dep)" \
 	target_url="https://github.com/sdsc/p3dfft.3/archive/refs/tags/v.$(P3DFFT_VER).tar.gz" \
-	target_precmd="sed -i 's/MPI_REAL/MPI_FLOAT/g' build/exec.C"\
 	target_confcmd="CXX=$(DBS_MPICXX) CC=$(DBS_MPICC) CXXFLAGS=\"-g -O3 -std=c++17\" FC=$(DBS_MPIFORT) F77=$(DBS_MPIFORT) ./configure --prefix=${PREFIX}" \
-	target_confopt="--enable-gnu $(p3dfft_opt)"
+	target_confopt="--enable-gnu $(p3dfft_opt)" \
+	target_installcmd="make install -i"
 endef
 
 #===============================================================================

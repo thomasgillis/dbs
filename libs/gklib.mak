@@ -9,6 +9,7 @@ GKLIB_DIR = gklib-$(GKLIB_VER)
 gklib: $(PREFIX)/gklib.complete
 
 #-------------------------------------------------------------------------------
+# define how to make the directories
 $(PREFIX):
 	mkdir -p $(PREFIX)
 $(TAR_DIR):
@@ -19,6 +20,7 @@ $(COMP_DIR)/tmp_$(target):
 
 gklib_tar: $(TAR_DIR)/$(GKLIB_DIR).tar.gz
 
+#===============================================================================
 $(TAR_DIR)/$(GKLIB_DIR).tar.gz: | $(TAR_DIR)
 ifdef GKLIB_VER
 	cd $(TAR_DIR) &&  \

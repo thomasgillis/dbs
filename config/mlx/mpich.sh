@@ -17,6 +17,6 @@ module load CMake/3.20.1-GCCcore-10.3.0
 #-------------------------------------------------------------------------------
 module list
 #-------------------------------------------------------------------------------
-CLUSTER=mlx_mpich make info
-CLUSTER=mlx_mpich make install
+CLUSTER=mlx/mpich make info
+CLUSTER=mlx/mpich make install
 #-------------------------------------------------------------------------------

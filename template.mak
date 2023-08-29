@@ -16,7 +16,7 @@
 # to delegate the paralle execution to the compilation and not to executing multiple
 # recipe consequently
 .NOTPARALLEL:
-#.SILENT:
+.SILENT:
 
 #===============================================================================
 # define target specific information
