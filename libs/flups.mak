@@ -3,6 +3,8 @@
 # useful variables
 FLUPS_DIR = flups-$(FLUPS_VER)
 
+flups_dep = mpi hdf5 h3lpr fftw
+
 ifdef FLUPS_VER
 FLUPS_CXXFLAGS = -fopenmp -O3 -g -std=c++11 -DNDEBUG
 FLUPS_CCFLAGS = -fopenmp -O3 -g -std=c99 -DNDEBUG
@@ -47,7 +49,8 @@ endif
 
 #===============================================================================
 .PHONY: flups
-flups: mpi hdf5 h3lpr fftw $(PREFIX)/flups.complete
+flups: $(flups_dep)
+	$(MAKE) $(PREFIX)/flups.complete
 
 #-------------------------------------------------------------------------------
 flups_tar: $(TAR_DIR)/$(FLUPS_DIR).tar.gz
@@ -67,7 +70,8 @@ else
 endif
 
 #-------------------------------------------------------------------------------
-$(PREFIX)/flups.complete: | $(PREFIX) $(TAR_DIR)/$(FLUPS_DIR).tar.gz
+#$(PREFIX)/flups.complete: | $(PREFIX) $(TAR_DIR)/$(FLUPS_DIR).tar.gz
+$(PREFIX)/flups.complete: $(foreach lib,$(flups_dep),$(PREFIX)/$(lib).complete) | $(PREFIX) $(TAR_DIR)/$(FLUPS_DIR).tar.gz
 ifdef FLUPS_VER
 	mkdir -p $(COMP_DIR)  && \
 	cd $(COMP_DIR)  && \
