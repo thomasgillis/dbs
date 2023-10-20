@@ -9,7 +9,7 @@ PARMETIS_DIR = parmetis-$(PARMETIS_VER)
 
 #===============================================================================
 .PHONY: parmetis
-parmetis: $(PREFIX)/parmetis.complete
+parmetis: $(parmetis_dep) $(PREFIX)/parmetis.complete
 
 #-------------------------------------------------------------------------------
 parmetis_tar: $(TAR_DIR)/$(PARMETIS_DIR).tar.gz
