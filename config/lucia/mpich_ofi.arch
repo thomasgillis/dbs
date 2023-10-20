@@ -1,0 +1,31 @@
+#===============================================================================
+# GENERAL PARAMETERS
+FC = gfortran
+CC = gcc
+CXX = g++
+
+BUILD_DIR = /gpfs/scratch/acad/examples/tgillis
+TAR_DIR = $(HOME)/tar_storage
+PREFIX = $(HOME)/lib-MPICH-4.1.1-OFI-1.18.0
+
+define MODULE_LIST
+module load GCC/11.3.0
+endef
+
+#===============================================================================
+OFI_VER = 1.18.0
+OFI_MISC_OPTS = --enable-psm3
+MPICH_VER = 4.1.1
+
+#HDF5_VER = 1.12.1
+#OBLAS_VER = 0.3.20
+#FFTW_VER = 3.3.10
+#FLUPS_VER=develop
+#H3LPR_VER=develop
+##PETSC_VER = 3.18.3
+#HYPRE_VER = 2.27.0
+#P4EST_VER = 2.8
+
+MPICH_MISC_OPTS = --enable-fast=O3,ndebug,alwaysinline
+
+#end of life

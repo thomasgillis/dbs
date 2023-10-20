@@ -1,0 +1,45 @@
+#===============================================================================
+# GENERAL PARAMETERS
+CC = gcc
+CXX = g++
+FC = gfortran
+DBS_MPICC = cc
+DBS_MPICXX = CC
+DBS_MPIFORT = ftn
+
+BUILD_DIR = $(PSCRATCH)
+TAR_DIR = $(HOME)/tar_storage
+PREFIX = $(HOME)/lib-dbs-perlmutter
+
+define MODULE_LIST
+module unload gpu 
+module load cpu
+module swap craype-$${CRAY_CPU_TARGET} craype-x86-milan
+module swap PrgEnv-$${PE_ENV,,} PrgEnv-gnu
+module load cray-mpich 
+module load cray-hdf5-parallel
+module load cray-fftw
+module unload cray-libsci
+endef
+
+#===============================================================================
+# LIBRARIES
+# mpi is system mpich
+# other system libs (versions updated Oct. 18th 2023)
+# HDF5_VER = 1.12.2
+# FFTW_VER = 3.3.10
+
+# provided by e4s-22.11 (versions updated Oct. 18th 2023)
+# PETSC_VER = 3.18.1
+# HYPRE_VER = 2.26.0
+
+# OpenBLAS has a Cray FORTRAN compiler bug in 0.3.21, use a later version
+OBLAS_VER = 0.3.24
+
+# in-house libs (compiled)
+P4EST_VER = 2.8
+FLUPS_VER = develop
+FLUPS_FFTW_DIR = ${FFTW_ROOT}
+FLUPS_HDF5_DIR = ${HDF5_ROOT}
+H3LPR_VER = main
+

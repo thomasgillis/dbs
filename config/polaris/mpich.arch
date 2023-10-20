@@ -1,0 +1,28 @@
+#===============================================================================
+# GENERAL PARAMETERS
+FC = gfortran
+CC = gcc
+CXX = g++
+
+BUILD_DIR = $(HOME)/test-mpich/dbs
+TAR_DIR = $(HOME)/tar_storage
+PREFIX = $(HOME)/lib-MPICH-4.1.1
+
+define MODULE_LIST
+module swap PrgEnv-nvhpc PrgEnv-gnu
+module load nvhpc-mixed
+module load libfabric/1.11.0.4.125
+endef
+
+#===============================================================================
+MPICH_VER = 4.1.1
+MPICH_MISC_OPTS = --with-device=ch4:ofi --with-libfabric=/opt/cray/libfabric/1.11.0.4.125 --with-cuda=${NVIDIA_PATH}/cuda
+
+OSU_VER = 7.0.1
+OSU_MISC_OPTS = --enable-cuda --with-cuda=${NVIDIA_PATH}/cuda
+OSU_RUN_CPU_OPTS = FI_PROVIDER=verbs MPIR_CVAR_ENABLE_GPU=0
+OSU_RUN_GPU_OPTS = FI_PROVIDER=verbs
+# pbs specific runs
+SUBMIT_CMD = qsub
+
+#end of life

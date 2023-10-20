@@ -1,12 +1,14 @@
 # # build recipe for HYPRE
 #-------------------------------------------------------------------------------
 # dependency list
-hypre_dep = ompi
-hypre_opt ?=
+hypre_dep = mpi
+hypre_opt =
 
 ifdef OBLAS_VER
+# if compiled with fortran openblas comes with lapack
 hypre_dep += oblas
-hypre_opt += --with-blas-lib=\"-L$(PREFIX)/lib -lopenblas\" --with-lapack-lib=\"-L$(PREFIX)/lib -lopenblas\"
+hypre_opt += --with-blas-lib=\"-L$(PREFIX)/lib -lopenblas\"
+#hypre_opt += --with-blas-lib=\"-L$(PREFIX)/lib -lopenblas\" --with-lapack-lib=\"-L$(PREFIX)/lib -lopenblas\"
 endif
 
 define hypre_template_opt

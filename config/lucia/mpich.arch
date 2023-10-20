@@ -1,0 +1,23 @@
+#===============================================================================
+# GENERAL PARAMETERS
+FC = gfortran
+CC = gcc
+CXX = g++
+
+BUILD_DIR = $(HOME)/build
+TAR_DIR = $(HOME)/tar_storage
+PREFIX = $(HOME)/mpich_4.1.2-UCX
+
+define MODULE_LIST
+module load GCC/11.3.0
+module load UCX
+endef
+
+#===============================================================================
+MPICH_VER = 4.1.2
+
+MPICH_MISC_OPTS = --enable-fast=03,ndebug,alwaysinline --disable-error-checking --disable-tag-error-bits --with-device=ch4:ucx --with-ucx=${EBROOTUCX}
+
+# MPICH_MISC_OPTS = --disable-error-checking --without-timing --without-mpit-pvars --enable-fast=O3,ndebug
+
+#end of life

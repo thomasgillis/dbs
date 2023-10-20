@@ -2,8 +2,9 @@
 # template build recipe to be applied for every function
 # to used it define the following variables
 # - target: the lib name
-# - target_url the url to be used in the wget
+# - target_url the url to be used in the wget or the github repo if target_git is given
 # - target_ver: the version of the lib
+# - target_git: contains the specific branch to clone, the url must be the github repo
 # - target_dep: the list of lib that the target depends on
 # - target_confcmd: the compilation command to be used (eg `CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}`)
 # - target_precmd: (optional, default: empty) the precompilation command to run (eg `./autogen.sh`)
@@ -22,20 +23,31 @@
 target_dir = $(target)-$(target_ver)
 
 # we handle the optional variables
+ifeq ($(strip $(target_git)),)
 target_precmd ?= echo "no pre-configure command"
 target_confopt ?= 
-target_installcmd ?= $(MAKE) install -j8
+else
+target_precmd ?= ./autogen.sh
+target_confopt ?= 
+endif
+target_installcmd ?= $(MAKE) install -j 8
 
 #===============================================================================
 # define how to make the directories
 $(PREFIX):
 	mkdir -p $(PREFIX)
 $(TAR_DIR):
-	mkdir -p $(TAR_DIR)
-$(COMP_DIR):
+	mkdir -p $(TAR_DIR) $(COMP_DIR):
 	mkdir -p $(COMP_DIR)
 $(COMP_DIR)/tmp_$(target):
 	mkdir -p $(COMP_DIR)/tmp_$(target)
+
+
+ifeq ($(strip $(target_git)),)
+target_folder = $(target_dir).tar.gz
+else
+target_folder = $(target_dir)_$(target_git).tar.gz
+endif
 
 #===============================================================================
 .PHONY: doit
@@ -46,21 +58,29 @@ tit: | $(PREFIX)
 	touch -a $(PREFIX)/$(target).complete
 
 .PHONY: tar
-tar: $(TAR_DIR)/$(target)-$(target_ver).tar.gz | $(TAR_DIR)
+tar: $(TAR_DIR)/$(target_folder) | $(TAR_DIR)
 
 .PHONY: ttar
 ttar: | $(TAR_DIR)
-	touch $(TAR_DIR)/$(target)-$(traget_ver).tar.gz
+	touch $(TAR_DIR)/$(target_folder)
 
 #-------------------------------------------------------------------------------
-$(TAR_DIR)/$(target_dir).tar.gz: | $(TAR_DIR)
+# if no target_git is given, use the "traditional way"
+$(TAR_DIR)/$(target_folder): | $(TAR_DIR)
+ifeq ($(strip $(target_git)),)
 	cd $(TAR_DIR) &&\
-	wget --no-check-certificate $(target_url) -O $(target_dir).tar.gz
+	wget --no-check-certificate $(target_url) -O $(target_folder)
+else
+	cd $(TAR_DIR) &&\
+	git clone $(target_repo) -b $(target_git) $(target_dir) && \
+	tar -czvf $(target_folder) $(target_dir) && \
+	rm -rf $(target_dir)
+endif
 
-$(PREFIX)/$(target).complete: $(foreach lib,$(target_dep),$(PREFIX)/$(lib).complete) | $(PREFIX) $(COMP_DIR) $(COMP_DIR)/tmp_$(target) $(TAR_DIR)/$(target_dir).tar.gz
-	cp $(TAR_DIR)/$(target_dir).tar.gz $(COMP_DIR)/tmp_$(target) &&\
+$(PREFIX)/$(target).complete: $(foreach lib,$(target_dep),$(PREFIX)/$(lib).complete) | $(PREFIX) $(COMP_DIR)/tmp_$(target) $(TAR_DIR)/$(target_folder)
+	cp $(TAR_DIR)/$(target_folder) $(COMP_DIR)/tmp_$(target) &&\
 	cd $(COMP_DIR)/tmp_$(target) &&\
-	tar -xvf $(target_dir).tar.gz &&\
+	tar -xvf $(target_folder) &&\
 	mv */ $(COMP_DIR)/$(target_dir) &&\
 	cd $(COMP_DIR)/$(target_dir) &&\
 	$(target_precmd) &&\
@@ -77,7 +97,7 @@ clean:
 #-------------------------------------------------------------------------------
 .PHONY: reallyclean
 reallyclean: 
-	@rm -rf $(TAR_DIR)/$(target_dir).tar.gz
+	@rm -rf $(TAR_DIR)/$(target_folder)
 
 #-------------------------------------------------------------------------------
 .PHONY: info

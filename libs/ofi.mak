@@ -3,14 +3,23 @@
 # dependency list
 ofi_dep = zlib
 # from https://github.com/easybuilders/easybuild-easyconfigs/blob/develop/easybuild/easyconfigs/l/libfabric
-ofi_opt = --disable-usnic --disable-sockets
+#ofi_opt = --disable-usnic --disable-sockets
+ofi_opt = $(OFI_MISC_OPTS)
+
+# if we have a GIT branch, use it
+ifneq ($(strip $OFI_GIT),)
+ofi_repo = $(OFI_REPO)
+ofi_git = $(OFI_GIT)
+endif
+
 
 define ofi_template_opt
 	target="ofi" \
 	target_ver="$(OFI_VER)" \
 	target_dep="$(ofi_dep)" \
-	target_url="https://github.com/ofiwg/libfabric/archive/refs/tags/v$(OFI_VER).tar.gz" \
-	target_precmd="./autogen.sh" \
+	target_url="https://github.com/ofiwg/libfabric/releases/download/v$(OFI_VER)/libfabric-$(OFI_VER).tar.bz2" \
+	target_git="$(ofi_git)" \
+	target_repo="$(ofi_repo)" \
 	target_confcmd="CC=$(CC) CXX=$(CXX) FC=$(FC) F77=$(FC) ./configure --prefix=${PREFIX}" \
 	target_confopt="$(ofi_opt)"
 endef

@@ -26,15 +26,20 @@ LIBLIST_CLEAN = $(foreach lib,$(LIBLIST),$(lib)_clean)
 LIBLIST_RCLEAN = $(foreach lib,$(LIBLIST),$(lib)_reallyclean)
 
 #===============================================================================
-# define the cluster by default, overwritten if `CLUSTER=bla make ...`
+# user-defined variables
 CLUSTER ?= default
+CONF_DIR ?= config
+CLUSTERS_DIR ?= ${CONF_DIR}
+SUBMIT_DIR ?= ${CONF_DIR}
 
-#-------------------------------------------------------------------------------
 #include the cluster-dependent information
-include clusters/${CLUSTER}.arch 
+include ${CLUSTERS_DIR}/${CLUSTER}.arch 
 
-# include all the lib-related info
+# include all the different library.mak recipes
 include $(LIBLIST_MAK)
+
+# allow the user to redefine the submit command
+ SUBMIT_CMD ?= sbatch
 
 #-------------------------------------------------------------------------------
 # get the PREFIX and BUILD_DIR
@@ -42,8 +47,11 @@ PREFIX ?= ${HOME}
 BUILD_DIR ?= ${HOME}
 TAR_DIR ?= ${HOME}
 
+#export the prefix in the path, it allows to easily find mpi compilers once installed with dbs
+#PATH := $(PREFIX)/bin:$(PATH)
+
 #-------------------------------------------------------------------------------
-# ":=" force the evaluation at creation of the var
+# ":=" forces the evaluation at creation of the var
 UID := $(shell uuidgen -t | head -c 8)
 TAG := $(shell date '+%Y-%m-%d-%H%M')
 COMP_DIR := $(BUILD_DIR)/tmp_dbs-$(TAG)-$(UID)
@@ -52,7 +60,7 @@ COMP_DIR := $(BUILD_DIR)/tmp_dbs-$(TAG)-$(UID)
 #===============================================================================
 .PHONY: submit 
 submit: | tar
-	sbatch slurm/$(CLUSTER).sh
+	${SUBMIT_CMD} ${SUBMIT_DIR}/$(CLUSTER).sh
 
 #-------------------------------------------------------------------------------
 .PHONY: install
@@ -108,6 +116,7 @@ gen_info:
 	$(info - build dir: $(BUILD_DIR))
 	$(info - tar dir: $(TAR_DIR))
 	$(info - non-mpi compilers: CC = $(CC); CXX = $(CXX); FC = $(FC))
+	$(info - mpi compilers: CC = $(DBS_MPICC); CXX = $(DBS_MPICXX))
 	$(info --------------------------------------------------------------------------------)
 
 #-------------------------------------------------------------------------------

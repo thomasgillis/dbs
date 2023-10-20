@@ -1,0 +1,29 @@
+#===============================================================================
+# GENERAL PARAMETERS
+FC = gfortran
+CC = gcc
+CXX = g++
+
+BUILD_DIR = /project/scratch/p200210
+TAR_DIR = $(HOME)/tar_storage
+PREFIX = $(HOME)/lib-MPICH-4.1.2-UCX-1.14.1
+
+define MODULE_LIST
+module use /apps/USE/easybuild/release/2021.5/modules/all
+module load GCC/10.3.0
+module load Automake/1.16.3-GCCcore-10.3.0
+module load Autoconf/2.71-GCCcore-10.3.0
+module load libtool/2.4.6-GCCcore-10.3.0
+module load CMake/3.20.1-GCCcore-10.3.0
+endef
+
+#===============================================================================
+UCX_VER = 1.14.1
+MPICH_VER = 4.1.2
+HDF5_VER = 1.12.1
+FFTW_VER = 3.3.10
+OSU_VER = 7.2
+H3LPR_VER = main
+MPICH_MISC_OPTS = --enable-fast=O3,ndebug,alwaysinline --disable-error-checking --disable-tag-error-bits
+
+#end of life
