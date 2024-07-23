@@ -59,10 +59,10 @@ $(TAR_DIR)/$(FLUPS_DIR).tar.gz: | $(TAR_DIR)
 ifdef FLUPS_VER
 	cd $(TAR_DIR) &&  \
 	rm -rf $(FLUPS_DIR) && \
-	git clone git@git.immc.ucl.ac.be:examples/flups.git && \
+	git clone git@github.com:vortexlab-uclouvain/flups.git && \
 	mv flups $(FLUPS_DIR) && \
 	cd $(FLUPS_DIR) && \
-	git checkout --track origin/$(FLUPS_VER) && \
+	git checkout origin/$(FLUPS_VER) && \
 	cd $(TAR_DIR)  && tar -czvf $(FLUPS_DIR).tar.gz $(FLUPS_DIR) && \
 	rm -rf $(FLUPS_DIR)  
 else
@@ -79,7 +79,7 @@ ifdef FLUPS_VER
 	tar -xvf $(FLUPS_DIR).tar.gz  && \
 	cd $(FLUPS_DIR) && \
 	CC=${DBS_MPICC} CXX=${DBS_MPICXX} \
-		CXXFLAGS="$(FLUPS_CXXFLAGS)" CCFLAGS="$(FLUPS_CCFLAGS)" LDFLAGS="$(FLUPS_LDFLAGS)" \
+		CXXFLAGS="$(FLUPS_CXXFLAGS)" CCFLAGS="$(FLUPS_CCFLAGS)" LDFLAGS="$(FLUPS_LDFLAGS)" OPTS="-DMPI_NO_ALLOC -DWITHOUT_OPENMP"\
 		$(flups_opt) \
 		ARCH_FILE=make_arch/make.default \
 		$(MAKE) install -j 8 && \
