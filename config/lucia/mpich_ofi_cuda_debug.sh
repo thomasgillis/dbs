@@ -16,5 +16,9 @@ module load GDRCopy/2.3.1-GCCcore-12.3.0.lua
 module load CMake
 module list
 
-CLUSTER=lucia/mpich_ofi_cuda make info
-CLUSTER=lucia/mpich_ofi_cuda make install
+export CFLAGS="-fsanitize=address ${CFLAGS}"
+export CXXFLAGS="-fsanitize=address ${CXXFLAGS}"
+export LDFLAGS="-fsanitize=address ${LDFLAGS}"
+
+CLUSTER=lucia/mpich_ofi_cuda_debug make info
+CLUSTER=lucia/mpich_ofi_cuda_debug make install
