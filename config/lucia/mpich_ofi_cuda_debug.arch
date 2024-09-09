@@ -18,9 +18,9 @@ endef
 #===============================================================================
 CUDA_DIR = $(EBROOTCUDA)
 OFI_VER = 1.21.0
-OFI_MISC_OPTS = --enable-psm3 --with-gdrcopy --enable-asan --enable-debug
+OFI_MISC_OPTS = --enable-psm3 --with-gdrcopy
 MPICH_VER = 4.2.2
-MPICH_MISC_OPTS = --enable-g=asan
+MPICH_MISC_OPTS = --with-ch4-shmmods=none
 H3LPR_VER = main
 GTEST_VER = 1.14.0
 
