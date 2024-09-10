@@ -6,7 +6,7 @@ CXX = g++
 
 BUILD_DIR = /gpfs/scratch/acad/examples/poncelet
 TAR_DIR = $(HOME)/soft/tar_storage
-PREFIX = $(HOME)/soft/lib-MPICH-4.2.2-OFI-1.22.0-CUDA-12.2.0-opt
+PREFIX = $(HOME)/soft/FABTESTS-1.22.0-CUDA-12.2.0
 
 define MODULE_LIST
 module load EasyBuild/2023a
@@ -19,9 +19,6 @@ endef
 CUDA_DIR = $(EBROOTCUDA)
 OFI_VER = 1.22.0
 OFI_MISC_OPTS = --enable-psm3 --with-gdrcopy
-MPICH_VER = 4.2.2
-MPICH_MISC_OPTS = --enable-fast=O3,ndebug,alwaysinline
-H3LPR_VER = main
-GTEST_VER = 1.14.0
+FABTESTS_VER = 1.22.0
 
 #end of life
