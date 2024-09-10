@@ -17,8 +17,10 @@ $(error OFI_VER must be given for fabtests)
 endif
 
 # check ofi & fabtests versions
+ifdef FABTESTS_VER
 ifneq ($(OFI_VER), $(FABTESTS_VER))
 $(error "OFI (v$(OFI_VER)) and Fabtests (v$(FABTESTS_VER)) should have matching versions")
+endif
 endif
 
 #-------------------------------------------------------------------------------

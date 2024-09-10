@@ -23,5 +23,6 @@ MPICH_VER = 4.2.2
 MPICH_MISC_OPTS = --enable-fast=O3,ndebug,alwaysinline
 H3LPR_VER = main
 GTEST_VER = 1.14.0
+OSU_VER = 7.4
 
 #end of life
