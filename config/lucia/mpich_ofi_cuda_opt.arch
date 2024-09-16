@@ -5,8 +5,8 @@ CC = gcc
 CXX = g++
 
 BUILD_DIR = /gpfs/scratch/acad/examples/poncelet
-TAR_DIR = $(HOME)/soft/tar_storage
-PREFIX = $(HOME)/soft/lib-MPICH-4.2.2-OFI-1.22.0-CUDA-12.2.0-opt
+TAR_DIR = /gpfs/scratch/acad/examples/soft/tar_storage
+PREFIX = /gpfs/scratch/acad/examples/soft/lib-MPICH-4.2.2-OFI-1.22.0-CUDA-12.2.0-opt
 
 define MODULE_LIST
 module load EasyBuild/2023a
@@ -24,5 +24,6 @@ MPICH_MISC_OPTS = --enable-fast=O3,ndebug,alwaysinline
 H3LPR_VER = main
 GTEST_VER = 1.14.0
 OSU_VER = 7.4
+FABTESTS_VER = 1.22.0
 
 #end of life
