@@ -10,10 +10,12 @@ fabtests_opt += --with-cuda=$(CUDA_DIR)
 endif
 
 # ofi
+ifdef FABTESTS_VER
 ifdef OFI_VER
 fabtests_opt += --with-libfabric=$(PREFIX)
 else
 $(error OFI_VER must be given for fabtests)
+endif
 endif
 
 # check ofi & fabtests versions
